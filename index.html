@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wisekey | Renda passiva real em São Paulo</title>
+<meta name="description" content="A Wisekey acha o estúdio certo em São Paulo, estrutura a compra e coordena os parceiros até a renda pingando. Diagnóstico gratuito de 30 minutos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#2D1E80; --navy-deep:#1c1259;
+  --lilas:#DCD2FA; --lilas-soft:#efeafc;
+  --verde:#25D366; --verde-dark:#1DA851;
+  --ink:#333333; --muted:#6B6685; --line:#E8E4F6;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Poppins',-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:#fff;line-height:1.65}
+.wrap{max-width:1020px;margin:0 auto;padding:0 20px}
+header{position:sticky;top:0;background:rgba(255,255,255,.97);border-bottom:1px solid var(--line);z-index:10}
+.nav{display:flex;align-items:center;justify-content:space-between;height:58px}
+.btn{display:inline-block;background:var(--verde);color:#0B3320;font-weight:700;text-decoration:none;padding:16px 34px;border-radius:12px;border:none;font-size:17px;cursor:pointer;transition:background .15s}
+.btn:hover{background:var(--verde-dark);color:#fff}
+.hero{background:var(--lilas-soft);padding:64px 0 56px;text-align:center}
+.hero h1{font-size:clamp(28px,5vw,44px);line-height:1.2;font-weight:800;color:var(--navy);max-width:800px;margin:0 auto 16px}
+.hero p{max-width:640px;margin:0 auto 10px;font-size:17.5px}
+.micro{font-size:14px;color:var(--muted);margin:18px 0 14px}
+.cred{margin-top:22px;color:var(--muted);font-size:13.5px}
+.cred i{font-style:italic;color:var(--navy)}
+section{padding:60px 0}
+.kicker{color:var(--navy);font-weight:700;text-transform:uppercase;letter-spacing:.1em;font-size:12.5px;margin-bottom:8px}
+h2{font-size:clamp(23px,3.4vw,31px);line-height:1.28;margin-bottom:12px;color:var(--navy);font-weight:800}
+.lead{color:var(--muted);max-width:660px;margin-bottom:32px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(225px,1fr));gap:16px}
+.card{border:1px solid var(--line);border-radius:14px;padding:22px;background:#fff}
+.card b{display:block;margin-bottom:6px;color:var(--navy);font-size:15.5px}
+.card p{color:var(--muted);font-size:14px}
+.keydot{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;background:var(--lilas);margin-bottom:12px}
+.keydot img{width:18px}
+.sec-lilas{background:var(--lilas-soft)}
+.duel{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:18px}
+.duel .card.win{border:2px solid var(--navy)}
+.duel .tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--navy);background:var(--lilas);border-radius:20px;padding:3px 12px;margin-bottom:12px}
+.duel .big{display:block;font-size:clamp(28px,4vw,38px);font-weight:800;color:var(--navy);line-height:1.1;margin:4px 0 2px}
+.duel .big.neg{color:#8A84A8}
+.duel .biglabel{display:block;font-size:12.5px;color:var(--muted);margin-bottom:12px}
+.duel ul{list-style:none;margin-top:6px}
+.duel li{padding:7px 0;border-bottom:1px dashed var(--line);font-size:14.5px}
+.duel li:last-child{border:none}
+.duel li b{color:var(--navy)}
+.punch{margin-top:22px;font-weight:700;color:var(--navy);font-size:17px;max-width:720px}
+.disc{font-size:12.5px;color:var(--muted);margin-top:14px}
+.skin{display:flex;gap:26px;align-items:flex-start;flex-wrap:wrap}
+.skin blockquote{border-left:5px solid var(--lilas);padding-left:20px;font-size:16px;max-width:720px}
+.selo{margin-top:16px;font-size:13.5px;color:var(--muted)}
+.qs{list-style:none;max-width:760px}
+.qs li{display:flex;gap:14px;align-items:flex-start;padding:13px 0;border-bottom:1px solid var(--line);font-size:15.5px}
+.qs li:last-child{border:none}
+.qs .keydot{flex:none;width:30px;height:30px;margin:0}
+.qs .keydot img{width:16px}
+table{width:100%;max-width:640px;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;font-size:15px}
+th,td{padding:13px 16px;text-align:left;border-bottom:1px solid var(--line)}
+th{background:var(--navy);color:#fff;font-weight:600}
+tr:last-child td{border-bottom:none}
+.proof{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;max-width:760px}
+.proof .card b{font-size:clamp(30px,4.5vw,40px)}
+.proof .card span{color:var(--muted);font-size:13px}
+.manifesto{background:var(--navy);color:#fff;text-align:center}
+.manifesto h2{color:#fff}
+.manifesto p{max-width:700px;margin:0 auto 14px;color:#DDD6F7;font-size:16.5px}
+.manifesto .sig{font-style:italic;color:var(--lilas);font-weight:600;font-size:17px}
+.form-sec{background:var(--lilas-soft)}
+form{max-width:540px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:30px}
+label{display:block;font-weight:600;font-size:14px;margin:15px 0 6px;color:var(--navy)}
+input,select{width:100%;padding:13px 14px;border-radius:10px;border:1px solid #CFC7EE;background:#fff;color:var(--ink);font-size:15px;font-family:inherit}
+fieldset{border:none;margin-top:15px}
+fieldset legend{font-weight:600;font-size:14px;margin-bottom:6px;color:var(--navy)}
+.radio-row{display:flex;align-items:center;gap:10px;padding:5px 0;font-size:14.5px}
+.radio-row input{width:17px;height:17px}
+.lgpd{display:flex;gap:10px;align-items:flex-start;font-size:12.5px;color:var(--muted);margin-top:16px}
+.lgpd input{width:16px;height:16px;margin-top:2px;flex:none}
+form .btn{width:100%;margin-top:20px}
+.after{font-size:13px;color:var(--muted);margin-top:12px}
+details{border:1px solid var(--line);border-radius:10px;padding:15px 18px;margin-bottom:10px;max-width:760px}
+summary{font-weight:600;cursor:pointer;color:var(--navy);font-size:15px}
+details p{color:var(--muted);margin-top:10px;font-size:14.5px}
+footer{background:var(--navy-deep);color:#B9AEE6;padding:38px 0 30px;font-size:13.5px}
+footer a{color:var(--lilas);text-decoration:none}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:22px;margin-bottom:22px}
+.fgrid b{color:#fff;display:block;margin-bottom:8px}
+.legal{border-top:1px solid #35296e;padding-top:16px;font-size:11.5px;color:#8F82C8;font-style:italic}
+@media (max-width:560px){section{padding:46px 0}.hero{padding:48px 0 42px}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="#"><img src="data:image/png;base64,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" alt="wisekey" style="height:24px;display:block"></a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <h1>Renda passiva real nas grandes regiões, de São Paulo a Campinas, sem você sair de onde está.</h1>
+    <p>A Wisekey acha o estúdio certo nas grandes regiões, São Paulo e Campinas, estrutura a compra e coordena os parceiros que preparam e colocam pra render. Do primeiro número até a renda pingando. Você não precisa morar em SP. Nem virar especialista.</p>
+    <p class="micro" style="font-size:17px;color:#2D1E80;font-weight:700">No modelo alavancado, o hóspede paga a parcela e o retorno chega perto de 19% ao ano sobre o seu capital.</p>
+    <a class="btn" href="#diagnostico">Quero meu diagnóstico de 30 min</a>
+    <div class="cred">CRECI SP 319841 · Sediados em São João da Boa Vista · <i>Investir assim faz sentido.</i></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Pra quem já tem o dinheiro, mas não tem o tempo.</h2>
+    <p class="lead">A maioria das pessoas com capital guardado deixa ele render o mínimo no banco. Não por falta de dinheiro. Por falta de tempo, de conhecimento local e de alguém de confiança do outro lado. Você provavelmente é uma destas quatro pessoas:</p>
+    <div class="grid">
+      <div class="card"><span class="keydot"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAWEAAACKCAMAAABM1QsQAAAAOVBMVEVMaXETL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3C33l/KAAAAEnRSTlMAMOAg8GAQQIDAkNCgcFCwyNhDcABxAAAACXBIWXMAAAsSAAALEgHS3X78AAAEF0lEQVR4nO2dCZKjMAxFw27W9Pj+h50GmgpZgcRfUiy9A6TiVy5ZkhdOp/cpq8G5pl5onBuq8oPfM1YkRVPn/hF53RQJ99/7crL+/FjuSvO5z7j/5reSNOmG3YW0sal8mGy33kWyzeQjFPUhvTN1wf23v4WyODZ9VxO5t/xim9JtrW2vyJ053qD4xO/kuOcegmiqd+PDmrTiHoZYsnMAvyNnyyse0n8aIC5YqHhA+U6C9pzapvENQ7gJPJMP3EOSRRPY70jDPShBBI4QC7Xlxn8kLUTwb95mDaGJJHQIvpCb4lOAKu4l1g06FUi/phgvWL1ivGDliisCwd4rrj2AWcQavRlFRiP4V7HSJkWJKjTuaXVWdx2ZYO/P3IPloCcU7L3ChnFCKth7dasdYRCeSbWFYkRD+DXK2sU0pcY1uragQ+zaH0VVnHAMgr133MOmg6yYu0FPaUdZa6xRU3dwLHMzWhY7zM7yHmruodPAN4W1TGK+KaxkEmeMgnW0J7gSiZmOe/h4SlbB3sdf2NG2he+Jv1HM0ZFYk3ILQEPdeL8n9rWOvi98S+xrHXeQ8D7nVoCFP0jEHib4g0Ts20nU+5+PaLklIOEuN2ZibsQP3HInYj7uKiEMxx2IORuXF2IOxNxu/+DWgENCNjwS704Hxa2NPcS71PEcRLmndhsMFQR8NRnqhQ7jmnZ+q7KQkkpEizudmA5TacGJSdZixQnpSsSLYz3sowEzjMYMozHDaMwwGjOMxgyjMcNozDAaM4zGqmY01vlBY4bROOvAgzHDaJycndBIcXJ28yPF8d63VcD4fgb3f4ib0bCEA9rxMhqWcbo1VkbDttQhGQ3z3stf+KmvieWgzPRSlIRATHbvdtdpweP3vP89O884HdqVEIhlXTI4nsG+foVEQkYs69Hy0IYFHA4Udus2uGHeF1JGhN0cD26Y/yqHsEscwQ2zX86X9oJHeMPcHUxpz4uGN8xddEi71BzesL0Gdg3AMG9KLGydgxi2VxmvQBi2l0XXIAzb67hrIIbthecVEMNst28FTmGQYa6cWFouPIIxbF+LuAAyXNoXTxZAhlkWO1md9wWUYYbtJKEf44AZJo8TMmPEYbL9L61QxwmBqTAa2nxCZB6BhrLukFhr4LGvCcMh+uS45o+OU208qxVMdRYz3icCd0ChWLVgCsXKBeMVqxeMVmyCfxlwSVtugidgebHePPgWUHWntZJ7COKoVWeC1xShI4WF4FuysJGilbivzE3IhrHKdvA2WajjVrVN4GcMIXbvUovALyjdpyte7iyFeM1njs3vHt53bH53U7yTurWF+T1A0h2byHlnPYjDDLsl553MM2lfQOK2U+Ta2ez9jKrvnkXltusVHpbCkFS9a1YPxzSuJ/gW2bfxH5bMCWW1upRmAAAAAElFTkSuQmCC" alt=""></span><b>O profissional do interior</b><p>Médico, dentista, advogado. Ganha bem, tem capital parado no CDB e sabe que podia render mais.</p></div>
+      <div class="card"><span class="keydot"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAWEAAACKCAMAAABM1QsQAAAAOVBMVEVMaXETL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3C33l/KAAAAEnRSTlMAMOAg8GAQQIDAkNCgcFCwyNhDcABxAAAACXBIWXMAAAsSAAALEgHS3X78AAAEF0lEQVR4nO2dCZKjMAxFw27W9Pj+h50GmgpZgcRfUiy9A6TiVy5ZkhdOp/cpq8G5pl5onBuq8oPfM1YkRVPn/hF53RQJ99/7crL+/FjuSvO5z7j/5reSNOmG3YW0sal8mGy33kWyzeQjFPUhvTN1wf23v4WyODZ9VxO5t/xim9JtrW2vyJ053qD4xO/kuOcegmiqd+PDmrTiHoZYsnMAvyNnyyse0n8aIC5YqHhA+U6C9pzapvENQ7gJPJMP3EOSRRPY70jDPShBBI4QC7Xlxn8kLUTwb95mDaGJJHQIvpCb4lOAKu4l1g06FUi/phgvWL1ivGDliisCwd4rrj2AWcQavRlFRiP4V7HSJkWJKjTuaXVWdx2ZYO/P3IPloCcU7L3ChnFCKth7dasdYRCeSbWFYkRD+DXK2sU0pcY1uragQ+zaH0VVnHAMgr133MOmg6yYu0FPaUdZa6xRU3dwLHMzWhY7zM7yHmruodPAN4W1TGK+KaxkEmeMgnW0J7gSiZmOe/h4SlbB3sdf2NG2he+Jv1HM0ZFYk3ILQEPdeL8n9rWOvi98S+xrHXeQ8D7nVoCFP0jEHib4g0Ts20nU+5+PaLklIOEuN2ZibsQP3HInYj7uKiEMxx2IORuXF2IOxNxu/+DWgENCNjwS704Hxa2NPcS71PEcRLmndhsMFQR8NRnqhQ7jmnZ+q7KQkkpEizudmA5TacGJSdZixQnpSsSLYz3sowEzjMYMozHDaMwwGjOMxgyjMcNozDAaM4zGqmY01vlBY4bROOvAgzHDaJycndBIcXJ28yPF8d63VcD4fgb3f4ib0bCEA9rxMhqWcbo1VkbDttQhGQ3z3stf+KmvieWgzPRSlIRATHbvdtdpweP3vP89O884HdqVEIhlXTI4nsG+foVEQkYs69Hy0IYFHA4Udus2uGHeF1JGhN0cD26Y/yqHsEscwQ2zX86X9oJHeMPcHUxpz4uGN8xddEi71BzesL0Gdg3AMG9KLGydgxi2VxmvQBi2l0XXIAzb67hrIIbthecVEMNst28FTmGQYa6cWFouPIIxbF+LuAAyXNoXTxZAhlkWO1md9wWUYYbtJKEf44AZJo8TMmPEYbL9L61QxwmBqTAa2nxCZB6BhrLukFhr4LGvCcMh+uS45o+OU208qxVMdRYz3icCd0ChWLVgCsXKBeMVqxeMVmyCfxlwSVtugidgebHePPgWUHWntZJ7COKoVWeC1xShI4WF4FuysJGilbivzE3IhrHKdvA2WajjVrVN4GcMIXbvUovALyjdpyte7iyFeM1njs3vHt53bH53U7yTurWF+T1A0h2byHlnPYjDDLsl553MM2lfQOK2U+Ta2ez9jKrvnkXltusVHpbCkFS9a1YPxzSuJ/gW2bfxH5bMCWW1upRmAAAAAElFTkSuQmCC" alt=""></span><b>O poupador disciplinado</b><p>Juntou ao longo dos anos, tem medo de errar e quer o primeiro imóvel de renda sem cair em roubada.</p></div>
+      <div class="card"><span class="keydot"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAWEAAACKCAMAAABM1QsQAAAAOVBMVEVMaXETL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3C33l/KAAAAEnRSTlMAMOAg8GAQQIDAkNCgcFCwyNhDcABxAAAACXBIWXMAAAsSAAALEgHS3X78AAAEF0lEQVR4nO2dCZKjMAxFw27W9Pj+h50GmgpZgcRfUiy9A6TiVy5ZkhdOp/cpq8G5pl5onBuq8oPfM1YkRVPn/hF53RQJ99/7crL+/FjuSvO5z7j/5reSNOmG3YW0sal8mGy33kWyzeQjFPUhvTN1wf23v4WyODZ9VxO5t/xim9JtrW2vyJ053qD4xO/kuOcegmiqd+PDmrTiHoZYsnMAvyNnyyse0n8aIC5YqHhA+U6C9pzapvENQ7gJPJMP3EOSRRPY70jDPShBBI4QC7Xlxn8kLUTwb95mDaGJJHQIvpCb4lOAKu4l1g06FUi/phgvWL1ivGDliisCwd4rrj2AWcQavRlFRiP4V7HSJkWJKjTuaXVWdx2ZYO/P3IPloCcU7L3ChnFCKth7dasdYRCeSbWFYkRD+DXK2sU0pcY1uragQ+zaH0VVnHAMgr133MOmg6yYu0FPaUdZa6xRU3dwLHMzWhY7zM7yHmruodPAN4W1TGK+KaxkEmeMgnW0J7gSiZmOe/h4SlbB3sdf2NG2he+Jv1HM0ZFYk3ILQEPdeL8n9rWOvi98S+xrHXeQ8D7nVoCFP0jEHib4g0Ts20nU+5+PaLklIOEuN2ZibsQP3HInYj7uKiEMxx2IORuXF2IOxNxu/+DWgENCNjwS704Hxa2NPcS71PEcRLmndhsMFQR8NRnqhQ7jmnZ+q7KQkkpEizudmA5TacGJSdZixQnpSsSLYz3sowEzjMYMozHDaMwwGjOMxgyjMcNozDAaM4zGqmY01vlBY4bROOvAgzHDaJycndBIcXJ28yPF8d63VcD4fgb3f4ib0bCEA9rxMhqWcbo1VkbDttQhGQ3z3stf+KmvieWgzPRSlIRATHbvdtdpweP3vP89O884HdqVEIhlXTI4nsG+foVEQkYs69Hy0IYFHA4Udus2uGHeF1JGhN0cD26Y/yqHsEscwQ2zX86X9oJHeMPcHUxpz4uGN8xddEi71BzesL0Gdg3AMG9KLGydgxi2VxmvQBi2l0XXIAzb67hrIIbthecVEMNst28FTmGQYa6cWFouPIIxbF+LuAAyXNoXTxZAhlkWO1md9wWUYYbtJKEf44AZJo8TMmPEYbL9L61QxwmBqTAa2nxCZB6BhrLukFhr4LGvCcMh+uS45o+OU208qxVMdRYz3icCd0ChWLVgCsXKBeMVqxeMVmyCfxlwSVtugidgebHePPgWUHWntZJ7COKoVWeC1xShI4WF4FuysJGilbivzE3IhrHKdvA2WajjVrVN4GcMIXbvUovALyjdpyte7iyFeM1njs3vHt53bH53U7yTurWF+T1A0h2byHlnPYjDDLsl553MM2lfQOK2U+Ta2ez9jKrvnkXltusVHpbCkFS9a1YPxzSuJ/gW2bfxH5bMCWW1upRmAAAAAElFTkSuQmCC" alt=""></span><b>O investidor de renda fixa cansado</b><p>Já entendeu que 100% do CDI não constrói patrimônio de verdade e quer ativo real.</p></div>
+      <div class="card"><span class="keydot"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAWEAAACKCAMAAABM1QsQAAAAOVBMVEVMaXETL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3C33l/KAAAAEnRSTlMAMOAg8GAQQIDAkNCgcFCwyNhDcABxAAAACXBIWXMAAAsSAAALEgHS3X78AAAEF0lEQVR4nO2dCZKjMAxFw27W9Pj+h50GmgpZgcRfUiy9A6TiVy5ZkhdOp/cpq8G5pl5onBuq8oPfM1YkRVPn/hF53RQJ99/7crL+/FjuSvO5z7j/5reSNOmG3YW0sal8mGy33kWyzeQjFPUhvTN1wf23v4WyODZ9VxO5t/xim9JtrW2vyJ053qD4xO/kuOcegmiqd+PDmrTiHoZYsnMAvyNnyyse0n8aIC5YqHhA+U6C9pzapvENQ7gJPJMP3EOSRRPY70jDPShBBI4QC7Xlxn8kLUTwb95mDaGJJHQIvpCb4lOAKu4l1g06FUi/phgvWL1ivGDliisCwd4rrj2AWcQavRlFRiP4V7HSJkWJKjTuaXVWdx2ZYO/P3IPloCcU7L3ChnFCKth7dasdYRCeSbWFYkRD+DXK2sU0pcY1uragQ+zaH0VVnHAMgr133MOmg6yYu0FPaUdZa6xRU3dwLHMzWhY7zM7yHmruodPAN4W1TGK+KaxkEmeMgnW0J7gSiZmOe/h4SlbB3sdf2NG2he+Jv1HM0ZFYk3ILQEPdeL8n9rWOvi98S+xrHXeQ8D7nVoCFP0jEHib4g0Ts20nU+5+PaLklIOEuN2ZibsQP3HInYj7uKiEMxx2IORuXF2IOxNxu/+DWgENCNjwS704Hxa2NPcS71PEcRLmndhsMFQR8NRnqhQ7jmnZ+q7KQkkpEizudmA5TacGJSdZixQnpSsSLYz3sowEzjMYMozHDaMwwGjOMxgyjMcNozDAaM4zGqmY01vlBY4bROOvAgzHDaJycndBIcXJ28yPF8d63VcD4fgb3f4ib0bCEA9rxMhqWcbo1VkbDttQhGQ3z3stf+KmvieWgzPRSlIRATHbvdtdpweP3vP89O884HdqVEIhlXTI4nsG+foVEQkYs69Hy0IYFHA4Udus2uGHeF1JGhN0cD26Y/yqHsEscwQ2zX86X9oJHeMPcHUxpz4uGN8xddEi71BzesL0Gdg3AMG9KLGydgxi2VxmvQBi2l0XXIAzb67hrIIbthecVEMNst28FTmGQYa6cWFouPIIxbF+LuAAyXNoXTxZAhlkWO1md9wWUYYbtJKEf44AZJo8TMmPEYbL9L61QxwmBqTAa2nxCZB6BhrLukFhr4LGvCcMh+uS45o+OU208qxVMdRYz3icCd0ChWLVgCsXKBeMVqxeMVmyCfxlwSVtugidgebHePPgWUHWntZJ7COKoVWeC1xShI4WF4FuysJGilbivzE3IhrHKdvA2WajjVrVN4GcMIXbvUovALyjdpyte7iyFeM1njs3vHt53bH53U7yTurWF+T1A0h2byHlnPYjDDLsl553MM2lfQOK2U+Ta2ez9jKrvnkXltusVHpbCkFS9a1YPxzSuJ/gW2bfxH5bMCWW1upRmAAAAAElFTkSuQmCC" alt=""></span><b>O empreendedor sem tempo</b><p>Tem capital e visão, mas não tem 20 horas por semana pra caçar imóvel, negociar reforma e preparar locação.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec-lilas">
+  <div class="wrap">
+    <h2>Lote, studio à vista ou studio alavancado. A mesma régua nos três.</h2>
+    <p class="lead">Capital total, o que volta por mês e o retorno ao ano. Mesmo rigor nos três cenários: mobília, reposição, manutenção e IPTU na conta.</p>
+    <div class="duel">
+      <div class="card">
+        <span class="tag">Lote + subir a casa</span>
+        <span class="big neg">1,4% a.a.</span>
+        <span class="biglabel">no cenário realista de revenda</span>
+        <ul>
+          <li>Capital total: <b>R$ 1.025.533</b> (lote de 250 m² + obra da casa de 159 m²)</li>
+          <li>Volta por mês: <b>R$ 0</b> durante ~3 anos de obra</li>
+          <li>Nenhum cenário de revenda supera o CDI. E na saída você concorre com o loteador, que ainda tem centenas de lotes em 120x</li>
+        </ul>
+      </div>
+      <div class="card">
+        <span class="tag">Studio à vista</span>
+        <span class="big">~13% a.a.</span>
+        <span class="biglabel">7,5% de renda + valorização de SP</span>
+        <ul>
+          <li>Capital total: <b>R$ 423.476</b> (imóvel + mobília + custos)</li>
+          <li>Volta por mês: <b>R$ 2.640 líquidos</b>, em ~30 dias de operação</li>
+          <li>Sem dívida, ativo líquido em São Paulo</li>
+        </ul>
+      </div>
+      <div class="card win">
+        <span class="tag">Studio com 20% de entrada</span>
+        <span class="big">~19% a.a.</span>
+        <span class="biglabel">sobre o seu capital próprio</span>
+        <ul>
+          <li>Capital próprio: <b>R$ 143.476</b>, controlando <b>R$ 350 mil</b> de ativo</li>
+          <li>Volta por mês: <b>R$ 2.640</b> no início, acima de <b>R$ 3.500</b> após estabilizar, e a amortização da parcela vira patrimônio seu</li>
+          <li>Quem paga a dívida: <b>o hóspede</b></li>
+        </ul>
+      </div>
+    </div>
+    <p class="punch">O terreno guarda valor. O studio opera e paga todo mês. O erro nunca é escolher o terreno: é ter só ele. E a alavancagem é o que o CDB não te dá, porque ninguém te empresta pra comprar CDB.</p>
+    <p class="disc">Fontes: book e tabela do Reserva Boa Vista (jul/26), custo de obra CUB Sinduscon +25% pessoa física, painel da nossa operação (dez/25 a jun/26). Cenário ilustrativo, não é garantia: a gente calcula o seu caso no diagnóstico.</p>
+  </div>
+</section>
+
+<section class="form-sec" id="diagnostico">
+  <div class="wrap">
+    <div class="kicker">Diagnóstico gratuito · 30 min · online</div>
+    <h2>Trinta minutos pra ver, com números, se um estúdio fecha pra você.</h2>
+    <p class="lead">A gente olha seu momento, seu capital e seu objetivo. Sem compromisso, sem venda forçada. Depois da conversa você recebe um dossiê em até 24h com os cenários calculados pro seu caso, na média e no pessimista.</p>
+    <form name="diagnostico-wisekey" id="form-diag" method="POST" action="#">
+      <label for="nome">Nome</label>
+      <input id="nome" name="nome" type="text" placeholder="Seu nome" required>
+      <label for="whatsapp">WhatsApp (com DDD)</label>
+      <input id="whatsapp" name="whatsapp" type="tel" placeholder="(11) 9 9999-9999" required>
+      <label for="email">E-mail</label>
+      <input id="email" name="email" type="email" placeholder="voce@email.com" required>
+      <label for="entrada">Quanto você tem disponível pra entrada?</label>
+      <select id="entrada" name="entrada" required>
+        <option value="" disabled selected>Selecione uma faixa</option>
+        <option>Perto de R$ 100 mil</option>
+        <option>Entre R$ 100 e 200 mil</option>
+        <option>Entre R$ 200 e 380 mil</option>
+        <option>Acima de R$ 380 mil, consigo à vista</option>
+      </select>
+      <fieldset>
+        <legend>Quando você quer começar?</legend>
+        <label class="radio-row"><input type="radio" name="momento" value="Nos próximos 3 meses" required> Nos próximos 3 meses</label>
+        <label class="radio-row"><input type="radio" name="momento" value="Em 6 a 12 meses"> Em 6 a 12 meses</label>
+        <label class="radio-row"><input type="radio" name="momento" value="Ainda estudando"> Ainda estudando</label>
+      </fieldset>
+      <label class="lgpd"><input type="checkbox" required> Autorizo a Wisekey a usar meus dados para contato sobre o diagnóstico, conforme a LGPD. Sem spam.</label>
+      <button class="btn" type="submit">Quero meu diagnóstico de 30 min</button>
+      <p class="after">Retornamos no seu WhatsApp em até 1 dia útil pra agendar.</p>
+    </form>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">Skin in the game</div>
+    <h2>Eu não indico o que eu não faço.</h2>
+    <div class="skin">
+      <blockquote>
+        <p>Meu nome é Raphael Piotto. Antes de recomendar qualquer estúdio pra você, eu comprei os meus. Hoje tenho mais de 4 estúdios em São Paulo gerando renda passiva todo mês, nos mesmos bairros, com a mesma estratégia e o mesmo tipo de imóvel que eu ajudo você a comprar aqui.</p>
+        <p style="margin-top:12px">Não sou um corretor tentando vender o estoque de alguém. Sou um investidor que aprendeu a fazer isso no próprio bolso e hoje senta do seu lado pra você fazer igual, sem os erros que eu já paguei pra aprender.</p>
+        <div class="selo">Mais de 4 estúdios próprios · São Paulo · CRECI SP 319841</div>
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<section class="sec-lilas">
+  <div class="wrap">
+    <h2>Antes de comprar qualquer coisa, a gente responde 5 perguntas.</h2>
+    <p class="lead">Todo imóvel que a gente leva pra um cliente Wisekey passa pelo mesmo filtro. Se falhar em uma, não compra. E vale a regra de ouro: o imóvel guarda valor? Te paga todo mês? Quem paga a dívida dele?</p>
+    <ul class="qs">
+      <li><span class="keydot"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAWEAAACKCAMAAABM1QsQAAAAOVBMVEVMaXETL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3C33l/KAAAAEnRSTlMAMOAg8GAQQIDAkNCgcFCwyNhDcABxAAAACXBIWXMAAAsSAAALEgHS3X78AAAEF0lEQVR4nO2dCZKjMAxFw27W9Pj+h50GmgpZgcRfUiy9A6TiVy5ZkhdOp/cpq8G5pl5onBuq8oPfM1YkRVPn/hF53RQJ99/7crL+/FjuSvO5z7j/5reSNOmG3YW0sal8mGy33kWyzeQjFPUhvTN1wf23v4WyODZ9VxO5t/xim9JtrW2vyJ053qD4xO/kuOcegmiqd+PDmrTiHoZYsnMAvyNnyyse0n8aIC5YqHhA+U6C9pzapvENQ7gJPJMP3EOSRRPY70jDPShBBI4QC7Xlxn8kLUTwb95mDaGJJHQIvpCb4lOAKu4l1g06FUi/phgvWL1ivGDliisCwd4rrj2AWcQavRlFRiP4V7HSJkWJKjTuaXVWdx2ZYO/P3IPloCcU7L3ChnFCKth7dasdYRCeSbWFYkRD+DXK2sU0pcY1uragQ+zaH0VVnHAMgr133MOmg6yYu0FPaUdZa6xRU3dwLHMzWhY7zM7yHmruodPAN4W1TGK+KaxkEmeMgnW0J7gSiZmOe/h4SlbB3sdf2NG2he+Jv1HM0ZFYk3ILQEPdeL8n9rWOvi98S+xrHXeQ8D7nVoCFP0jEHib4g0Ts20nU+5+PaLklIOEuN2ZibsQP3HInYj7uKiEMxx2IORuXF2IOxNxu/+DWgENCNjwS704Hxa2NPcS71PEcRLmndhsMFQR8NRnqhQ7jmnZ+q7KQkkpEizudmA5TacGJSdZixQnpSsSLYz3sowEzjMYMozHDaMwwGjOMxgyjMcNozDAaM4zGqmY01vlBY4bROOvAgzHDaJycndBIcXJ28yPF8d63VcD4fgb3f4ib0bCEA9rxMhqWcbo1VkbDttQhGQ3z3stf+KmvieWgzPRSlIRATHbvdtdpweP3vP89O884HdqVEIhlXTI4nsG+foVEQkYs69Hy0IYFHA4Udus2uGHeF1JGhN0cD26Y/yqHsEscwQ2zX86X9oJHeMPcHUxpz4uGN8xddEi71BzesL0Gdg3AMG9KLGydgxi2VxmvQBi2l0XXIAzb67hrIIbthecVEMNst28FTmGQYa6cWFouPIIxbF+LuAAyXNoXTxZAhlkWO1md9wWUYYbtJKEf44AZJo8TMmPEYbL9L61QxwmBqTAa2nxCZB6BhrLukFhr4LGvCcMh+uS45o+OU208qxVMdRYz3icCd0ChWLVgCsXKBeMVqxeMVmyCfxlwSVtugidgebHePPgWUHWntZJ7COKoVWeC1xShI4WF4FuysJGilbivzE3IhrHKdvA2WajjVrVN4GcMIXbvUovALyjdpyte7iyFeM1njs3vHt53bH53U7yTurWF+T1A0h2byHlnPYjDDLsl553MM2lfQOK2U+Ta2ez9jKrvnkXltusVHpbCkFS9a1YPxzSuJ/gW2bfxH5bMCWW1upRmAAAAAElFTkSuQmCC" alt=""></span>A localização tem demanda estrutural por locação, ou só promessa?</li>
+      <li><span class="keydot"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAWEAAACKCAMAAABM1QsQAAAAOVBMVEVMaXETL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3C33l/KAAAAEnRSTlMAMOAg8GAQQIDAkNCgcFCwyNhDcABxAAAACXBIWXMAAAsSAAALEgHS3X78AAAEF0lEQVR4nO2dCZKjMAxFw27W9Pj+h50GmgpZgcRfUiy9A6TiVy5ZkhdOp/cpq8G5pl5onBuq8oPfM1YkRVPn/hF53RQJ99/7crL+/FjuSvO5z7j/5reSNOmG3YW0sal8mGy33kWyzeQjFPUhvTN1wf23v4WyODZ9VxO5t/xim9JtrW2vyJ053qD4xO/kuOcegmiqd+PDmrTiHoZYsnMAvyNnyyse0n8aIC5YqHhA+U6C9pzapvENQ7gJPJMP3EOSRRPY70jDPShBBI4QC7Xlxn8kLUTwb95mDaGJJHQIvpCb4lOAKu4l1g06FUi/phgvWL1ivGDliisCwd4rrj2AWcQavRlFRiP4V7HSJkWJKjTuaXVWdx2ZYO/P3IPloCcU7L3ChnFCKth7dasdYRCeSbWFYkRD+DXK2sU0pcY1uragQ+zaH0VVnHAMgr133MOmg6yYu0FPaUdZa6xRU3dwLHMzWhY7zM7yHmruodPAN4W1TGK+KaxkEmeMgnW0J7gSiZmOe/h4SlbB3sdf2NG2he+Jv1HM0ZFYk3ILQEPdeL8n9rWOvi98S+xrHXeQ8D7nVoCFP0jEHib4g0Ts20nU+5+PaLklIOEuN2ZibsQP3HInYj7uKiEMxx2IORuXF2IOxNxu/+DWgENCNjwS704Hxa2NPcS71PEcRLmndhsMFQR8NRnqhQ7jmnZ+q7KQkkpEizudmA5TacGJSdZixQnpSsSLYz3sowEzjMYMozHDaMwwGjOMxgyjMcNozDAaM4zGqmY01vlBY4bROOvAgzHDaJycndBIcXJ28yPF8d63VcD4fgb3f4ib0bCEA9rxMhqWcbo1VkbDttQhGQ3z3stf+KmvieWgzPRSlIRATHbvdtdpweP3vP89O884HdqVEIhlXTI4nsG+foVEQkYs69Hy0IYFHA4Udus2uGHeF1JGhN0cD26Y/yqHsEscwQ2zX86X9oJHeMPcHUxpz4uGN8xddEi71BzesL0Gdg3AMG9KLGydgxi2VxmvQBi2l0XXIAzb67hrIIbthecVEMNst28FTmGQYa6cWFouPIIxbF+LuAAyXNoXTxZAhlkWO1md9wWUYYbtJKEf44AZJo8TMmPEYbL9L61QxwmBqTAa2nxCZB6BhrLukFhr4LGvCcMh+uS45o+OU208qxVMdRYz3icCd0ChWLVgCsXKBeMVqxeMVmyCfxlwSVtugidgebHePPgWUHWntZJ7COKoVWeC1xShI4WF4FuysJGilbivzE3IhrHKdvA2WajjVrVN4GcMIXbvUovALyjdpyte7iyFeM1njs3vHt53bH53U7yTurWF+T1A0h2byHlnPYjDDLsl553MM2lfQOK2U+Ta2ez9jKrvnkXltusVHpbCkFS9a1YPxzSuJ/gW2bfxH5bMCWW1upRmAAAAAElFTkSuQmCC" alt=""></span>O preço por metro está abaixo do potencial de renda da região?</li>
+      <li><span class="keydot"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAWEAAACKCAMAAABM1QsQAAAAOVBMVEVMaXETL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3C33l/KAAAAEnRSTlMAMOAg8GAQQIDAkNCgcFCwyNhDcABxAAAACXBIWXMAAAsSAAALEgHS3X78AAAEF0lEQVR4nO2dCZKjMAxFw27W9Pj+h50GmgpZgcRfUiy9A6TiVy5ZkhdOp/cpq8G5pl5onBuq8oPfM1YkRVPn/hF53RQJ99/7crL+/FjuSvO5z7j/5reSNOmG3YW0sal8mGy33kWyzeQjFPUhvTN1wf23v4WyODZ9VxO5t/xim9JtrW2vyJ053qD4xO/kuOcegmiqd+PDmrTiHoZYsnMAvyNnyyse0n8aIC5YqHhA+U6C9pzapvENQ7gJPJMP3EOSRRPY70jDPShBBI4QC7Xlxn8kLUTwb95mDaGJJHQIvpCb4lOAKu4l1g06FUi/phgvWL1ivGDliisCwd4rrj2AWcQavRlFRiP4V7HSJkWJKjTuaXVWdx2ZYO/P3IPloCcU7L3ChnFCKth7dasdYRCeSbWFYkRD+DXK2sU0pcY1uragQ+zaH0VVnHAMgr133MOmg6yYu0FPaUdZa6xRU3dwLHMzWhY7zM7yHmruodPAN4W1TGK+KaxkEmeMgnW0J7gSiZmOe/h4SlbB3sdf2NG2he+Jv1HM0ZFYk3ILQEPdeL8n9rWOvi98S+xrHXeQ8D7nVoCFP0jEHib4g0Ts20nU+5+PaLklIOEuN2ZibsQP3HInYj7uKiEMxx2IORuXF2IOxNxu/+DWgENCNjwS704Hxa2NPcS71PEcRLmndhsMFQR8NRnqhQ7jmnZ+q7KQkkpEizudmA5TacGJSdZixQnpSsSLYz3sowEzjMYMozHDaMwwGjOMxgyjMcNozDAaM4zGqmY01vlBY4bROOvAgzHDaJycndBIcXJ28yPF8d63VcD4fgb3f4ib0bCEA9rxMhqWcbo1VkbDttQhGQ3z3stf+KmvieWgzPRSlIRATHbvdtdpweP3vP89O884HdqVEIhlXTI4nsG+foVEQkYs69Hy0IYFHA4Udus2uGHeF1JGhN0cD26Y/yqHsEscwQ2zX86X9oJHeMPcHUxpz4uGN8xddEi71BzesL0Gdg3AMG9KLGydgxi2VxmvQBi2l0XXIAzb67hrIIbthecVEMNst28FTmGQYa6cWFouPIIxbF+LuAAyXNoXTxZAhlkWO1md9wWUYYbtJKEf44AZJo8TMmPEYbL9L61QxwmBqTAa2nxCZB6BhrLukFhr4LGvCcMh+uS45o+OU208qxVMdRYz3icCd0ChWLVgCsXKBeMVqxeMVmyCfxlwSVtugidgebHePPgWUHWntZJ7COKoVWeC1xShI4WF4FuysJGilbivzE3IhrHKdvA2WajjVrVN4GcMIXbvUovALyjdpyte7iyFeM1njs3vHt53bH53U7yTurWF+T1A0h2byHlnPYjDDLsl553MM2lfQOK2U+Ta2ez9jKrvnkXltusVHpbCkFS9a1YPxzSuJ/gW2bfxH5bMCWW1upRmAAAAAElFTkSuQmCC" alt=""></span>A liquidez de revenda é real, com histórico de transações?</li>
+      <li><span class="keydot"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAWEAAACKCAMAAABM1QsQAAAAOVBMVEVMaXETL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3C33l/KAAAAEnRSTlMAMOAg8GAQQIDAkNCgcFCwyNhDcABxAAAACXBIWXMAAAsSAAALEgHS3X78AAAEF0lEQVR4nO2dCZKjMAxFw27W9Pj+h50GmgpZgcRfUiy9A6TiVy5ZkhdOp/cpq8G5pl5onBuq8oPfM1YkRVPn/hF53RQJ99/7crL+/FjuSvO5z7j/5reSNOmG3YW0sal8mGy33kWyzeQjFPUhvTN1wf23v4WyODZ9VxO5t/xim9JtrW2vyJ053qD4xO/kuOcegmiqd+PDmrTiHoZYsnMAvyNnyyse0n8aIC5YqHhA+U6C9pzapvENQ7gJPJMP3EOSRRPY70jDPShBBI4QC7Xlxn8kLUTwb95mDaGJJHQIvpCb4lOAKu4l1g06FUi/phgvWL1ivGDliisCwd4rrj2AWcQavRlFRiP4V7HSJkWJKjTuaXVWdx2ZYO/P3IPloCcU7L3ChnFCKth7dasdYRCeSbWFYkRD+DXK2sU0pcY1uragQ+zaH0VVnHAMgr133MOmg6yYu0FPaUdZa6xRU3dwLHMzWhY7zM7yHmruodPAN4W1TGK+KaxkEmeMgnW0J7gSiZmOe/h4SlbB3sdf2NG2he+Jv1HM0ZFYk3ILQEPdeL8n9rWOvi98S+xrHXeQ8D7nVoCFP0jEHib4g0Ts20nU+5+PaLklIOEuN2ZibsQP3HInYj7uKiEMxx2IORuXF2IOxNxu/+DWgENCNjwS704Hxa2NPcS71PEcRLmndhsMFQR8NRnqhQ7jmnZ+q7KQkkpEizudmA5TacGJSdZixQnpSsSLYz3sowEzjMYMozHDaMwwGjOMxgyjMcNozDAaM4zGqmY01vlBY4bROOvAgzHDaJycndBIcXJ28yPF8d63VcD4fgb3f4ib0bCEA9rxMhqWcbo1VkbDttQhGQ3z3stf+KmvieWgzPRSlIRATHbvdtdpweP3vP89O884HdqVEIhlXTI4nsG+foVEQkYs69Hy0IYFHA4Udus2uGHeF1JGhN0cD26Y/yqHsEscwQ2zX86X9oJHeMPcHUxpz4uGN8xddEi71BzesL0Gdg3AMG9KLGydgxi2VxmvQBi2l0XXIAzb67hrIIbthecVEMNst28FTmGQYa6cWFouPIIxbF+LuAAyXNoXTxZAhlkWO1md9wWUYYbtJKEf44AZJo8TMmPEYbL9L61QxwmBqTAa2nxCZB6BhrLukFhr4LGvCcMh+uS45o+OU208qxVMdRYz3icCd0ChWLVgCsXKBeMVqxeMVmyCfxlwSVtugidgebHePPgWUHWntZJ7COKoVWeC1xShI4WF4FuysJGilbivzE3IhrHKdvA2WajjVrVN4GcMIXbvUovALyjdpyte7iyFeM1njs3vHt53bH53U7yTurWF+T1A0h2byHlnPYjDDLsl553MM2lfQOK2U+Ta2ez9jKrvnkXltusVHpbCkFS9a1YPxzSuJ/gW2bfxH5bMCWW1upRmAAAAAElFTkSuQmCC" alt=""></span>O perfil de locatário é resiliente a crise (corporativo, saúde, universitário)?</li>
+      <li><span class="keydot"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAWEAAACKCAMAAABM1QsQAAAAOVBMVEVMaXETL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3ATL3C33l/KAAAAEnRSTlMAMOAg8GAQQIDAkNCgcFCwyNhDcABxAAAACXBIWXMAAAsSAAALEgHS3X78AAAEF0lEQVR4nO2dCZKjMAxFw27W9Pj+h50GmgpZgcRfUiy9A6TiVy5ZkhdOp/cpq8G5pl5onBuq8oPfM1YkRVPn/hF53RQJ99/7crL+/FjuSvO5z7j/5reSNOmG3YW0sal8mGy33kWyzeQjFPUhvTN1wf23v4WyODZ9VxO5t/xim9JtrW2vyJ053qD4xO/kuOcegmiqd+PDmrTiHoZYsnMAvyNnyyse0n8aIC5YqHhA+U6C9pzapvENQ7gJPJMP3EOSRRPY70jDPShBBI4QC7Xlxn8kLUTwb95mDaGJJHQIvpCb4lOAKu4l1g06FUi/phgvWL1ivGDliisCwd4rrj2AWcQavRlFRiP4V7HSJkWJKjTuaXVWdx2ZYO/P3IPloCcU7L3ChnFCKth7dasdYRCeSbWFYkRD+DXK2sU0pcY1uragQ+zaH0VVnHAMgr133MOmg6yYu0FPaUdZa6xRU3dwLHMzWhY7zM7yHmruodPAN4W1TGK+KaxkEmeMgnW0J7gSiZmOe/h4SlbB3sdf2NG2he+Jv1HM0ZFYk3ILQEPdeL8n9rWOvi98S+xrHXeQ8D7nVoCFP0jEHib4g0Ts20nU+5+PaLklIOEuN2ZibsQP3HInYj7uKiEMxx2IORuXF2IOxNxu/+DWgENCNjwS704Hxa2NPcS71PEcRLmndhsMFQR8NRnqhQ7jmnZ+q7KQkkpEizudmA5TacGJSdZixQnpSsSLYz3sowEzjMYMozHDaMwwGjOMxgyjMcNozDAaM4zGqmY01vlBY4bROOvAgzHDaJycndBIcXJ28yPF8d63VcD4fgb3f4ib0bCEA9rxMhqWcbo1VkbDttQhGQ3z3stf+KmvieWgzPRSlIRATHbvdtdpweP3vP89O884HdqVEIhlXTI4nsG+foVEQkYs69Hy0IYFHA4Udus2uGHeF1JGhN0cD26Y/yqHsEscwQ2zX86X9oJHeMPcHUxpz4uGN8xddEi71BzesL0Gdg3AMG9KLGydgxi2VxmvQBi2l0XXIAzb67hrIIbthecVEMNst28FTmGQYa6cWFouPIIxbF+LuAAyXNoXTxZAhlkWO1md9wWUYYbtJKEf44AZJo8TMmPEYbL9L61QxwmBqTAa2nxCZB6BhrLukFhr4LGvCcMh+uS45o+OU208qxVMdRYz3icCd0ChWLVgCsXKBeMVqxeMVmyCfxlwSVtugidgebHePPgWUHWntZJ7COKoVWeC1xShI4WF4FuysJGilbivzE3IhrHKdvA2WajjVrVN4GcMIXbvUovALyjdpyte7iyFeM1njs3vHt53bH53U7yTurWF+T1A0h2byHlnPYjDDLsl553MM2lfQOK2U+Ta2ez9jKrvnkXltusVHpbCkFS9a1YPxzSuJ/gW2bfxH5bMCWW1upRmAAAAAElFTkSuQmCC" alt=""></span>A conta fecha depois de reforma, mobília e vacância, não só no papel?</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">Operação real, números abertos</div>
+    <h2>Não é promessa. É gente que já recebe.</h2>
+    <p class="lead">Estúdio real da rede Wisekey em São Paulo, operado pelos nossos parceiros e acompanhado mês a mês em dashboard.</p>
+    <div class="proof">
+      <div class="card"><b>91%</b><span>de ocupação</span></div>
+      <div class="card"><b>4,8★</b><span>nota dos hóspedes</span></div>
+      <div class="card"><b>R$ 3.482</b><span>líquidos por mês</span></div>
+    </div>
+    <p class="disc">Tem mês mais fraco e mês mais forte, por isso a gente sempre modela o cenário pessimista junto. A renda é do seu imóvel, não um repasse da Wisekey. Rentabilidade passada não garante futura.</p>
+  </div>
+</section>
+
+<section class="manifesto">
+  <div class="wrap">
+    <h2>A gente não é corretor.</h2>
+    <p>Corretor ganha na venda e some. A Wisekey fica. Não temos estoque pra empurrar. Não vendemos sonho de planta. A gente entra com você no primeiro número e continua do seu lado depois da chave.</p>
+    <p>Investir em imóvel pra renda não deveria ser solitário, nem confuso, nem um cassino. Deveria fazer sentido.</p>
+    <div class="sig">Investir assim faz sentido.</div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Perguntas que todo mundo faz.</h2>
+    <details><summary>Preciso morar em São Paulo?</summary><p>Não. A maioria dos nossos clientes mora no interior ou em outra cidade. O acompanhamento é remoto pra você. Presencial só se você quiser.</p></details>
+    <details><summary>Qual o valor mínimo pra começar?</summary><p>Depende do caminho. Tem estratégia a partir de cerca de R$ 100 mil de entrada com alavancagem. No diagnóstico a gente calcula o seu caso.</p></details>
+    <details><summary>Até onde vai o trabalho de vocês?</summary><p>Do diagnóstico até a renda pingando. Achamos o imóvel, estruturamos a compra e coordenamos os parceiros que preparam o estúdio e tocam a operação no Airbnb: pricing, hóspedes e dashboard. A gente não faz a obra nem opera sozinho: acha, estrutura e orquestra tudo pra você.</p></details>
+    <details><summary>Vocês garantem a renda?</summary><p>Não. Ninguém sério garante. A gente mostra os números reais, na média e no cenário pessimista, pra você decidir com clareza. A renda vem do seu imóvel, não de uma promessa nossa.</p></details>
+    <details><summary>Como vocês ganham?</summary><p>A gente cobra pela curadoria e pela coordenação, e a rede de parceiros que opera tem a comissão dela, tudo combinado de forma transparente no diagnóstico. Sem estoque pra empurrar, sem custo escondido.</p></details>
+    <details><summary>Isso é seguro? Vocês têm registro?</summary><p>CRECI SP 319841. E o Raphael investe do próprio bolso nos mesmos imóveis que ajuda você a comprar.</p></details>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div><img src="data:image/png;base64,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" alt="wisekey" style="height:22px;margin-bottom:10px;filter:brightness(0) invert(1)"><br>Renda passiva em imóveis de São Paulo.<br><i>Investir assim faz sentido.</i><br>CRECI SP 319841 · Sediados em São João da Boa Vista, SP</div>
+      <div><b>Contato</b><a href="https://wa.me/5511917952603?text=Oi%2C%20quero%20rodar%20meu%20cen%C3%A1rio%20com%20a%20Wisekey">WhatsApp (11) 91795-2603</a><br><a href="mailto:contato@wisekey.co">contato@wisekey.co</a><br><a href="https://www.instagram.com/wisekey.br">@wisekey.br</a></div>
+      <div><b>Newsletter</b>Receba os bastidores da renda passiva todo dia 5, direto no seu e-mail.</div>
+    </div>
+    <div class="legal">© 2026 Wisekey · CNPJ 58.501.287/0001-13 · Rentabilidade passada não garante rentabilidade futura. Conteúdo informativo, não constitui recomendação de investimento. A Wisekey presta curadoria, acompanhamento e coordenação, com parceiros para obra, reforma e operação de hospedagem. Não garante rendimento.</div>
+  </div>
+</footer>
+
+<script>
+document.getElementById('form-diag').addEventListener('submit', function (e) {
+  e.preventDefault();
+  var f = e.target;
+  var nome = f.nome.value.trim();
+  var whats = f.whatsapp.value.trim();
+  var email = f.email.value.trim();
+  var entrada = f.entrada.value;
+  var momento = (f.querySelector('input[name="momento"]:checked') || {}).value || '';
+  var msg = 'Quero meu diagnostico de 30 min.\n'
+    + 'Nome: ' + nome + '\n'
+    + 'WhatsApp: ' + whats + '\n'
+    + 'E-mail: ' + email + '\n'
+    + 'Entrada disponivel: ' + entrada + '\n'
+    + 'Quando quero comecar: ' + momento;
+  window.open('https://wa.me/5511917952603?text=' + encodeURIComponent(msg), '_blank');
+  f.querySelector('button[type="submit"]').textContent = 'Recebemos! Continua no WhatsApp \u2192';
+});
+</script>
+</body>
+</html>
