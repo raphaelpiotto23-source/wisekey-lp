@@ -50,36 +50,41 @@ controle interno. Preencha no HTML e gere o PDF, ou imprima e complete à mão.
 
 ## Identificação da empresa e do responsável técnico
 
-Confirmados por dois documentos: o Certificado de Licenciamento Integrado
-(Portal Facilita SP, protocolo SPP2630499283) e a Alteração Contratual 03,
-registrada na JUCESP em 15/07/2026 sob nº 277.827/26-7.
+Confirmados pelo contrato social consolidado (Alteração Contratual nº 03,
+registrada na JUCESP em 15/07/2026 sob nº 277.827/26-7) e pelo Certificado de
+Licenciamento Integrado (Portal Facilita SP, protocolo SPP2630499283).
 
-- **Nome empresarial:** WISEKEY ESTRATEGIA E ASSESSORIA LTDA
-- **CNPJ:** 58.501.287/0001-13
-- **Natureza jurídica:** Sociedade Empresária Limitada
-- **Município e foro:** São João da Boa Vista, SP
+- **Nome empresarial:** WISEKEY ESTRATEGIA E ASSESSORIA LTDA — sem acento em
+  "ESTRATEGIA", conforme cláusula Primeira do contrato consolidado
+- **CNPJ:** 58.501.287/0001-13 · **NIRE:** 35265750384 (18/12/2024)
+- **Natureza jurídica:** Sociedade Empresária Limitada unipessoal · ME
+- **Sede:** Rua Inocêncio Papiani, 400, Sala 2 · Pousada do Sol ·
+  São João da Boa Vista/SP · CEP 13874-590
 - **Responsável técnico:** Raphael Piotto Cardoso — **CRECI/SP 319841-F**
 
-A cláusula Décima Primeira da alteração contratual atribui a responsabilidade
-técnica pela atividade de intermediação imobiliária ao sócio administrador,
-nos termos da Lei nº 6.530/78 e da Resolução COFECI nº 327/92 — que é a
-estrutura exigida para a sociedade atuar no ramo. Por isso o responsável
-técnico consta do timbre, do quadro de referência e do bloco de assinatura,
-sempre com o número **319841-F** (o sufixo `-F` identifica a inscrição de
-pessoa física e faz parte do número).
+O **objeto social** (cláusula Terceira) inclui expressamente "corretagem e
+assessoria na compra, venda e **avaliação de imóveis**" — é o que ampara a
+emissão de PTAM pela sociedade.
 
-Pendente de confirmação:
+A cláusula Décima Primeira atribui a responsabilidade técnica pela atividade de
+intermediação imobiliária ao sócio administrador, nos termos da Lei nº 6.530/78
+e da Resolução COFECI nº 327/92, com redação "conforme modelo aprovado pelo
+CRECI/SP". Por isso o responsável técnico consta do timbre, do quadro de
+referência e do bloco de assinatura, sempre com o número **319841-F** — o
+sufixo `-F` integra a inscrição.
 
-1. **Acentuação de "ESTRATEGIA".** Tanto o certificado quanto o nome do arquivo
-   da alteração contratual grafam sem acento. Se o contrato social consolidado
-   trouxer "ESTRATÉGIA", ajuste o timbre para seguir o contrato.
-2. **Número de inscrição da PJ no CRECI-SP.** A designação de responsável
-   técnico é o pressuposto da inscrição, mas o número da pessoa jurídica não
-   consta dos documentos consultados. Ao obtê-lo, acrescente ao timbre, ao lado
-   do CNPJ.
+**CPF, RG e endereço residencial do sócio não são usados** em nenhum dos
+documentos: são dados pessoais sem função no PTAM.
 
-Endereço de rua foi omitido de propósito: o certificado declara "A empresa terá
-estabelecimento? Não".
+Pendências:
+
+1. **Número de inscrição da PJ no CRECI-SP.** A cláusula de responsável técnico
+   é o pressuposto da inscrição, mas o número da pessoa jurídica não consta dos
+   documentos consultados. Ao obtê-lo, acrescente ao timbre, ao lado do CNPJ.
+2. **Divergência de bairro.** O contrato social indica "Pousada do Sol"; o
+   Certificado de Licenciamento Integrado indica "Loteamento Colinas do Alegre".
+   Ambos com CEP 13874-590. Os documentos seguem o contrato social, que é o
+   instrumento que fixa a sede — vale confirmar qual está desatualizado.
 
 ## Identidade visual
 
