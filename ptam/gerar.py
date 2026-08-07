@@ -77,6 +77,17 @@ def numerar(pdf: Path):
         pagina.merge_page(PdfReader(buf).pages[0])
         escritor.add_page(pagina)
 
+    # Metadados: aparecem na barra de título do leitor e nas propriedades
+    # do arquivo. PDF sem autor identificado passa impressão de rascunho.
+    escritor.add_metadata(
+        {
+            "/Title": pdf.stem,
+            "/Author": "Wisekey · CRECI-SP 319841",
+            "/Subject": "Parecer Técnico de Avaliação Mercadológica (PTAM)",
+            "/Creator": "Wisekey Intermediação Imobiliária",
+        }
+    )
+
     with open(pdf, "wb") as f:
         escritor.write(f)
     return total

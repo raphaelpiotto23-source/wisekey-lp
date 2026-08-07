@@ -7,8 +7,13 @@ com a identidade visual da Wisekey.
 
 | Arquivo | Para quem | Páginas |
 |---|---|---|
-| `relacao-documentos-ptam.pdf` | **Cliente** — documento formal com a relação de documentos e informações | 3 |
-| `wisekey-checklist-ptam-interno.pdf` | **Uso interno** — checklist técnico de conferência, com a metodologia | 3 |
+| `Wisekey - PTAM - Relação de Documentos.pdf` | **Cliente** — documento formal com a relação de documentos e informações | 3 |
+| `Wisekey - PTAM - Checklist Interno.pdf` | **Uso interno** — checklist técnico de conferência, com a metodologia | 3 |
+
+O nome do arquivo é o primeiro contato do cliente com o documento, antes de
+abri-lo. Mantenha o padrão `Wisekey - PTAM - <Documento>` ao criar novos: marca,
+tipo de trabalho e conteúdo, nessa ordem. O `Checklist Interno` traz "Interno"
+no nome justamente para não ser enviado por engano.
 
 Os `.html` são o fonte de cada PDF. Edite o HTML e gere o PDF de novo.
 
@@ -21,11 +26,12 @@ fecho e assinatura, com numeração de página em todas as folhas.
 ```bash
 pip install pypdf reportlab
 python3 gerar.py                            # gera todos
-python3 gerar.py relacao-documentos-ptam.html   # gera um
+python3 gerar.py "Wisekey - PTAM - Relação de Documentos.html"   # gera um
 ```
 
 O script converte o HTML com Chrome/Chromium headless e carimba a numeração de
-página. Se o navegador não estiver no PATH, aponte com `CHROME_BIN`.
+página e grava os metadados do PDF (título, autor e assunto). Se o navegador
+não estiver no PATH, aponte com `CHROME_BIN`.
 O `logo-wisekey.png` precisa estar na mesma pasta do HTML.
 
 ## O que preencher antes de enviar
