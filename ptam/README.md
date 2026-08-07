@@ -7,31 +7,40 @@ com a identidade visual da Wisekey.
 
 | Arquivo | Para quem | Páginas |
 |---|---|---|
-| `wisekey-o-que-enviar-cliente.pdf` | **Cliente** — lista do que ele precisa enviar, em linguagem simples | 2 |
-| `wisekey-checklist-ptam-interno.pdf` | **Uso interno** — checklist técnico completo, com a metodologia | 3 |
+| `relacao-documentos-ptam.pdf` | **Cliente** — documento formal com a relação de documentos e informações | 3 |
+| `wisekey-checklist-ptam-interno.pdf` | **Uso interno** — checklist técnico de conferência, com a metodologia | 3 |
 
 Os `.html` são o fonte de cada PDF. Edite o HTML e gere o PDF de novo.
 
-## Como gerar o PDF novamente
+O documento do cliente segue estrutura de correspondência formal: papel
+timbrado, quadro de referência, carta de abertura, seções numeradas (1 a 6),
+fecho e assinatura, com numeração de página em todas as folhas.
 
-Com Chrome ou Chromium instalado:
+## Como gerar os PDFs novamente
 
 ```bash
-chromium --headless --disable-gpu --no-pdf-header-footer \
-  --print-to-pdf=wisekey-o-que-enviar-cliente.pdf \
-  wisekey-o-que-enviar-cliente.html
+pip install pypdf reportlab
+python3 gerar.py                            # gera todos
+python3 gerar.py relacao-documentos-ptam.html   # gera um
 ```
 
+O script converte o HTML com Chrome/Chromium headless e carimba a numeração de
+página. Se o navegador não estiver no PATH, aponte com `CHROME_BIN`.
 O `logo-wisekey.png` precisa estar na mesma pasta do HTML.
+
+## O que preencher antes de enviar
+
+O documento do cliente tem três campos em branco no quadro de referência:
+**Solicitante**, **Imóvel avaliando** e **Data**, mais o **Documento nº** para
+controle interno. Preencha no HTML e gere o PDF, ou imprima e complete à mão.
 
 ## O que costuma mudar entre um atendimento e outro
 
-- **Nome do cliente e endereço do imóvel** — a versão do cliente é genérica de
-  propósito; para personalizar, acrescente na capa (`.capa`).
-- **Bairro e cidade** — aparecem na capa do checklist interno.
-- **Prazo de entrega** (hoje: 5 dias úteis) e **validade do parecer** (6 meses).
+- **Prazo de elaboração** (hoje: 5 dias úteis) e **validade do parecer**
+  (6 meses) — seção 6.
 - **Honorários** — nenhum dos dois documentos menciona valor. Se você cobra pelo
-  PTAM, inclua antes de enviar ao cliente.
+  PTAM, inclua na seção 6 antes de enviar ao cliente.
+- **Bairro e cidade** — aparecem na capa do checklist interno.
 
 ## Identidade visual
 
