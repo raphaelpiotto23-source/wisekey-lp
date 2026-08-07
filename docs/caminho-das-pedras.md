@@ -40,7 +40,7 @@ Do outro lado: CPM de R$ 15 com 1% de CTR dá CPC de R$ 1,50; se 10% dos cliques
 
 Olhei o funil no código antes de escrever o plano. Dois vazamentos:
 
-**1. O formulário não guarda nada.** `index.html:640` — o submit monta um texto e abre `wa.me`. Não grava lead, não dispara evento, não registra origem. Se o cara não terminar de mandar a mensagem no WhatsApp, **ele nunca existiu**. Você não sabe quantos preencheram, de onde vieram, nem quantos sumiram no caminho.
+**1. O formulário não guarda nada.** `index.html:426` — o submit monta um texto e abre `wa.me`. Não grava lead, não dispara evento, não registra origem. Se o cara não terminar de mandar a mensagem no WhatsApp, **ele nunca existiu**. Você não sabe quantos preencheram, de onde vieram, nem quantos sumiram no caminho.
 
 **2. A newsletter é anunciada e não existe.** `index.html:405` promete "os bastidores da renda passiva todo dia 5" e **não tem campo de e-mail em lugar nenhum**. Você está pedindo pra pessoa esperar uma coisa que ela não tem como assinar.
 
