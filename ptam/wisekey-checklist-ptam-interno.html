@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Wisekey — Checklist PTAM</title>
+<style>
+  @page { size: A4; margin: 13mm 0; }
+
+  :root{
+    --azul:#132F70;
+    --roxo:#2D1E80;
+    --roxo-esc:#1c1259;
+    --lilas:#EFEAFC;
+    --lilas-2:#DCD2FA;
+    --borda:#CFC7EE;
+    --cinza:#6B6685;
+    --texto:#26243A;
+  }
+
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; }
+  body{
+    font-family:"Liberation Sans","DejaVu Sans",Arial,sans-serif;
+    font-size:9.6pt;
+    line-height:1.45;
+    color:var(--texto);
+  }
+
+  .pagina{ padding:0 14mm; }
+
+  /* ---------- CABEÇALHO ---------- */
+  .capa{
+    background:var(--azul);
+    color:#fff;
+    padding:14mm 14mm 10mm 14mm;
+    margin:-13mm -14mm 8mm -14mm;
+  }
+  .capa img{ height:11mm; display:block; filter:brightness(0) invert(1); margin-bottom:7mm; }
+  .capa .eyebrow{
+    font-size:8pt; letter-spacing:.16em; text-transform:uppercase;
+    color:#B9AEE6; margin-bottom:3mm; font-weight:700;
+  }
+  .capa h1{ font-size:20pt; line-height:1.15; margin:0 0 4mm 0; font-weight:700; letter-spacing:-.01em; }
+  .capa .sub{ font-size:10.5pt; color:#DDD6F7; margin:0; max-width:135mm; }
+  .capa .linha{ height:1px; background:rgba(255,255,255,.22); margin:6mm 0 4mm 0; }
+  .capa .meta{ display:flex; gap:14mm; font-size:8.4pt; color:#CFC7EE; }
+  .capa .meta b{ display:block; color:#fff; font-size:9.2pt; font-weight:700; margin-top:1mm; }
+
+  /* ---------- INTRO ---------- */
+  .intro{
+    background:var(--lilas);
+    border-left:3px solid var(--roxo);
+    padding:4.5mm 6mm;
+    margin:0 0 6mm 0;
+    font-size:9.3pt;
+  }
+  .intro p{ margin:0 0 2.5mm 0; }
+  .intro p:last-child{ margin-bottom:0; }
+  .intro b{ color:var(--roxo-esc); }
+
+  /* ---------- BLOCOS ---------- */
+  .bloco{ margin:0 0 5.5mm 0; }
+  .bloco h2{
+    font-size:10.5pt; margin:0 0 3mm 0; color:var(--azul);
+    display:flex; align-items:center; gap:3mm; font-weight:700;
+    break-after:avoid;
+  }
+  tr{ break-inside:avoid; }
+  .num{
+    background:var(--roxo); color:#fff; width:6.5mm; height:6.5mm;
+    border-radius:50%; display:inline-flex; align-items:center; justify-content:center;
+    font-size:8.6pt; font-weight:700; flex:none;
+  }
+  .tag{
+    font-size:7pt; letter-spacing:.08em; text-transform:uppercase; font-weight:700;
+    padding:.9mm 2.2mm; border-radius:2mm; margin-left:auto;
+  }
+  .tag.ob{ background:#2D1E80; color:#fff; }
+  .tag.de{ background:var(--lilas-2); color:var(--roxo-esc); }
+
+  table{ width:100%; border-collapse:collapse; }
+  td{ padding:2.1mm 2.5mm; border:.4pt solid var(--borda); vertical-align:top; }
+  td.lbl{ width:46mm; background:#F7F5FD; font-weight:700; font-size:8.8pt; color:var(--roxo-esc); }
+  td.fill{ height:7.5mm; }
+  td.hint{ font-size:7.6pt; color:var(--cinza); font-weight:400; }
+  .lbl small{ display:block; font-weight:400; font-size:7.4pt; color:var(--cinza); margin-top:.5mm; }
+
+  ul.check{ list-style:none; margin:0; padding:0; }
+  ul.check.two{ column-count:2; column-gap:8mm; break-inside:avoid; }
+  ul.check li{ padding:1.4mm 0 1.4mm 6.5mm; position:relative; font-size:9pt; break-inside:avoid; }
+  ul.check li::before{
+    content:""; position:absolute; left:0; top:1.9mm;
+    width:3.6mm; height:3.6mm; border:.5pt solid var(--roxo); border-radius:.7mm;
+  }
+  
+  ul.check.entrega li::before{
+    background:var(--roxo); border-color:var(--roxo);
+    width:2mm; height:2mm; border-radius:50%; left:.8mm; top:2.6mm;
+  }
+  ul.check li small{ color:var(--cinza); font-size:7.6pt; }
+
+  .nota{
+    font-size:8.2pt; color:var(--cinza); margin-top:2.5mm;
+    padding-left:3mm; border-left:2px solid var(--lilas-2);
+  }
+
+  /* ---------- DESTAQUE FINAL ---------- */
+  .cta{
+    background:var(--roxo-esc); color:#fff; padding:5mm 6mm; margin-top:5mm;
+    break-inside:avoid;
+  }
+  .cta h3{ margin:0 0 3mm 0; font-size:11pt; }
+  .cta p{ margin:0 0 2mm 0; font-size:9pt; color:#DDD6F7; }
+  .cta .canais{ margin-top:4mm; font-size:9.4pt; }
+  .cta .canais b{ color:#fff; }
+
+  .rodape{
+    margin-top:5mm; padding-top:3mm; border-top:.4pt solid var(--borda);
+    font-size:7.3pt; color:var(--cinza); line-height:1.5;
+  }
+  .quebra{ break-before:page; }
+</style>
+</head>
+<body>
+<div class="pagina">
+
+<div class="capa">
+  <img src="logo-wisekey.png" alt="Wisekey">
+  <div class="eyebrow">Parecer Técnico de Avaliação Mercadológica</div>
+  <h1>O que preciso receber<br>para elaborar o seu PTAM</h1>
+  <p class="sub">Checklist de documentos e informações — imóvel no Jardim Amélia, São João da Boa Vista/SP.</p>
+  <div class="linha"></div>
+  <div class="meta">
+    <div>Responsável técnico<b>Raphael · CRECI SP 319841</b></div>
+    <div>Imóvel<b>Jd. Amélia · São João da Boa Vista/SP</b></div>
+    <div>Emissão<b>Agosto de 2026</b></div>
+  </div>
+</div>
+
+<div class="intro">
+  <p>O <b>PTAM</b> é o parecer que estima o valor de mercado do imóvel, elaborado por corretor habilitado conforme as normas do sistema COFECI-CRECI (Resolução 1.066/2014). A metodologia aplicada é o <b>Método Comparativo Direto de Dados de Mercado</b>, com tratamento e homogeneização de uma amostra de imóveis semelhantes no próprio bairro.</p>
+  <p>A precisão do parecer depende diretamente da qualidade dos dados abaixo. <b>Os blocos 1 a 4 são obrigatórios</b> — sem eles não é possível emitir o documento. Os blocos 5 a 7 reduzem a margem de erro da avaliação.</p>
+</div>
+
+<div class="bloco">
+  <h2><span class="num">1</span> Identificação <span class="tag ob">Obrigatório</span></h2>
+  <table>
+    <tr><td class="lbl">Solicitante<small>Nome completo e CPF/CNPJ</small></td><td class="fill"></td></tr>
+    <tr><td class="lbl">Relação com o imóvel<small>Proprietário, herdeiro, procurador…</small></td><td class="fill"></td></tr>
+    <tr><td class="lbl">Endereço completo<small>Rua, número, complemento e CEP</small></td><td class="fill"></td></tr>
+    <tr><td class="lbl">Contato<small>WhatsApp e e-mail</small></td><td class="fill"></td></tr>
+  </table>
+</div>
+
+<div class="bloco">
+  <h2><span class="num">2</span> Dados físicos do imóvel <span class="tag ob">Obrigatório</span></h2>
+  <table>
+    <tr><td class="lbl">Tipo do imóvel</td><td class="hint">Casa térrea · sobrado · apartamento · terreno · comercial</td></tr>
+    <tr><td class="lbl">Área do terreno (m²)</td><td class="fill"></td></tr>
+    <tr><td class="lbl">Área construída (m²)</td><td class="fill"></td></tr>
+    <tr><td class="lbl">Testada e formato do lote<small>Frente em metros; plano, aclive ou declive</small></td><td class="fill"></td></tr>
+    <tr><td class="lbl">Dormitórios / suítes</td><td class="fill"></td></tr>
+    <tr><td class="lbl">Banheiros / lavabos</td><td class="fill"></td></tr>
+    <tr><td class="lbl">Vagas de garagem<small>Coberta ou descoberta</small></td><td class="fill"></td></tr>
+    <tr><td class="lbl">Ano de construção<small>Ou idade aproximada</small></td><td class="fill"></td></tr>
+    <tr><td class="lbl">Estado de conservação</td><td class="hint">Novo · regular · precisa de reparos simples · precisa de reparos importantes</td></tr>
+    <tr><td class="lbl">Padrão construtivo</td><td class="hint">Simples · normal · alto — considerar acabamentos, esquadrias e revestimentos</td></tr>
+  </table>
+  <p class="nota">A idade e o estado de conservação entram no cálculo pela escala de Ross-Heidecke. Sem essas duas informações a depreciação não pode ser aplicada.</p>
+</div>
+
+<div class="bloco">
+  <h2><span class="num">3</span> Documentação <span class="tag ob">Obrigatório</span></h2>
+  <ul class="check two">
+    <li>Matrícula atualizada do imóvel <small>(até 30 dias)</small></li>
+    <li>Escritura ou contrato de compra e venda</li>
+    <li>Carnê do IPTU do ano vigente <small>(traz o valor venal)</small></li>
+    <li>Certidão negativa de débitos municipais</li>
+    <li>Planta ou croqui, se houver</li>
+    <li>Habite-se / averbação da construção</li>
+  </ul>
+  <p class="nota">Se a construção não estiver averbada na matrícula, isso precisa constar como ressalva no parecer e impacta a liquidez do imóvel. Me avise se for o caso.</p>
+</div>
+
+<div class="bloco">
+  <h2><span class="num">4</span> Finalidade do parecer <span class="tag ob">Obrigatório</span></h2>
+  <ul class="check two">
+    <li>Venda no mercado aberto</li>
+    <li>Definição de preço de anúncio</li>
+    <li>Inventário ou partilha</li>
+    <li>Divórcio / dissolução</li>
+    <li>Garantia ou análise patrimonial</li>
+    <li>Negociação entre particulares</li>
+  </ul>
+  <p class="nota">A finalidade muda a conclusão do documento. Em inventário, partilha ou garantia, o parecer precisa apresentar também o <b>valor de liquidação forçada</b>, além do valor de mercado.</p>
+</div>
+
+<div class="bloco">
+  <h2><span class="num">5</span> Benfeitorias e diferenciais <span class="tag de">Recomendado</span></h2>
+  <ul class="check two">
+    <li>Piscina</li>
+    <li>Edícula ou área gourmet</li>
+    <li>Churrasqueira</li>
+    <li>Energia solar</li>
+    <li>Poço artesiano</li>
+    <li>Portão eletrônico</li>
+    <li>Armários planejados</li>
+    <li>Ar-condicionado <small>(quantos)</small></li>
+    <li>Aquecimento solar / boiler</li>
+    <li>Muro e calçada concluídos</li>
+    <li>Reformas recentes <small>(o que e quando)</small></li>
+    <li>Outros: ______________________</li>
+  </ul>
+</div>
+
+<div class="bloco">
+  <h2><span class="num">6</span> Fotos e material de apoio <span class="tag de">Recomendado</span></h2>
+  <ul class="check">
+    <li><b>Fachada</b> — foto frontal do imóvel e da rua nos dois sentidos</li>
+    <li><b>Cômodos</b> — uma foto de cada ambiente, com boa iluminação</li>
+    <li><b>Áreas externas</b> — quintal, garagem, edícula, laje</li>
+    <li><b>Pontos negativos</b> — infiltrações, trincas, telhado, o que precisa de reparo <small>(não esconda: o que não aparece no parecer aparece na visita do comprador)</small></li>
+    <li><b>Link do anúncio</b>, se o imóvel já estiver publicado em algum portal</li>
+    <li><b>Propostas já recebidas</b>, se houver — valor e data</li>
+  </ul>
+</div>
+
+<div class="bloco">
+  <h2><span class="num">7</span> Contexto da negociação <span class="tag de">Recomendado</span></h2>
+  <table>
+    <tr><td class="lbl">Há quanto tempo está à venda</td><td class="fill"></td></tr>
+    <tr><td class="lbl">Valor pedido hoje<small>Se já houver um preço definido</small></td><td class="fill"></td></tr>
+    <tr><td class="lbl">Urgência da venda<small>Sem pressa · até 6 meses · imediata</small></td><td class="fill"></td></tr>
+    <tr><td class="lbl">Imóvel ocupado ou vago<small>Se alugado, valor e prazo do contrato</small></td><td class="fill"></td></tr>
+    <tr><td class="lbl">Aceita financiamento bancário</td><td class="fill"></td></tr>
+  </table>
+</div>
+
+<div class="bloco">
+  <h2><span class="num">8</span> O que você recebe de volta</h2>
+  <ul class="check entrega">
+    <li><b>Caracterização</b> do imóvel e da região — infraestrutura, uso predominante e liquidez do bairro</li>
+    <li><b>Amostra de no mínimo 5 comparáveis</b> do Jardim Amélia e entorno, com fonte e data de coleta</li>
+    <li><b>Homogeneização</b> por área, localização, idade, conservação e padrão, com fator de oferta aplicado</li>
+    <li><b>Tratamento estatístico</b> — média saneada, desvio padrão e intervalo de confiança</li>
+    <li><b>Conclusão</b> — valor de mercado, faixa de negociação e valor sugerido de anúncio</li>
+    <li><b>Pressupostos, ressalvas e validade</b> do parecer, assinado com o número do CRECI</li>
+  </ul>
+  <p class="nota">Prazo de entrega: até 5 dias úteis a partir do recebimento completo dos itens obrigatórios. Validade do parecer: 6 meses, ou menos em caso de mudança relevante nas condições de mercado.</p>
+</div>
+
+<div class="cta">
+  <h3>Como enviar</h3>
+  <p>Pode mandar tudo de uma vez pelo WhatsApp — fotos, documentos e as respostas deste checklist. Se preferir, imprima este PDF, preencha à mão e me devolva fotografado.</p>
+  <p>Se faltar alguma informação, seguimos com ela registrada como ressalva no parecer — mas o ideal é fechar os blocos 1 a 4 antes de começar.</p>
+  <div class="canais">
+    <b>WhatsApp</b> (11) 91795-2603 &nbsp;·&nbsp; <b>E-mail</b> contato@wisekey.co &nbsp;·&nbsp; <b>Instagram</b> @wisekey.br
+  </div>
+</div>
+
+<div class="rodape">
+  <b>Wisekey</b> · CRECI SP 319841 · CNPJ 58.501.287/0001-13 · Sediados em São João da Boa Vista, SP · contato@wisekey.co<br>
+  Este checklist é material preparatório e não constitui, por si só, avaliação de imóvel. O Parecer Técnico de Avaliação Mercadológica (PTAM) é emitido por corretor de imóveis habilitado, nos termos da Resolução COFECI nº 1.066/2014, com metodologia baseada na NBR 14653. Para finalidades judiciais, periciais ou operações que exijam laudo de engenharia, pode ser necessária avaliação por engenheiro ou arquiteto habilitado, conforme exigência do órgão ou instituição destinatária.
+</div>
+
+</div>
+</body>
+</html>
