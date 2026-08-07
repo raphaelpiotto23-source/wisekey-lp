@@ -76,15 +76,16 @@ sufixo `-F` integra a inscrição.
 **CPF, RG e endereço residencial do sócio não são usados** em nenhum dos
 documentos: são dados pessoais sem função no PTAM.
 
-Pendências:
+Duas decisões tomadas, já refletidas nos documentos:
 
-1. **Número de inscrição da PJ no CRECI-SP.** A cláusula de responsável técnico
-   é o pressuposto da inscrição, mas o número da pessoa jurídica não consta dos
-   documentos consultados. Ao obtê-lo, acrescente ao timbre, ao lado do CNPJ.
-2. **Divergência de bairro.** O contrato social indica "Pousada do Sol"; o
-   Certificado de Licenciamento Integrado indica "Loteamento Colinas do Alegre".
-   Ambos com CEP 13874-590. Os documentos seguem o contrato social, que é o
-   instrumento que fixa a sede — vale confirmar qual está desatualizado.
+1. **Bairro: Pousada do Sol.** O Certificado de Licenciamento Integrado traz
+   "Loteamento Colinas do Alegre" para o mesmo endereço e CEP. Prevalece o
+   contrato social, que é o instrumento que fixa a sede.
+2. **Sem CRECI de pessoa jurídica.** Os documentos identificam apenas o
+   responsável técnico, com o CRECI/SP 319841-F. Quando a inscrição da PJ sair,
+   acrescente o número ao timbre, ao lado do CNPJ, e ao rodapé — a partir daí a
+   sociedade passa a figurar como emissora, e não apenas como prestadora com
+   responsável técnico designado.
 
 ## Identidade visual
 
