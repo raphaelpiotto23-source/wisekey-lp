@@ -82,7 +82,7 @@ def numerar(pdf: Path):
     escritor.add_metadata(
         {
             "/Title": pdf.stem,
-            "/Author": "Wisekey · CRECI-SP 319841",
+            "/Author": "Raphael Piotto Cardoso · CRECI/SP 319841-F",
             "/Subject": "Parecer Técnico de Avaliação Mercadológica (PTAM)",
             "/Creator": "Wisekey",
         }

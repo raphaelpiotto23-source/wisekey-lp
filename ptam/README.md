@@ -48,27 +48,35 @@ controle interno. Preencha no HTML e gere o PDF, ou imprima e complete à mão.
   PTAM, inclua na seção 6 antes de enviar ao cliente.
 - **Bairro e cidade** — aparecem na capa do checklist interno.
 
-## Identificação da empresa
+## Identificação da empresa e do responsável técnico
 
-Confirmada pelo Certificado de Licenciamento Integrado (Portal Facilita SP,
-protocolo SPP2630499283):
+Confirmados por dois documentos: o Certificado de Licenciamento Integrado
+(Portal Facilita SP, protocolo SPP2630499283) e a Alteração Contratual 03,
+registrada na JUCESP em 15/07/2026 sob nº 277.827/26-7.
 
 - **Nome empresarial:** WISEKEY ESTRATEGIA E ASSESSORIA LTDA
 - **CNPJ:** 58.501.287/0001-13
 - **Natureza jurídica:** Sociedade Empresária Limitada
-- **Município:** São João da Boa Vista, SP
+- **Município e foro:** São João da Boa Vista, SP
+- **Responsável técnico:** Raphael Piotto Cardoso — **CRECI/SP 319841-F**
 
-Dois pontos a confirmar antes de usar os documentos em escala:
+A cláusula Décima Primeira da alteração contratual atribui a responsabilidade
+técnica pela atividade de intermediação imobiliária ao sócio administrador,
+nos termos da Lei nº 6.530/78 e da Resolução COFECI nº 327/92 — que é a
+estrutura exigida para a sociedade atuar no ramo. Por isso o responsável
+técnico consta do timbre, do quadro de referência e do bloco de assinatura,
+sempre com o número **319841-F** (o sufixo `-F` identifica a inscrição de
+pessoa física e faz parte do número).
 
-1. **Acentuação.** O certificado grafa "ESTRATEGIA" sem acento, como é praxe
-   nos cadastros oficiais. Se o contrato social registrado na Junta Comercial
-   trouxer "ESTRATÉGIA", o timbre deve seguir o contrato social.
-2. **Inscrição no CRECI como pessoa jurídica.** O nome empresarial e a
-   atividade licenciada ("Escritório Administrativo") não indicam intermediação
-   imobiliária. O PTAM é emitido pelo corretor pessoa física — por isso o
-   CRECI-SP 319841 aparece apenas no quadro "Responsável técnico" e no bloco de
-   assinatura, nunca ao lado da razão social no timbre. Se a empresa vier a ser
-   inscrita no CRECI-SP como PJ, o número da PJ pode ser acrescentado ao timbre.
+Pendente de confirmação:
+
+1. **Acentuação de "ESTRATEGIA".** Tanto o certificado quanto o nome do arquivo
+   da alteração contratual grafam sem acento. Se o contrato social consolidado
+   trouxer "ESTRATÉGIA", ajuste o timbre para seguir o contrato.
+2. **Número de inscrição da PJ no CRECI-SP.** A designação de responsável
+   técnico é o pressuposto da inscrição, mas o número da pessoa jurídica não
+   consta dos documentos consultados. Ao obtê-lo, acrescente ao timbre, ao lado
+   do CNPJ.
 
 Endereço de rua foi omitido de propósito: o certificado declara "A empresa terá
 estabelecimento? Não".
