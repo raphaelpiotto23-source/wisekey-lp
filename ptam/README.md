@@ -48,6 +48,14 @@ controle interno. Preencha no HTML e gere o PDF, ou imprima e complete à mão.
   PTAM, inclua na seção 6 antes de enviar ao cliente.
 - **Bairro e cidade** — aparecem na capa do checklist interno.
 
+## Razão social — pendente
+
+O cabeçalho e o bloco de assinatura trazem apenas **WISEKEY**, com CRECI e CNPJ.
+A razão social registrada ainda não foi confirmada e por isso **não** consta nos
+documentos: num papel timbrado ela precisa bater exatamente com o cartão CNPJ.
+Ao confirmar, substitua nos dois pontos do arquivo do cliente — o `<b>` do bloco
+`.timbre` e o `<span>` do bloco `.assinatura` — e regere o PDF.
+
 ## Identidade visual
 
 Cores e tipografia vêm da landing page (`../index.html`):

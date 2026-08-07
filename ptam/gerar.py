@@ -84,7 +84,7 @@ def numerar(pdf: Path):
             "/Title": pdf.stem,
             "/Author": "Wisekey · CRECI-SP 319841",
             "/Subject": "Parecer Técnico de Avaliação Mercadológica (PTAM)",
-            "/Creator": "Wisekey Intermediação Imobiliária",
+            "/Creator": "Wisekey",
         }
     )
 
