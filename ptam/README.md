@@ -48,13 +48,30 @@ controle interno. Preencha no HTML e gere o PDF, ou imprima e complete à mão.
   PTAM, inclua na seção 6 antes de enviar ao cliente.
 - **Bairro e cidade** — aparecem na capa do checklist interno.
 
-## Razão social — pendente
+## Identificação da empresa
 
-O cabeçalho e o bloco de assinatura trazem apenas **WISEKEY**, com CRECI e CNPJ.
-A razão social registrada ainda não foi confirmada e por isso **não** consta nos
-documentos: num papel timbrado ela precisa bater exatamente com o cartão CNPJ.
-Ao confirmar, substitua nos dois pontos do arquivo do cliente — o `<b>` do bloco
-`.timbre` e o `<span>` do bloco `.assinatura` — e regere o PDF.
+Confirmada pelo Certificado de Licenciamento Integrado (Portal Facilita SP,
+protocolo SPP2630499283):
+
+- **Nome empresarial:** WISEKEY ESTRATEGIA E ASSESSORIA LTDA
+- **CNPJ:** 58.501.287/0001-13
+- **Natureza jurídica:** Sociedade Empresária Limitada
+- **Município:** São João da Boa Vista, SP
+
+Dois pontos a confirmar antes de usar os documentos em escala:
+
+1. **Acentuação.** O certificado grafa "ESTRATEGIA" sem acento, como é praxe
+   nos cadastros oficiais. Se o contrato social registrado na Junta Comercial
+   trouxer "ESTRATÉGIA", o timbre deve seguir o contrato social.
+2. **Inscrição no CRECI como pessoa jurídica.** O nome empresarial e a
+   atividade licenciada ("Escritório Administrativo") não indicam intermediação
+   imobiliária. O PTAM é emitido pelo corretor pessoa física — por isso o
+   CRECI-SP 319841 aparece apenas no quadro "Responsável técnico" e no bloco de
+   assinatura, nunca ao lado da razão social no timbre. Se a empresa vier a ser
+   inscrita no CRECI-SP como PJ, o número da PJ pode ser acrescentado ao timbre.
+
+Endereço de rua foi omitido de propósito: o certificado declara "A empresa terá
+estabelecimento? Não".
 
 ## Identidade visual
 
