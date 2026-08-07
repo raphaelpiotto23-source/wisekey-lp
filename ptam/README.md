@@ -29,7 +29,7 @@ python3 gerar.py                            # gera todos
 python3 gerar.py "Wisekey - PTAM - Relação de Documentos.html"   # gera um
 ```
 
-O script converte o HTML com Chrome/Chromium headless e carimba a numeração de
+O script converte o HTML com Chrome/Chromium headless, carimba a numeração de
 página e grava os metadados do PDF (título, autor e assunto). Se o navegador
 não estiver no PATH, aponte com `CHROME_BIN`.
 O `logo-wisekey.png` precisa estar na mesma pasta do HTML.
