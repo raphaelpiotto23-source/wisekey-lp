@@ -300,7 +300,8 @@ footer i{color:var(--lilas)}
         </div>
         <div class="f">
           <label for="mobilia">Mobília e enxoval (R$)</label>
-          <input type="text" id="mobilia" inputmode="decimal" value="38000">
+          <input type="text" id="mobilia" inputmode="decimal" value="55976">
+          <span class="hint">Valor da base do site: capital total de R$ 423.476 sobre um imóvel de R$ 350 mil, com 5% de custos.</span>
         </div>
         <div class="f">
           <label for="reforma">Reforma necessária (R$)</label>
@@ -420,6 +421,7 @@ footer i{color:var(--lilas)}
         </details>
 
         <div class="actions">
+          <button class="btn ghost" id="btn-base" type="button">Carregar a base do site</button>
           <button class="btn" id="btn-wa" type="button">Enviar resumo no WhatsApp</button>
           <button class="btn ghost" id="btn-print" type="button">Gerar PDF do laudo</button>
           <button class="btn ghost" id="btn-reset" type="button">Limpar</button>
@@ -805,6 +807,34 @@ el('btn-print').addEventListener('click', function(){
     + 'Emitido em ' + new Date().toLocaleDateString('pt-BR')
     + ' · Wisekey · CRECI SP 319841';
   window.print();
+});
+
+/* Cenário publicado na landing page: studio de R$ 350 mil, capital total de
+   R$ 423.476, R$ 2.640 líquidos por mês, 7,5% de renda. A diária está calibrada
+   para reproduzir exatamente esses R$ 2.640 no cenário conservador de 75%. */
+el('btn-base').addEventListener('click', function(){
+  el('apelido').value = 'Base do site: studio padrão Wisekey';
+  el('bairro').value = 'consola'; aplicarRegiao();
+  el('area').value = 26;
+  el('condominio').value = '580';
+  el('iptu').value = '1.800';
+  el('temporada').checked = true; alternarModo();
+  el('diaria').value = '216';
+  el('ocup').value = 75;
+  el('custosOp').value = '320';
+  el('taxaOp').value = 20;
+  el('manut').value = 5;
+  el('capRate').value = 7.5;
+  el('pesoRenda').value = 55;
+  el('custoAq').value = 5;
+  el('mobilia').value = '55.976';
+  el('reforma').value = '0';
+  el('valoriz').value = 5.5;
+  el('entradaPct').value = 20;
+  el('taxaFin').value = 11.7;
+  el('prazoFin').value = 30;
+  el('pedido').value = '350.000';
+  calc();
 });
 
 el('btn-reset').addEventListener('click', function(){
