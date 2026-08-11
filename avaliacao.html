@@ -295,8 +295,8 @@ footer i{color:var(--lilas)}
         </div>
         <div class="f">
           <label for="custoAq">Custos de aquisição (% do valor)</label>
-          <input type="number" id="custoAq" value="5.5" min="0" max="15" step="0.1">
-          <span class="hint">ITBI, escritura, registro e assessoria.</span>
+          <input type="number" id="custoAq" value="5" min="0" max="15" step="0.1">
+          <span class="hint">ITBI, escritura e registro. É o percentual que o banco estipula.</span>
         </div>
         <div class="f">
           <label for="mobilia">Mobília e enxoval (R$)</label>
@@ -321,11 +321,19 @@ footer i{color:var(--lilas)}
         </div>
         <div class="f">
           <label for="taxaFin">Juros do financiamento (% a.a.)</label>
-          <input type="number" id="taxaFin" value="11.5" min="0" max="30" step="0.1">
+          <input type="number" id="taxaFin" value="11.7" min="0" max="30" step="0.1">
         </div>
         <div class="f">
           <label for="prazoFin">Prazo (anos)</label>
           <input type="number" id="prazoFin" value="30" min="1" max="35" step="1">
+        </div>
+        <div class="f">
+          <label for="sistema">Sistema de amortização</label>
+          <select id="sistema">
+            <option value="sac" selected>SAC</option>
+            <option value="price">Price</option>
+          </select>
+          <span class="hint">No SAC a parcela começa mais alta e amortiza muito mais rápido.</span>
         </div>
       </div>
     </fieldset>
@@ -617,11 +625,20 @@ function calc(){
   var iAno = num('taxaFin')/100;
   var iMes = Math.pow(1 + iAno, 1/12) - 1;
   var nMes = num('prazoFin') * 12;
+  var sistema = el('sistema').value;
   var parcela = 0, amortAno1 = 0;
   if(financiado > 0 && iMes > 0 && nMes > 0){
-    parcela = financiado * iMes / (1 - Math.pow(1 + iMes, -nMes));
-    var saldo12 = financiado * Math.pow(1+iMes,12) - parcela * ((Math.pow(1+iMes,12) - 1)/iMes);
-    amortAno1 = financiado - saldo12;
+    if(sistema === 'sac'){
+      /* Amortização constante. A parcela cai todo mês, então o fluxo do primeiro
+         ano usa a média das 12 primeiras: o mês 1 é o pior e some rápido. */
+      var amortMes = financiado / nMes;
+      amortAno1 = amortMes * 12;
+      parcela = amortMes + iMes * financiado * (1 - 5.5/nMes);
+    } else {
+      parcela = financiado * iMes / (1 - Math.pow(1 + iMes, -nMes));
+      var saldo12 = financiado * Math.pow(1+iMes,12) - parcela * ((Math.pow(1+iMes,12) - 1)/iMes);
+      amortAno1 = financiado - saldo12;
+    }
   }
   var capitalAlav = entrada + pedido * custoAq + mobilia + reforma;
   var fluxoAlavMes = noiMes - parcela;
@@ -746,7 +763,8 @@ function calc(){
     linhas.push(['<b>Financiamento no preço pedido</b>','']);
     linhas.push(['Entrada', money(entrada)]);
     linhas.push(['Valor financiado', money(financiado)]);
-    linhas.push(['Parcela estimada (Price)', money(parcela)]);
+    linhas.push(['Sistema', sistema === 'sac' ? 'SAC' : 'Price']);
+    linhas.push([sistema === 'sac' ? 'Parcela média do 1º ano' : 'Parcela estimada', money(parcela)]);
     linhas.push(['Amortização no 1º ano', money(amortAno1)]);
   }
   el('r-memoria').innerHTML = linhas.map(function(l){
