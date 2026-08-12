@@ -3,14 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wisekey | Quanto vale a casa dele</title>
-<meta name="description" content="Avaliação Wisekey para quem quer vender: valor de mercado pelos métodos comparativo e evolutivo, preço de anúncio, venda rápida, quanto sobra no bolso e triagem se vale a avaliação completa.">
+<title>Wisekey | PTAM — Avaliação mercadológica</title>
+<meta name="description" content="Calculadora do Parecer Técnico de Avaliação Mercadológica da Wisekey: método comparativo direto com homogeneização, saneamento da amostra, intervalo de confiança e grau de fundamentação pela NBR 14653-2.">
 <meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
+  --azul:#132F70;
   --navy:#2D1E80; --navy-deep:#1c1259;
   --lilas:#DCD2FA; --lilas-soft:#efeafc;
   --verde:#25D366; --verde-dark:#1DA851;
@@ -26,15 +27,16 @@ header{position:sticky;top:0;background:rgba(255,255,255,.97);border-bottom:1px 
 .nav a.back{color:var(--muted);text-decoration:none;font-size:13.5px;font-weight:600}
 .nav a.back:hover{color:var(--navy)}
 .intro{background:var(--lilas-soft);padding:34px 0 30px}
-.kicker{color:var(--navy);font-weight:700;text-transform:uppercase;letter-spacing:.1em;font-size:12px;margin-bottom:8px}
-h1{font-size:clamp(24px,3.6vw,34px);line-height:1.2;font-weight:800;color:var(--navy);max-width:800px;margin-bottom:10px}
-.intro p{max-width:760px;color:var(--muted);font-size:15.5px}
+.kicker{color:var(--azul);font-weight:700;text-transform:uppercase;letter-spacing:.1em;font-size:12px;margin-bottom:8px}
+h1{font-size:clamp(24px,3.6vw,34px);line-height:1.2;font-weight:800;color:var(--azul);max-width:800px;margin-bottom:10px}
+.intro p{max-width:780px;color:var(--muted);font-size:15.5px}
 
 .layout{display:grid;grid-template-columns:minmax(0,1.32fr) minmax(0,1fr);gap:26px;padding:30px 0 60px;align-items:start}
 @media (max-width:940px){.layout{grid-template-columns:1fr}}
 
 fieldset{border:1px solid var(--line);border-radius:14px;padding:20px 20px 22px;margin-bottom:16px}
-legend{font-weight:800;color:var(--navy);font-size:14px;padding:0 8px;text-transform:uppercase;letter-spacing:.06em}
+legend{font-weight:800;color:var(--azul);font-size:14px;padding:0 8px;text-transform:uppercase;letter-spacing:.06em}
+legend .req{color:var(--bad);font-size:11px;letter-spacing:.04em}
 .fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px 14px}
 .f{display:flex;flex-direction:column}
 .f.span2{grid-column:span 2}
@@ -45,31 +47,37 @@ input[type=text],input[type=number],select{width:100%;padding:11px 12px;border-r
 input:focus,select:focus{outline:2px solid var(--lilas);border-color:var(--navy)}
 .inline{display:flex;align-items:center;gap:9px;font-size:13.5px;font-weight:600;color:var(--ink);padding:6px 0}
 .inline input[type=checkbox]{width:17px;height:17px;flex:none;accent-color:var(--navy)}
-.checks{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:0 16px}
+.checks{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:0 16px}
 .checks .inline{font-weight:400;font-size:13.5px}
 
-.comps{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:4px}
-.comps th{background:transparent;color:var(--navy);font-size:11.5px;text-transform:uppercase;letter-spacing:.04em;padding:0 6px 6px;text-align:left;font-weight:700}
-.comps td{padding:3px 6px 3px 0;border:none}
-.comps input{padding:9px 10px;font-size:14px}
-.comps .m2out{font-size:12.5px;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums;text-align:right;padding-right:0}
+.comps-scroll{overflow-x:auto;margin-top:6px}
+.comps{width:100%;min-width:620px;border-collapse:collapse;font-size:13px}
+.comps th{color:var(--azul);font-size:11px;text-transform:uppercase;letter-spacing:.04em;padding:0 5px 6px;text-align:left;font-weight:700;white-space:nowrap}
+.comps td{padding:3px 5px 3px 0;border:none}
+.comps input,.comps select{padding:8px 8px;font-size:13.5px}
+.comps .n{width:26px;color:var(--muted);font-weight:700;font-size:12px;padding-right:0}
+.comps .hom{white-space:nowrap;font-variant-numeric:tabular-nums;text-align:right;font-size:12.5px;font-weight:700;color:var(--azul);padding-right:0}
+.comps tr.fora .hom{color:var(--bad);text-decoration:line-through;font-weight:400}
+.comps tr.fora input,.comps tr.fora select{opacity:.55}
 
 .panel{position:sticky;top:74px}
 @media (max-width:940px){.panel{position:static}}
-.result{border:2px solid var(--navy);border-radius:16px;overflow:hidden;background:#fff}
-.result .head{background:var(--navy);color:#fff;padding:20px 22px}
+.result{border:2px solid var(--azul);border-radius:16px;overflow:hidden;background:#fff}
+.result .head{background:var(--azul);color:#fff;padding:20px 22px}
 .result .head span{display:block;font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--lilas);font-weight:700}
 .result .head b{display:block;font-size:clamp(30px,4.6vw,42px);font-weight:800;line-height:1.12;margin-top:4px}
-.result .head small{display:block;color:#C9BEF2;font-size:13px;margin-top:4px}
+.result .head small{display:block;color:#C3D0F0;font-size:13px;margin-top:4px}
 .result .body{padding:18px 22px 22px}
+.grau{display:inline-block;margin-top:10px;font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;border-radius:20px;padding:4px 13px;background:rgba(255,255,255,.16);color:#fff;border:1px solid rgba(255,255,255,.4)}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
 .tile{border:1px solid var(--line);border-radius:12px;padding:13px 14px;background:#fff}
 .tile span{display:block;font-size:11.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;font-weight:700;line-height:1.35}
 .tile b{display:block;font-size:19px;color:var(--navy);font-weight:800;margin-top:4px}
 .tile em{display:block;font-style:normal;font-size:11.5px;color:var(--muted);margin-top:2px}
-.tile.anuncio{border:2px solid var(--navy);background:var(--lilas-soft)}
-.tile.rapida{border:2px solid var(--verde);background:#F4FDF7}
-.tile.rapida b{color:var(--verde-dark)}
+.tile.anuncio{border:2px solid var(--azul);background:var(--lilas-soft)}
+.tile.anuncio b{color:var(--azul)}
+.tile.forcada{border:2px solid var(--warn);background:var(--warn-bg)}
+.tile.forcada b{color:var(--warn)}
 
 .verdict{border-radius:12px;padding:15px 16px;margin-bottom:16px;border:1px solid}
 .verdict b{display:block;font-size:15.5px;margin-bottom:4px}
@@ -84,13 +92,13 @@ input:focus,select:focus{outline:2px solid var(--lilas);border-color:var(--navy)
 
 table.out{width:100%;border-collapse:collapse;font-size:13.5px;margin-bottom:6px}
 table.out th,table.out td{padding:9px 10px;text-align:left;border-bottom:1px solid var(--line)}
-table.out th{background:var(--lilas-soft);color:var(--navy);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+table.out th{background:var(--lilas-soft);color:var(--azul);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.04em}
 table.out td.num,table.out th.num{text-align:right;font-variant-numeric:tabular-nums}
 table.out tr:last-child td{border-bottom:none}
-.row-total td{background:var(--lilas-soft);font-weight:700;color:var(--navy)}
+.row-total td{background:var(--lilas-soft);font-weight:700;color:var(--azul)}
 
 details{border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-top:14px}
-summary{font-weight:700;cursor:pointer;color:var(--navy);font-size:13.5px}
+summary{font-weight:700;cursor:pointer;color:var(--azul);font-size:13.5px}
 details table{margin-top:10px;font-size:12.5px;width:100%;border-collapse:collapse}
 details td{padding:6px 8px;border-bottom:1px solid var(--line)}
 details td.num{text-align:right;font-variant-numeric:tabular-nums}
@@ -98,8 +106,8 @@ details td.num{text-align:right;font-variant-numeric:tabular-nums}
 .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
 .btn{display:inline-block;background:var(--verde);color:#0B3320;font-weight:700;text-decoration:none;padding:13px 22px;border-radius:11px;border:none;font-size:14.5px;cursor:pointer;transition:background .15s;font-family:inherit}
 .btn:hover{background:var(--verde-dark);color:#fff}
-.btn.ghost{background:#fff;border:1.5px solid var(--navy);color:var(--navy)}
-.btn.ghost:hover{background:var(--lilas-soft);color:var(--navy)}
+.btn.ghost{background:#fff;border:1.5px solid var(--azul);color:var(--azul)}
+.btn.ghost:hover{background:var(--lilas-soft);color:var(--azul)}
 .disc{font-size:11.5px;color:var(--muted);margin-top:16px;line-height:1.55}
 .flag{font-size:12.5px;color:var(--warn);background:var(--warn-bg);border:1px solid #F0D9A0;border-radius:9px;padding:9px 11px;margin-bottom:12px;display:none}
 .flag.on{display:block}
@@ -115,6 +123,7 @@ footer i{color:var(--lilas)}
   .panel{position:static}
   fieldset{break-inside:avoid;page-break-inside:avoid}
   .result{break-inside:avoid}
+  .comps{min-width:0}
   body{font-size:12px}
   details{display:block}
   details[open] table{font-size:11px}
@@ -132,9 +141,9 @@ footer i{color:var(--lilas)}
 
 <section class="intro">
   <div class="wrap">
-    <div class="kicker">Ferramenta interna · Lado do vendedor</div>
-    <h1>Quanto vale a casa dele, e se vale a nossa avaliação completa.</h1>
-    <p>Casa não é studio: tem terreno, benfeitoria e depreciação, e por isso roda em dois métodos, o <b>comparativo</b> (o que imóveis parecidos estão pedindo) e o <b>evolutivo</b> (terreno + custo de reconstrução depreciado). Sai o valor, o preço de anúncio, o preço de venda rápida, quanto sobra no bolso do proprietário e a <b>triagem</b>: se o caso merece visita e laudo ou se a expectativa dele ainda está fora da realidade.</p>
+    <div class="kicker">Uso interno · PTAM · COFECI 1.066/2014 · NBR 14653-2</div>
+    <h1>Parecer Técnico de Avaliação Mercadológica</h1>
+    <p>Método Comparativo Direto de Dados de Mercado: cada comparável é <b>homogeneizado</b> para as características do avaliando, a amostra passa por <b>saneamento</b>, e o valor sai com <b>desvio padrão, intervalo de confiança e grau de fundamentação</b>. O método evolutivo entra como contraprova. Depreciação por Ross-Heidecke, como manda o checklist.</p>
   </div>
 </section>
 
@@ -145,19 +154,41 @@ footer i{color:var(--lilas)}
   <div>
 
     <fieldset>
-      <legend>1 · Imóvel e proprietário</legend>
+      <legend>1 · Identificação e finalidade <span class="req">obrigatório</span></legend>
       <div class="fields">
         <div class="f span2">
-          <label for="apelido">Identificação</label>
-          <input type="text" id="apelido" placeholder="Ex.: Casa do Sr. Antônio, Rua das Acácias 340, São João da Boa Vista">
+          <label for="solicitante">Solicitante</label>
+          <input type="text" id="solicitante" placeholder="Nome completo, e relação com o imóvel">
+        </div>
+        <div class="f span2">
+          <label for="apelido">Imóvel avaliando</label>
+          <input type="text" id="apelido" placeholder="Ex.: Rua das Acácias 340, Jardim Amélia, São João da Boa Vista/SP">
+        </div>
+        <div class="f span2">
+          <label for="finalidade">Finalidade do parecer</label>
+          <select id="finalidade">
+            <option value="venda">Venda no mercado aberto</option>
+            <option value="anuncio">Definição de preço de anúncio</option>
+            <option value="inventario">Inventário ou partilha</option>
+            <option value="divorcio">Divórcio ou dissolução</option>
+            <option value="garantia">Garantia ou análise patrimonial</option>
+            <option value="particulares">Negociação entre particulares</option>
+          </select>
+          <span class="hint">Em inventário, partilha, divórcio e garantia o parecer precisa trazer também o valor de liquidação forçada.</span>
         </div>
         <div class="f span2">
           <label for="regiao">Cidade / região</label>
           <select id="regiao"></select>
-          <span class="hint">Preenche as referências de terreno e de casa pronta. Todas ficam editáveis.</span>
+          <span class="hint">Preenche as referências de terreno e obra. Todas ficam editáveis.</span>
         </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>2 · Dados físicos <span class="req">obrigatório</span></legend>
+      <div class="fields">
         <div class="f">
-          <label for="tipo">Tipo de imóvel</label>
+          <label for="tipo">Tipo do imóvel</label>
           <select id="tipo">
             <option value="casa">Casa térrea</option>
             <option value="sobrado">Sobrado</option>
@@ -175,6 +206,20 @@ footer i{color:var(--lilas)}
           <input type="text" id="areaConstruida" inputmode="decimal" value="159">
         </div>
         <div class="f">
+          <label for="testada">Testada (m)</label>
+          <input type="text" id="testada" inputmode="decimal" value="10">
+          <span class="hint">Frente do lote.</span>
+        </div>
+        <div class="f">
+          <label for="topografia">Topografia</label>
+          <select id="topografia">
+            <option value="1.00" selected>Plano</option>
+            <option value="0.95">Aclive suave</option>
+            <option value="0.92">Declive suave</option>
+            <option value="0.85">Aclive ou declive acentuado</option>
+          </select>
+        </div>
+        <div class="f">
           <label for="dorms">Dormitórios</label>
           <input type="number" id="dorms" value="3" min="0" step="1">
         </div>
@@ -183,27 +228,17 @@ footer i{color:var(--lilas)}
           <input type="number" id="suites" value="1" min="0" step="1">
         </div>
         <div class="f">
+          <label for="banheiros">Banheiros e lavabos</label>
+          <input type="number" id="banheiros" value="2" min="0" step="1">
+        </div>
+        <div class="f">
           <label for="vagas">Vagas de garagem</label>
           <input type="number" id="vagas" value="2" min="0" step="1">
         </div>
-      </div>
-    </fieldset>
-
-    <fieldset>
-      <legend>2 · Estado, padrão e diferenciais</legend>
-      <div class="fields">
         <div class="f">
-          <label for="idade">Idade da construção (anos)</label>
+          <label for="idade">Ano ou idade da construção</label>
           <input type="number" id="idade" value="12" min="0" step="1">
-        </div>
-        <div class="f">
-          <label for="padrao">Padrão de acabamento</label>
-          <select id="padrao">
-            <option value="popular">Popular / simples</option>
-            <option value="normal" selected>Normal / médio</option>
-            <option value="alto">Alto padrão</option>
-            <option value="luxo">Luxo</option>
-          </select>
+          <span class="hint">Em anos. Entra na escala de Ross-Heidecke.</span>
         </div>
         <div class="f">
           <label for="conserv">Estado de conservação</label>
@@ -215,40 +250,58 @@ footer i{color:var(--lilas)}
             <option value="importantes">Precisa reparos importantes</option>
           </select>
         </div>
-      </div>
-      <div class="checks" style="margin-top:8px">
-        <label class="inline"><input type="checkbox" id="piscina"> Piscina</label>
-        <label class="inline"><input type="checkbox" id="edicula"> Edícula / área gourmet</label>
-        <label class="inline"><input type="checkbox" id="solarNasc"> Bem posicionada, sol da manhã</label>
-        <label class="inline"><input type="checkbox" id="ruaBoa" checked> Rua boa, sem problema de entorno</label>
+        <div class="f">
+          <label for="padrao">Padrão construtivo</label>
+          <select id="padrao">
+            <option value="popular">Simples</option>
+            <option value="normal" selected>Normal</option>
+            <option value="alto">Alto</option>
+            <option value="luxo">Luxo</option>
+          </select>
+        </div>
       </div>
     </fieldset>
 
     <fieldset>
-      <legend>3 · Comparáveis de mercado</legend>
-      <span class="hint" style="margin:0 0 10px">Anúncios de imóveis parecidos na mesma região, hoje. É o dado mais forte que existe: sempre que houver, ele manda na avaliação. Deixe em branco para usar a referência da região.</span>
-      <table class="comps">
-        <thead>
-          <tr><th style="width:38%">Área construída (m²)</th><th style="width:42%">Preço anunciado (R$)</th><th style="width:20%" class="num">R$/m²</th></tr>
-        </thead>
-        <tbody id="comps-body"></tbody>
-      </table>
-      <div class="fields" style="margin-top:12px">
+      <legend>3 · Amostra de comparáveis <span class="req">mínimo 5</span></legend>
+      <span class="hint" style="margin:0 0 8px">Imóveis semelhantes no mesmo bairro, anunciados hoje. Cada linha é homogeneizada para as características do avaliando: área, idade, conservação e padrão. A coluna da direita mostra o R$/m² já homogeneizado e com o fator de oferta aplicado.</span>
+      <div class="comps-scroll">
+        <table class="comps">
+          <thead>
+            <tr>
+              <th class="n"></th>
+              <th style="width:14%">Área (m²)</th>
+              <th style="width:22%">Preço anunciado</th>
+              <th style="width:13%">Idade</th>
+              <th style="width:20%">Conservação</th>
+              <th style="width:16%">Padrão</th>
+              <th class="hom">R$/m² hom.</th>
+            </tr>
+          </thead>
+          <tbody id="comps-body"></tbody>
+        </table>
+      </div>
+      <div class="fields" style="margin-top:14px">
         <div class="f">
-          <label for="fatorOferta">Desconto de oferta (%)</label>
+          <label for="fatorOferta">Fator de oferta (%)</label>
           <input type="number" id="fatorOferta" value="8" min="0" max="30" step="0.5">
-          <span class="hint">Quanto o anúncio costuma cair até fechar a venda na região.</span>
+          <span class="hint">Desconto médio entre anúncio e fechamento na região.</span>
         </div>
         <div class="f">
-          <label for="m2casa">R$/m² de casa pronta na região</label>
+          <label for="saneamento">Critério de saneamento (%)</label>
+          <input type="number" id="saneamento" value="30" min="10" max="60" step="5">
+          <span class="hint">Descarta o comparável que se afastar mais que isso da média homogeneizada.</span>
+        </div>
+        <div class="f">
+          <label for="m2casa">R$/m² de referência da região</label>
           <input type="text" id="m2casa" inputmode="decimal">
-          <span class="hint">Usado quando não há comparáveis preenchidos.</span>
+          <span class="hint">Só entra se a amostra ficar vazia. Nesse caso não há parecer, só estimativa.</span>
         </div>
       </div>
     </fieldset>
 
     <fieldset>
-      <legend>4 · Método evolutivo</legend>
+      <legend>4 · Contraprova pelo método evolutivo</legend>
       <div class="fields">
         <div class="f">
           <label for="m2terreno">Terreno na região (R$/m²)</label>
@@ -257,69 +310,66 @@ footer i{color:var(--lilas)}
         <div class="f">
           <label for="custoObra">Custo de reconstrução (R$/m²)</label>
           <input type="text" id="custoObra" inputmode="decimal">
-          <span class="hint">CUB do padrão escolhido, acrescido do custo de pessoa física.</span>
+          <span class="hint">CUB do padrão, com o adicional de pessoa física.</span>
         </div>
         <div class="f">
           <label for="vidaUtil">Vida útil da construção (anos)</label>
           <input type="number" id="vidaUtil" value="60" min="20" max="100" step="5">
-          <span class="hint">Base da depreciação por Ross-Heideke.</span>
         </div>
         <div class="f">
           <label for="fc">Fator de comercialização</label>
           <input type="number" id="fc" value="1.00" min="0.6" max="1.4" step="0.01">
-          <span class="hint">Acima de 1 em mercado aquecido, abaixo em mercado parado.</span>
-        </div>
-        <div class="f">
-          <label for="pesoComp">Peso do método comparativo (%)</label>
-          <input type="number" id="pesoComp" value="65" min="0" max="100" step="5">
-          <span class="hint">O restante vai para o evolutivo.</span>
         </div>
       </div>
     </fieldset>
 
     <fieldset>
-      <legend>5 · Checagem pela renda</legend>
+      <legend>5 · Benfeitorias e diferenciais</legend>
+      <div class="checks">
+        <label class="inline"><input type="checkbox" id="piscina"> Piscina</label>
+        <label class="inline"><input type="checkbox" id="edicula"> Edícula ou área gourmet</label>
+        <label class="inline"><input type="checkbox" id="churrasqueira"> Churrasqueira</label>
+        <label class="inline"><input type="checkbox" id="solar"> Energia solar</label>
+        <label class="inline"><input type="checkbox" id="boiler"> Aquecimento solar</label>
+        <label class="inline"><input type="checkbox" id="poco"> Poço artesiano</label>
+        <label class="inline"><input type="checkbox" id="planejados"> Armários planejados</label>
+        <label class="inline"><input type="checkbox" id="ruaBoa" checked> Entorno sem passivo</label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>6 · Documentação e ressalvas</legend>
+      <div class="checks">
+        <label class="inline"><input type="checkbox" id="dMatricula"> Matrícula com pendência</label>
+        <label class="inline"><input type="checkbox" id="dAverbacao"> Construção não averbada</label>
+        <label class="inline"><input type="checkbox" id="dEspolio"> Espólio ou inventário em curso</label>
+        <label class="inline"><input type="checkbox" id="dAlienado"> Financiado ou alienado</label>
+        <label class="inline"><input type="checkbox" id="dDebitos"> IPTU ou condomínio em atraso</label>
+        <label class="inline"><input type="checkbox" id="dInquilino"> Ocupado por inquilino</label>
+        <label class="inline"><input type="checkbox" id="dSemFin"> Não aceita financiamento</label>
+        <label class="inline"><input type="checkbox" id="dPressa"> Urgência real de venda</label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>7 · Contexto e conta do proprietário</legend>
       <div class="fields">
+        <div class="f span2">
+          <label for="expectativa">Valor pedido hoje (R$)</label>
+          <input type="text" id="expectativa" inputmode="decimal" placeholder="Ex.: 850000">
+          <span class="hint">O número que ele tem na cabeça. É o que decide se o caso avança.</span>
+        </div>
         <div class="f">
           <label for="aluguel">Aluguel praticável (R$/mês)</label>
           <input type="text" id="aluguel" inputmode="decimal" value="2200">
-          <span class="hint">Quanto essa casa alugaria hoje. Deixe 0 se não souber.</span>
         </div>
         <div class="f">
           <label for="cdi">CDI bruto (% a.a.)</label>
           <input type="number" id="cdi" value="10.5" min="0" max="30" step="0.1">
-          <span class="hint">A comparação usa o CDI líquido de 15% de IR.</span>
-        </div>
-      </div>
-    </fieldset>
-
-    <fieldset>
-      <legend>6 · Situação e documentação</legend>
-      <span class="hint" style="margin:0 0 6px">Cada pendência aqui derruba preço e prazo de venda, e pesa na triagem.</span>
-      <div class="checks">
-        <label class="inline"><input type="checkbox" id="dMatricula"> Matrícula com pendência ou irregularidade</label>
-        <label class="inline"><input type="checkbox" id="dAverbacao"> Construção não averbada na matrícula</label>
-        <label class="inline"><input type="checkbox" id="dEspolio"> Espólio ou inventário em andamento</label>
-        <label class="inline"><input type="checkbox" id="dAlienado"> Financiado ou alienado ao banco</label>
-        <label class="inline"><input type="checkbox" id="dDebitos"> IPTU ou condomínio em atraso</label>
-        <label class="inline"><input type="checkbox" id="dInquilino"> Ocupado por inquilino com contrato</label>
-        <label class="inline"><input type="checkbox" id="dSemFin" > Não aceita financiamento bancário</label>
-        <label class="inline"><input type="checkbox" id="dPressa"> Proprietário com pressa real de vender</label>
-      </div>
-    </fieldset>
-
-    <fieldset>
-      <legend>7 · Expectativa e conta do proprietário</legend>
-      <div class="fields">
-        <div class="f span2">
-          <label for="expectativa">Quanto ele acha que vale (R$)</label>
-          <input type="text" id="expectativa" inputmode="decimal" placeholder="Ex.: 850000">
-          <span class="hint">O número que ele falou. É o que decide se o caso avança.</span>
         </div>
         <div class="f">
           <label for="aquisicao">Valor de aquisição declarado (R$)</label>
           <input type="text" id="aquisicao" inputmode="decimal" placeholder="Ex.: 320000">
-          <span class="hint">O que consta na declaração de IR dele. Base do ganho de capital.</span>
         </div>
         <div class="f">
           <label for="comissao">Comissão de corretagem (%)</label>
@@ -330,7 +380,7 @@ footer i{color:var(--lilas)}
           <input type="text" id="saldoDevedor" inputmode="decimal" value="0">
         </div>
         <div class="f span2">
-          <label class="inline"><input type="checkbox" id="isencaoIR"> Isento de ganho de capital (único imóvel até R$ 440 mil, ou vai reinvestir em residencial em 180 dias)</label>
+          <label class="inline"><input type="checkbox" id="isencaoIR"> Isento de ganho de capital</label>
         </div>
       </div>
     </fieldset>
@@ -341,9 +391,10 @@ footer i{color:var(--lilas)}
   <div class="panel">
     <div class="result">
       <div class="head">
-        <span>Valor de mercado estimado</span>
+        <span>Valor de mercado</span>
         <b id="r-valor">—</b>
         <small id="r-faixa">—</small>
+        <span class="grau" id="r-grau">Amostra insuficiente</span>
       </div>
       <div class="body">
         <div class="flag" id="r-flag"></div>
@@ -354,29 +405,42 @@ footer i{color:var(--lilas)}
             <b id="r-anuncio">—</b>
             <em id="r-anuncio-desc">com margem de negociação</em>
           </div>
-          <div class="tile rapida">
-            <span>Venda rápida</span>
-            <b id="r-rapida">—</b>
-            <em>preço que fecha em 30 a 60 dias</em>
+          <div class="tile forcada" id="tile-forcada">
+            <span>Liquidação forçada</span>
+            <b id="r-forcada">—</b>
+            <em>venda em até 90 dias</em>
           </div>
         </div>
 
+        <table class="out">
+          <thead><tr><th>Tratamento estatístico da amostra</th><th class="num">Valor</th></tr></thead>
+          <tbody>
+            <tr><td>Comparáveis coletados</td><td class="num" id="r-n">—</td></tr>
+            <tr><td>Descartados no saneamento</td><td class="num" id="r-desc">—</td></tr>
+            <tr><td>Média homogeneizada</td><td class="num" id="r-media">—</td></tr>
+            <tr><td>Desvio padrão</td><td class="num" id="r-dp">—</td></tr>
+            <tr><td>Coeficiente de variação</td><td class="num" id="r-cv">—</td></tr>
+            <tr><td>Intervalo de confiança de 80%</td><td class="num" id="r-ic">—</td></tr>
+            <tr class="row-total"><td>Amplitude do intervalo</td><td class="num" id="r-amp">—</td></tr>
+          </tbody>
+        </table>
+
         <div class="two">
           <div class="tile">
-            <span>Método comparativo</span>
+            <span>Comparativo homogeneizado</span>
             <b id="r-comp">—</b>
             <em id="r-comp-m2">—</em>
           </div>
           <div class="tile">
-            <span>Método evolutivo</span>
+            <span>Evolutivo (contraprova)</span>
             <b id="r-evo">—</b>
             <em id="r-evo-dep">—</em>
           </div>
         </div>
 
         <div class="verdict v-warn" id="r-verdict">
-          <b id="r-verdict-t">Preencha a expectativa do proprietário</b>
-          <p id="r-verdict-p">A triagem compara o que ele quer com o que o imóvel vale, soma documentação, liquidez e renda, e diz se o caso merece visita e laudo completo.</p>
+          <b id="r-verdict-t">Preencha a amostra</b>
+          <p id="r-verdict-p">Sem pelo menos cinco comparáveis do bairro não há parecer com fundamentação, só estimativa.</p>
         </div>
 
         <table class="out">
@@ -384,7 +448,7 @@ footer i{color:var(--lilas)}
           <tbody>
             <tr><td>Preço de venda</td><td class="num" id="r-pv">—</td></tr>
             <tr><td>− Comissão de corretagem</td><td class="num" id="r-com">—</td></tr>
-            <tr><td>− Imposto sobre ganho de capital</td><td class="num" id="r-ir">—</td></tr>
+            <tr><td>− Ganho de capital</td><td class="num" id="r-ir">—</td></tr>
             <tr><td>− Quitação do saldo devedor</td><td class="num" id="r-saldo">—</td></tr>
             <tr class="row-total"><td>Líquido no bolso</td><td class="num" id="r-liquido">—</td></tr>
           </tbody>
@@ -407,13 +471,13 @@ footer i{color:var(--lilas)}
 
         <div class="actions">
           <button class="btn" id="btn-wa" type="button">Enviar resumo no WhatsApp</button>
-          <button class="btn ghost" id="btn-print" type="button">Gerar PDF da avaliação</button>
+          <button class="btn ghost" id="btn-print" type="button">Gerar PDF</button>
           <button class="btn ghost" id="btn-reset" type="button">Limpar</button>
         </div>
 
         <p class="emitido" id="r-emitido"></p>
 
-        <p class="disc">Avaliação indicativa de valor de mercado, apoiada nos métodos comparativo direto de dados de mercado e evolutivo, com depreciação por Ross-Heideke (NBR 14653-2). <b>Não é laudo de avaliação com força legal</b> e não substitui vistoria presencial, análise da matrícula e certidões. As referências de terreno, obra e R$/m² são estimativas de partida: substitua pelos seus comparáveis antes de apresentar qualquer número ao proprietário. O cálculo de ganho de capital é simplificado, ignora fatores de redução por tempo de posse e benfeitorias comprovadas, e não substitui a orientação de um contador.</p>
+        <p class="disc">Memória de cálculo de apoio ao Parecer Técnico de Avaliação Mercadológica, emitido por corretor de imóveis habilitado nos termos da Resolução COFECI nº 1.066/2014, com metodologia baseada na NBR 14653-2 (Método Comparativo Direto de Dados de Mercado) e depreciação por Ross-Heidecke. <b>Esta tela não é o parecer</b>: o PTAM exige vistoria, análise da matrícula e das certidões, registro das fontes e datas de coleta de cada comparável, e assinatura do responsável técnico. Para finalidades judiciais ou periciais pode ser exigida avaliação por engenheiro ou arquiteto habilitado. Validade sugerida do parecer: 6 meses. O cálculo de ganho de capital é simplificado e não substitui a orientação de um contador.</p>
       </div>
     </div>
   </div>
@@ -423,78 +487,88 @@ footer i{color:var(--lilas)}
 
 <footer>
   <div class="wrap">
-    Wisekey · CRECI SP 319841 · CNPJ 58.501.287/0001-13 · <i>Investir assim faz sentido.</i>
+    Wisekey Estrategia e Assessoria Ltda · CNPJ 58.501.287/0001-13 · Resp. técnico: Raphael Piotto Cardoso · CRECI/SP 319841-F · <i>Investir assim faz sentido.</i>
   </div>
 </footer>
 
 <script>
-/* ---------------- Referências por região ----------------
-   terreno: R$/m² de terreno urbano
-   casa: R$/m² de casa pronta, área construída, padrão normal
-   Estimativas de partida. Confirmar com comparáveis reais antes de usar. */
+/* Referências por região. Estimativas de partida: a amostra manda sempre que existir. */
 var REGIOES = [
-  {id:'sjbv-centro', n:'São João da Boa Vista · Centro',            terreno:900,   casa:3600},
+  {id:'sjbv-centro', n:'São João da Boa Vista · Centro',             terreno:900,  casa:3600},
+  {id:'sjbv-amelia', n:'São João da Boa Vista · Jardim Amélia',      terreno:600,  casa:3100},
   {id:'sjbv-bairro', n:'São João da Boa Vista · Bairros residenciais',terreno:550, casa:3000},
-  {id:'sjbv-cond',   n:'São João da Boa Vista · Condomínio fechado', terreno:700,   casa:4200},
-  {id:'sjbv-chac',   n:'São João da Boa Vista · Chácaras e rural',   terreno:120,   casa:2600},
-  {id:'regiao-peq',  n:'Aguaí, Vargem Grande, Casa Branca',          terreno:380,   casa:2500},
+  {id:'sjbv-cond',   n:'São João da Boa Vista · Condomínio fechado',  terreno:700,  casa:4200},
+  {id:'sjbv-chac',   n:'São João da Boa Vista · Chácaras e rural',    terreno:120,  casa:2600},
+  {id:'regiao-peq',  n:'Aguaí, Vargem Grande, Casa Branca',           terreno:380,  casa:2500},
   {id:'regiao-med',  n:'Espírito Santo do Pinhal, Mococa, S. J. Rio Pardo', terreno:420, casa:2700},
-  {id:'pocos',       n:'Poços de Caldas',                            terreno:800,   casa:3600},
-  {id:'cps-cambui',  n:'Campinas · Cambuí e Taquaral',               terreno:2600,  casa:6500},
-  {id:'cps-barao',   n:'Campinas · Barão Geraldo',                   terreno:1600,  casa:5200},
-  {id:'cps-cond',    n:'Campinas · Condomínios fechados',            terreno:1500,  casa:5800},
-  {id:'cps-bairro',  n:'Campinas · Bairros medianos',                terreno:900,   casa:3800},
-  {id:'sp-oeste',    n:'São Paulo · Zona Oeste (Perdizes, Alto de Pinheiros)', terreno:11000, casa:12000},
-  {id:'sp-sul',      n:'São Paulo · Zona Sul (Vila Mariana, Campo Belo)',      terreno:8500,  casa:10000},
-  {id:'sp-leste',    n:'São Paulo · Zona Leste (Tatuapé, Anália Franco)',      terreno:5500,  casa:7500},
-  {id:'sp-norte',    n:'São Paulo · Zona Norte (Santana, Tucuruvi)',           terreno:5000,  casa:7000},
-  {id:'outra',       n:'Outra região (preencho na mão)',             terreno:0,     casa:0}
+  {id:'pocos',       n:'Poços de Caldas',                             terreno:800,  casa:3600},
+  {id:'cps-cambui',  n:'Campinas · Cambuí e Taquaral',                terreno:2600, casa:6500},
+  {id:'cps-barao',   n:'Campinas · Barão Geraldo',                    terreno:1600, casa:5200},
+  {id:'cps-cond',    n:'Campinas · Condomínios fechados',             terreno:1500, casa:5800},
+  {id:'cps-bairro',  n:'Campinas · Bairros medianos',                 terreno:900,  casa:3800},
+  {id:'sp-oeste',    n:'São Paulo · Zona Oeste',                      terreno:11000,casa:12000},
+  {id:'sp-sul',      n:'São Paulo · Zona Sul',                        terreno:8500, casa:10000},
+  {id:'sp-leste',    n:'São Paulo · Zona Leste',                      terreno:5500, casa:7500},
+  {id:'sp-norte',    n:'São Paulo · Zona Norte',                      terreno:5000, casa:7000},
+  {id:'outra',       n:'Outra região (preencho na mão)',              terreno:0,    casa:0}
 ];
 
-/* Custo de reconstrução por padrão, R$/m², já com o adicional de pessoa física. */
-var CUSTO_OBRA = {popular:2200, normal:3200, alto:4800, luxo:7200};
-/* Fator de padrão sobre o comparativo, em relação ao padrão normal da região. */
+var CUSTO_OBRA   = {popular:2200, normal:3200, alto:4800, luxo:7200};
 var FATOR_PADRAO = {popular:0.88, normal:1.00, alto:1.15, luxo:1.30};
-/* Coeficiente de Heideke por estado de conservação. */
-var HEIDEKE = {novo:0, otimo:0.032, regular:0.182, simples:0.331, importantes:0.523};
-/* Fator de conservação sobre o comparativo. */
-var FATOR_CONSERV = {novo:1.08, otimo:1.04, regular:1.00, simples:0.92, importantes:0.82};
+var HEIDECKE     = {novo:0, otimo:0.032, regular:0.182, simples:0.331, importantes:0.523};
+var FATOR_CONSERV= {novo:1.08, otimo:1.04, regular:1.00, simples:0.92, importantes:0.82};
 
-var N_COMPS = 4;
+/* t de Student para intervalo de confiança de 80%, bicaudal, por graus de liberdade. */
+var T80 = [3.078,1.886,1.638,1.533,1.476,1.440,1.415,1.397,1.383,1.372,1.363,1.356,1.350,1.345,1.341];
+function tStudent(n){ var df = n - 1; if(df < 1) return 0; return T80[Math.min(df, T80.length) - 1]; }
 
-/* ---------------- helpers ---------------- */
+var N_COMPS = 8;
+
 function el(id){return document.getElementById(id)}
 function parseNum(raw){
   raw = String(raw == null ? '' : raw).trim();
   if(!raw) return 0;
   raw = raw.replace(/[R$\s]/g,'');
-  if(raw.indexOf(',') > -1){
-    raw = raw.replace(/\./g,'').replace(',','.');
-  } else if(/^-?\d{1,3}(\.\d{3})+$/.test(raw)){
-    raw = raw.replace(/\./g,'');
-  }
+  if(raw.indexOf(',') > -1) raw = raw.replace(/\./g,'').replace(',','.');
+  else if(/^-?\d{1,3}(\.\d{3})+$/.test(raw)) raw = raw.replace(/\./g,'');
   var v = parseFloat(raw);
   return isFinite(v) ? v : 0;
 }
 function num(id){return parseNum(el(id).value)}
 var fmtBRL = new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0});
 function money(v){return isFinite(v) ? fmtBRL.format(Math.round(v)) : '—'}
-function pct(v,casas){return isFinite(v) ? (v*100).toFixed(casas==null?1:casas).replace('.',',')+'%' : '—'}
+function pct(v,c){return isFinite(v) ? (v*100).toFixed(c==null?1:c).replace('.',',')+'%' : '—'}
 function fator(v){return v.toFixed(3).replace('.',',')}
 
-/* ---------------- montagem dos comparáveis ---------------- */
+/* Fator de área: unidade menor tem R$/m² maior. Homogeneíza o comparável ao avaliando. */
+function fArea(areaComp, areaAval){
+  if(areaComp <= 0 || areaAval <= 0) return 1;
+  return Math.min(1.20, Math.max(0.83, Math.pow(areaComp/areaAval, 0.125)));
+}
+function fIdade(anos){ return 1 - Math.min(0.30, anos * 0.005); }
+
+/* ---------------- montagem da amostra ---------------- */
 (function(){
+  var optConserv = '<option value="novo">Novo</option><option value="otimo">Ótimo</option>'
+                 + '<option value="regular" selected>Regular</option><option value="simples">Reparos simples</option>'
+                 + '<option value="importantes">Reparos importantes</option>';
+  var optPadrao  = '<option value="popular">Simples</option><option value="normal" selected>Normal</option>'
+                 + '<option value="alto">Alto</option><option value="luxo">Luxo</option>';
   var tb = el('comps-body');
   for(var i=1;i<=N_COMPS;i++){
     var tr = document.createElement('tr');
-    tr.innerHTML = '<td><input type="text" inputmode="decimal" id="cArea'+i+'" placeholder="m²"></td>'
-                 + '<td><input type="text" inputmode="decimal" id="cPreco'+i+'" placeholder="R$"></td>'
-                 + '<td class="m2out" id="cOut'+i+'">—</td>';
+    tr.id = 'row'+i;
+    tr.innerHTML = '<td class="n">'+i+'</td>'
+      + '<td><input type="text" inputmode="decimal" id="cArea'+i+'" placeholder="m²"></td>'
+      + '<td><input type="text" inputmode="decimal" id="cPreco'+i+'" placeholder="R$"></td>'
+      + '<td><input type="number" id="cIdade'+i+'" placeholder="anos" min="0" step="1"></td>'
+      + '<td><select id="cConserv'+i+'">'+optConserv+'</select></td>'
+      + '<td><select id="cPadrao'+i+'">'+optPadrao+'</select></td>'
+      + '<td class="hom" id="cOut'+i+'">—</td>';
     tb.appendChild(tr);
   }
 })();
 
-/* ---------------- select de regiões ---------------- */
 (function(){
   var s = el('regiao');
   REGIOES.forEach(function(r){
@@ -502,7 +576,7 @@ function fator(v){return v.toFixed(3).replace('.',',')}
     o.value = r.id; o.textContent = r.n;
     s.appendChild(o);
   });
-  s.value = 'sjbv-bairro';
+  s.value = 'sjbv-amelia';
 })();
 
 function aplicarRegiao(){
@@ -511,80 +585,120 @@ function aplicarRegiao(){
   el('m2terreno').value = r.terreno.toLocaleString('pt-BR');
   el('m2casa').value    = r.casa.toLocaleString('pt-BR');
 }
-function aplicarPadrao(){
-  el('custoObra').value = CUSTO_OBRA[el('padrao').value].toLocaleString('pt-BR');
-}
+function aplicarPadrao(){ el('custoObra').value = CUSTO_OBRA[el('padrao').value].toLocaleString('pt-BR'); }
 
-/* ---------------- motor de cálculo ---------------- */
+/* ---------------- motor ---------------- */
 function calc(){
   var tipo        = el('tipo').value;
   var eTerreno    = tipo === 'terreno';
   var areaTerreno = num('areaTerreno');
   var areaConst   = eTerreno ? 0 : num('areaConstruida');
   var m2terreno   = num('m2terreno');
-  var m2casaRef   = num('m2casa');
   var idade       = num('idade');
   var vidaUtil    = Math.max(1, num('vidaUtil'));
   var padrao      = el('padrao').value;
   var conserv     = el('conserv').value;
+  var descOferta  = num('fatorOferta')/100;
+  var limSaneio   = num('saneamento')/100;
 
-  /* -------- comparáveis -------- */
-  var m2s = [];
+  /* -------- homogeneização de cada comparável -------- */
+  var fPadraoAval  = FATOR_PADRAO[padrao];
+  var fConservAval = FATOR_CONSERV[conserv];
+  var fIdadeAval   = fIdade(idade);
+
+  var dados = [];
   for(var i=1;i<=N_COMPS;i++){
     var a = parseNum(el('cArea'+i).value), p = parseNum(el('cPreco'+i).value);
-    var out = el('cOut'+i);
     if(a > 0 && p > 0){
-      var u = p/a; m2s.push(u);
-      out.textContent = fmtBRL.format(Math.round(u));
+      var fa = fArea(a, areaConst > 0 ? areaConst : a);
+      var fp = fPadraoAval  / FATOR_PADRAO[el('cPadrao'+i).value];
+      var fc = fConservAval / FATOR_CONSERV[el('cConserv'+i).value];
+      var fi = fIdadeAval   / fIdade(parseNum(el('cIdade'+i).value));
+      var hom = (p/a) * fa * fp * fc * fi * (1 - descOferta);
+      dados.push({i:i, area:a, preco:p, unit:p/a, hom:hom, fa:fa, fp:fp, fc:fc, fi:fi});
     } else {
-      out.textContent = '—';
+      el('cOut'+i).textContent = '—';
+      el('row'+i).className = '';
     }
   }
-  var descOferta = num('fatorOferta')/100;
-  var temComps = m2s.length > 0;
-  var m2bruto = temComps ? m2s.reduce(function(s,v){return s+v},0)/m2s.length : m2casaRef;
-  var m2mercado = m2bruto * (1 - descOferta);
 
-  /* -------- fatores de ajuste do comparativo -------- */
-  var fPadrao  = FATOR_PADRAO[padrao];
-  var fConserv = FATOR_CONSERV[conserv];
-  var fIdade   = 1 - Math.min(0.30, idade * 0.005);
-  var fVagas   = 1 + Math.min(0.06, Math.max(0, num('vagas') - 1) * 0.03);
-  var fSuites  = 1 + Math.min(0.06, num('suites') * 0.03);
-  var fPiscina = el('piscina').checked ? 1.04 : 1.00;
-  var fEdicula = el('edicula').checked ? 1.03 : 1.00;
-  var fSol     = el('solarNasc').checked ? 1.02 : 1.00;
-  var fRua     = el('ruaBoa').checked ? 1.00 : 0.94;
-  var fCond    = tipo === 'condominio' ? 1.08 : 1.00;
-  var fSobrado = tipo === 'sobrado' ? 0.98 : 1.00;
-  var fFin     = el('dSemFin').checked ? 0.93 : 1.00;
-  var fDoc     = 1.00;
+  /* -------- saneamento -------- */
+  var n0 = dados.length;
+  var mediaBruta = n0 ? dados.reduce(function(s,d){return s+d.hom},0)/n0 : 0;
+  dados.forEach(function(d){ d.ok = n0 < 3 ? true : Math.abs(d.hom - mediaBruta)/mediaBruta <= limSaneio; });
+  var validos = dados.filter(function(d){return d.ok});
+  var descartados = n0 - validos.length;
+
+  dados.forEach(function(d){
+    el('cOut'+d.i).textContent = fmtBRL.format(Math.round(d.hom));
+    el('row'+d.i).className = d.ok ? '' : 'fora';
+  });
+
+  /* -------- estatística da amostra saneada -------- */
+  var n = validos.length;
+  var media = n ? validos.reduce(function(s,d){return s+d.hom},0)/n : 0;
+  var dp = 0;
+  if(n > 1){
+    var somaQ = validos.reduce(function(s,d){return s + Math.pow(d.hom - media, 2)},0);
+    dp = Math.sqrt(somaQ/(n-1));
+  }
+  var cv = media ? dp/media : 0;
+  var t = tStudent(n);
+  var erro = n > 1 ? t * dp / Math.sqrt(n) : 0;
+  var icInf = media - erro, icSup = media + erro;
+  var amplitude = media ? (icSup - icInf)/media : 0;
+
+  /* -------- grau de fundamentação -------- */
+  var grau, grauTxt;
+  if(n >= 12 && amplitude <= 0.30)      { grau = 3; grauTxt = 'Grau III de fundamentação'; }
+  else if(n >= 5 && amplitude <= 0.40)  { grau = 2; grauTxt = 'Grau II de fundamentação'; }
+  else if(n >= 3 && amplitude <= 0.50)  { grau = 1; grauTxt = 'Grau I de fundamentação'; }
+  else if(n > 0)                        { grau = 0; grauTxt = 'Amostra fora do grau mínimo'; }
+  else                                  { grau = -1; grauTxt = 'Sem amostra: estimativa, não parecer'; }
+
+  /* -------- fatores complementares do avaliando -------- */
+  var fVagas  = 1 + Math.min(0.06, Math.max(0, num('vagas') - 1) * 0.03);
+  var fSuites = 1 + Math.min(0.06, num('suites') * 0.03);
+  var fBanhos = 1 + Math.min(0.04, Math.max(0, num('banheiros') - 2) * 0.02);
+  var fPisc   = el('piscina').checked ? 1.04 : 1.00;
+  var fEdic   = el('edicula').checked ? 1.03 : 1.00;
+  var fChurr  = el('churrasqueira').checked ? 1.01 : 1.00;
+  var fSolar  = el('solar').checked ? 1.03 : 1.00;
+  var fBoiler = el('boiler').checked ? 1.01 : 1.00;
+  var fPoco   = el('poco').checked ? 1.01 : 1.00;
+  var fPlan   = el('planejados').checked ? 1.02 : 1.00;
+  var fRua    = el('ruaBoa').checked ? 1.00 : 0.94;
+  var fCond   = tipo === 'condominio' ? 1.08 : 1.00;
+  var fSob    = tipo === 'sobrado' ? 0.98 : 1.00;
+  var fTopo   = parseFloat(el('topografia').value) || 1;
+  var fFin    = el('dSemFin').checked ? 0.93 : 1.00;
+  var fDoc    = 1.00;
   if(el('dMatricula').checked) fDoc *= 0.90;
   if(el('dAverbacao').checked) fDoc *= 0.96;
   if(el('dEspolio').checked)   fDoc *= 0.95;
   if(el('dInquilino').checked) fDoc *= 0.97;
+  var fCompl = fVagas*fSuites*fBanhos*fPisc*fEdic*fChurr*fSolar*fBoiler*fPoco*fPlan*fRua*fCond*fSob*fFin*fDoc;
 
-  var fAjuste = fPadrao*fConserv*fIdade*fVagas*fSuites*fPiscina*fEdicula*fSol*fRua*fCond*fSobrado*fFin*fDoc;
-
-  /* Terreno acima do padrão da região entra a 50%: quintal grande agrega, mas não
-     na mesma proporção do metro construído. */
+  /* -------- valor pelo comparativo -------- */
+  var m2ref = num('m2casa');
+  var temAmostra = n > 0;
+  var unitBase = temAmostra ? media : m2ref * (1 - descOferta);
   var terrenoTipico = areaConst * 3;
   var excedente = Math.max(0, areaTerreno - terrenoTipico);
-  var valorExcedente = excedente * m2terreno * 0.5;
+  var valorExcedente = excedente * m2terreno * 0.5 * fTopo;
 
-  var compOk = eTerreno ? (areaTerreno > 0 && m2terreno > 0)
-                        : (areaConst > 0 && m2mercado > 0);
+  var compOk = eTerreno ? (areaTerreno > 0 && m2terreno > 0) : (areaConst > 0 && unitBase > 0);
   var valorComp = 0;
-  if(eTerreno) valorComp = areaTerreno * m2terreno * fRua * fDoc;
-  else if(compOk) valorComp = areaConst * m2mercado * fAjuste + valorExcedente;
+  if(eTerreno) valorComp = areaTerreno * m2terreno * fTopo * fRua * fDoc;
+  else if(compOk) valorComp = areaConst * unitBase * fCompl + valorExcedente;
 
-  /* -------- método evolutivo com Ross-Heideke -------- */
-  var valorTerreno = areaTerreno * m2terreno;
-  var custoObra    = num('custoObra');
-  var custoNovo    = areaConst * custoObra;
-  var k     = Math.min(1, idade / vidaUtil);
-  var ross  = 0.5 * (k + k*k);
-  var heid  = HEIDEKE[conserv];
+  /* -------- evolutivo -------- */
+  var valorTerreno = areaTerreno * m2terreno * fTopo;
+  var custoObra = num('custoObra');
+  var custoNovo = areaConst * custoObra;
+  var k = Math.min(1, idade/vidaUtil);
+  var ross = 0.5 * (k + k*k);
+  var heid = HEIDECKE[conserv];
   var deprec = Math.min(0.95, ross + heid * (1 - ross));
   var benfeitoria = custoNovo * (1 - deprec);
   var fcom = num('fc') || 1;
@@ -592,19 +706,16 @@ function calc(){
                        : (areaTerreno > 0 && m2terreno > 0 && areaConst > 0 && custoObra > 0);
   var valorEvo = evoOk ? (valorTerreno + benfeitoria) * fcom * fDoc * fFin : 0;
 
-  /* -------- ponderação -------- */
-  var wComp = Math.min(1, Math.max(0, num('pesoComp')/100));
-  var wEfetivo = (compOk && evoOk) ? wComp : (compOk ? 1 : 0);
-  var completo = compOk || evoOk;
-  var valor = 0;
-  if(compOk && evoOk) valor = valorComp * wComp + valorEvo * (1 - wComp);
-  else if(compOk)     valor = valorComp;
-  else if(evoOk)      valor = valorEvo;
+  /* O parecer conclui pelo comparativo. O evolutivo é contraprova, não média. */
+  var valor = compOk ? valorComp : (evoOk ? valorEvo : 0);
+  var completo = valor > 0;
 
   /* -------- preços derivados -------- */
-  var margemAnuncio = 1 + descOferta;
-  var anuncio = valor * margemAnuncio;
-  var rapida  = valor * 0.88;
+  var anuncio = valor * (1 + descOferta);
+  var forcada = valor * 0.75;
+  var finalidade = el('finalidade').value;
+  var exigeForcada = ['inventario','divorcio','garantia'].indexOf(finalidade) > -1;
+  el('tile-forcada').style.display = exigeForcada ? '' : 'none';
 
   /* -------- conta do proprietário -------- */
   var comissao = valor * (num('comissao')/100);
@@ -614,24 +725,34 @@ function calc(){
   var saldo = num('saldoDevedor');
   var liquido = valor - comissao - ir - saldo;
 
-  /* -------- checagem pela renda -------- */
+  /* -------- renda -------- */
   var aluguel = num('aluguel');
   var yMes = valor > 0 ? aluguel/valor : 0;
-  var yAno = yMes * 12;
   var cdiLiq = (num('cdi')/100) * 0.85;
 
   /* ---------------- render ---------------- */
-  el('r-valor').textContent = completo && valor > 0 ? money(valor) : '—';
-  el('r-faixa').textContent = completo && valor > 0
-    ? 'Faixa de trabalho: ' + money(valor*0.92) + ' a ' + money(valor*1.08)
-    : 'Preencha área, terreno e as referências da região';
+  el('r-valor').textContent = completo ? money(valor) : '—';
+  el('r-faixa').textContent = completo
+    ? (n > 1 ? 'Intervalo de confiança: ' + money(valor*(icInf/media)) + ' a ' + money(valor*(icSup/media))
+             : 'Faixa de trabalho: ' + money(valor*0.92) + ' a ' + money(valor*1.08))
+    : 'Preencha os dados físicos e a amostra';
+  el('r-grau').textContent = grauTxt;
+
+  el('r-n').textContent    = n0 ? n0 + ' comparáve' + (n0>1?'is':'l') : '—';
+  el('r-desc').textContent = n0 ? (descartados ? descartados + ' (fora de ' + pct(limSaneio,0) + ' da média)' : 'nenhum') : '—';
+  el('r-media').textContent= n ? money(media) + '/m²' : '—';
+  el('r-dp').textContent   = n > 1 ? money(dp) + '/m²' : '—';
+  el('r-cv').textContent   = n > 1 ? pct(cv) : '—';
+  el('r-ic').textContent   = n > 1 ? money(icInf) + ' a ' + money(icSup) : '—';
+  el('r-amp').textContent  = n > 1 ? pct(amplitude) : '—';
+
   el('r-anuncio').textContent = completo ? money(anuncio) : '—';
   el('r-anuncio-desc').textContent = 'margem de ' + pct(descOferta,0) + ' para negociar';
-  el('r-rapida').textContent = completo ? money(rapida) : '—';
+  el('r-forcada').textContent = completo ? money(forcada) : '—';
   el('r-comp').textContent = compOk ? money(valorComp) : '—';
-  el('r-comp-m2').textContent = temComps
-    ? money(m2mercado) + '/m² de ' + m2s.length + ' comparáve' + (m2s.length>1?'is':'l')
-    : (compOk ? money(m2mercado) + '/m² da referência da região' : 'Faltam comparáveis ou R$/m²');
+  el('r-comp-m2').textContent = temAmostra
+    ? money(unitBase) + '/m² de ' + n + ' comparáve' + (n>1?'is':'l')
+    : (compOk ? money(unitBase) + '/m² da referência da região' : 'Faltam dados');
   el('r-evo').textContent = evoOk ? money(valorEvo) : '—';
   el('r-evo-dep').textContent = eTerreno ? 'Terreno sem benfeitoria'
     : 'Terreno ' + money(valorTerreno) + ' + obra depreciada em ' + pct(deprec,0);
@@ -643,7 +764,7 @@ function calc(){
   el('r-liquido').textContent = completo ? money(liquido) : '—';
 
   el('r-ymes').textContent = (aluguel > 0 && valor > 0) ? pct(yMes,2) : '—';
-  el('r-yano').textContent = (aluguel > 0 && valor > 0) ? pct(yAno) : '—';
+  el('r-yano').textContent = (aluguel > 0 && valor > 0) ? pct(yMes*12) : '—';
   el('r-cdi').textContent = pct(cdiLiq);
   el('r-leitura').textContent = (aluguel > 0 && valor > 0)
     ? (yMes >= 0.005 ? 'Renda boa para casa' : (yMes >= 0.0035 ? 'Renda na média' : 'Ativo de moradia, não de renda'))
@@ -651,30 +772,24 @@ function calc(){
 
   /* -------- alertas -------- */
   var flags = [];
-  if(!temComps && compOk) flags.push('Nenhum comparável preenchido: a avaliação está usando o R$/m² genérico da região. Coloque três anúncios reais antes de levar qualquer número ao proprietário.');
-  if(compOk && evoOk && valorEvo > 0 && Math.abs(valorComp - valorEvo)/valorEvo > 0.30) flags.push('Os dois métodos divergem mais de 30%. Reveja os comparáveis, o R$/m² de terreno e o custo de obra antes de confiar no número.');
-  if(!eTerreno && areaConst > 0 && areaTerreno > 0 && areaTerreno/areaConst > 6) flags.push('Terreno muito grande para a construção. Boa parte do valor está no chão, e isso reduz liquidez: o comprador de moradia não paga por terreno ocioso.');
-  if(el('dMatricula').checked || el('dEspolio').checked) flags.push('Pendência de matrícula ou inventário: sem resolver, não há venda financiada nem prazo previsível.');
-  if(el('dAverbacao').checked && areaConst > 0) flags.push('Construção não averbada: para o banco, esse imóvel é um terreno. Averbar antes de anunciar muda o valor e o público.');
-  if(idade > vidaUtil * 0.8) flags.push('Construção perto do fim da vida útil adotada. O valor está quase todo no terreno.');
+  if(n0 === 0 && compOk) flags.push('Sem amostra: o número está saindo do R$/m² genérico da região. Isso é estimativa, não parecer. O PTAM exige no mínimo cinco comparáveis do próprio bairro, com fonte e data de coleta.');
+  else if(n0 > 0 && n < 5) flags.push('Só ' + n + ' comparáve' + (n>1?'is válidos':'l válido') + ' na amostra. O checklist exige cinco. Abaixo disso o parecer sai sem grau de fundamentação defensável.');
+  if(n > 1 && cv > 0.25) flags.push('Dispersão alta na amostra (coeficiente de variação de ' + pct(cv) + '). Os comparáveis não são tão parecidos entre si quanto deveriam. Reveja a seleção antes de concluir.');
+  if(descartados > 0) flags.push(descartados + ' comparáve' + (descartados>1?'is foram descartados':'l foi descartado') + ' no saneamento. Confira se não é erro de digitação antes de aceitar o descarte.');
+  if(compOk && evoOk && valorEvo > 0 && Math.abs(valorComp - valorEvo)/valorEvo > 0.30) flags.push('O evolutivo diverge mais de 30% do comparativo. Reveja o R$/m² de terreno e o custo de obra: a contraprova não está confirmando a conclusão.');
+  if(el('dAverbacao').checked && areaConst > 0) flags.push('Construção não averbada: precisa constar como ressalva expressa no parecer, e afeta a liquidez. Para o banco, o imóvel é um terreno.');
+  if(el('dMatricula').checked || el('dEspolio').checked) flags.push('Pendência de matrícula ou inventário em curso: ressalva obrigatória no parecer.');
+  if(idade > vidaUtil*0.8) flags.push('Construção perto do fim da vida útil adotada. O valor está quase todo no terreno.');
+  if(exigeForcada) flags.push('A finalidade escolhida exige que o parecer traga também o valor de liquidação forçada, além do valor de mercado.');
   var fl = el('r-flag');
   fl.className = flags.length ? 'flag on' : 'flag';
   fl.innerHTML = flags.map(function(f){return '⚠ ' + f}).join('<br>');
 
-  /* -------- triagem Wisekey -------- */
+  /* -------- triagem -------- */
   var expectativa = num('expectativa');
   var temExp = expectativa > 0;
   var gap = (temExp && valor > 0) ? (expectativa - valor)/valor : 0;
-
-  var sExp;
-  if(!temExp) sExp = 15;
-  else if(gap <= 0)    sExp = 30;
-  else if(gap <= 0.05) sExp = 27;
-  else if(gap <= 0.10) sExp = 22;
-  else if(gap <= 0.18) sExp = 14;
-  else if(gap <= 0.30) sExp = 6;
-  else sExp = 0;
-
+  var sExp = !temExp ? 15 : (gap <= 0 ? 30 : gap <= 0.05 ? 27 : gap <= 0.10 ? 22 : gap <= 0.18 ? 14 : gap <= 0.30 ? 6 : 0);
   var sDoc = 25;
   if(el('dMatricula').checked) sDoc -= 12;
   if(el('dAverbacao').checked) sDoc -= 8;
@@ -683,7 +798,6 @@ function calc(){
   if(el('dDebitos').checked)   sDoc -= 3;
   if(el('dInquilino').checked) sDoc -= 3;
   sDoc = Math.max(0, sDoc);
-
   var sLiq = 25;
   if(el('dSemFin').checked) sLiq -= 10;
   if(!el('ruaBoa').checked) sLiq -= 4;
@@ -693,111 +807,99 @@ function calc(){
   if(!eTerreno && areaConst > 0 && areaTerreno/areaConst > 6) sLiq -= 3;
   if(el('dPressa').checked) sLiq += 4;
   sLiq = Math.max(0, Math.min(25, sLiq));
-
-  var sRenda;
-  if(aluguel <= 0 || valor <= 0) sRenda = 8;
-  else if(yMes >= 0.005)  sRenda = 20;
-  else if(yMes >= 0.004)  sRenda = 15;
-  else if(yMes >= 0.003)  sRenda = 10;
-  else sRenda = 5;
-
+  var sRenda = (aluguel <= 0 || valor <= 0) ? 8 : (yMes >= 0.005 ? 20 : yMes >= 0.004 ? 15 : yMes >= 0.003 ? 10 : 5);
   var score = Math.round(sExp + sDoc + sLiq + sRenda);
-  var vb = el('r-verdict'), vt = el('r-verdict-t'), vp = el('r-verdict-p');
 
-  /* Dois vetos: nem 100 pontos de documentação e liquidez salvam uma expectativa
-     30% acima do mercado, nem uma matrícula travada. */
+  var vb = el('r-verdict'), vt = el('r-verdict-t'), vp = el('r-verdict-p');
   var vetoExp = temExp && gap > 0.30;
   var vetoDoc = el('dMatricula').checked || el('dEspolio').checked;
 
-  if(!completo || valor <= 0){
+  if(!completo){
     vb.className = 'verdict v-warn';
-    vt.innerHTML = 'Faltam dados para avaliar';
-    vp.textContent = 'Preencha a área e as referências da região. Com comparáveis reais e o custo de obra, os dois métodos rodam e a triagem aparece.';
+    vt.innerHTML = 'Preencha a amostra';
+    vp.textContent = 'Sem pelo menos cinco comparáveis do bairro não há parecer com fundamentação, só estimativa.';
+  } else if(n < 5){
+    vb.className = 'verdict v-warn';
+    vt.innerHTML = 'Amostra ainda insuficiente <span class="score">' + n + ' de 5</span>';
+    vp.textContent = 'O valor de ' + money(valor) + ' já aparece, mas sem os cinco comparáveis o parecer não sustenta grau de fundamentação. Colete mais ' + (5-n) + ' no Jardim Amélia e entorno, com fonte e data.';
   } else if(!temExp){
     vb.className = 'verdict v-warn';
-    vt.innerHTML = 'Pergunte quanto ele quer <span class="score">' + (sDoc+sLiq+sRenda) + '/70 sem a expectativa</span>';
-    vp.textContent = 'O imóvel vale por volta de ' + money(valor) + '. Documentação, liquidez e renda já somam ' + (sDoc+sLiq+sRenda) + ' dos 70 pontos que independem dele. Os 30 restantes são o número que ele tem na cabeça, e é o que decide o caso.';
+    vt.innerHTML = 'Pergunte quanto ele quer <span class="score">' + (sDoc+sLiq+sRenda) + '/70</span>';
+    vp.textContent = 'A amostra sustenta ' + money(valor) + ' com ' + grauTxt.toLowerCase() + '. Documentação, liquidez e renda somam ' + (sDoc+sLiq+sRenda) + ' dos 70 pontos que independem dele.';
   } else if(vetoExp){
     vb.className = 'verdict v-bad';
-    vt.innerHTML = 'Não vale a avaliação: expectativa ' + pct(gap) + ' acima <span class="score">' + score + '/100</span>';
-    vp.textContent = 'Ele quer ' + money(expectativa) + ' num imóvel de ' + money(valor) + '. Diferença dessa ordem não se resolve em visita, se resolve em tempo de mercado. Deixe o número registrado, mande a faixa por escrito e reabra quando ele voltar. Ancorar em ' + money(anuncio) + ' agora só compra um anúncio parado.';
+    vt.innerHTML = 'Expectativa ' + pct(gap) + ' acima do parecer <span class="score">' + score + '/100</span>';
+    vp.textContent = 'Ele quer ' + money(expectativa) + ' e a amostra sustenta ' + money(valor) + '. Diferença dessa ordem não se resolve em visita. Entregue o parecer com o intervalo de confiança e deixe o mercado responder.';
   } else if(vetoDoc){
     vb.className = 'verdict v-warn';
-    vt.innerHTML = 'Resolver a documentação antes de avançar <span class="score">' + score + '/100</span>';
+    vt.innerHTML = 'Ressalva de documentação <span class="score">' + score + '/100</span>';
     vp.textContent = (el('dMatricula').checked ? 'A matrícula tem pendência' : 'O imóvel está em inventário')
-      + '. Enquanto isso não se resolve, não há financiamento nem prazo previsível, e o preço apanha ' + pct(1 - fDoc)
-      + '. O valor de ' + money(valor) + ' já está com esse desconto. Vale a visita só se ele estiver mesmo disposto a regularizar.';
+      + '. O parecer sai, com a ressalva expressa e o desconto de ' + pct(1-fDoc) + ' já aplicado, mas sem regularizar não há venda financiada nem prazo previsível.';
   } else if(score >= 70){
     vb.className = 'verdict v-ok';
-    vt.innerHTML = 'Vale a visita e o laudo completo <span class="score">' + score + '/100</span>';
-    vp.textContent = 'A expectativa dele está ' + (gap <= 0 ? pct(Math.abs(gap)) + ' abaixo' : pct(gap) + ' acima') + ' da avaliação, dentro do que se resolve conversando. Anuncia em ' + money(anuncio) + ' e trabalha a negociação até ' + money(valor) + '.';
-  } else if(score >= 45){
+    vt.innerHTML = 'Caso sustentado <span class="score">' + score + '/100</span>';
+    vp.textContent = 'Amostra com ' + grauTxt.toLowerCase() + ' e expectativa ' + (gap <= 0 ? pct(Math.abs(gap)) + ' abaixo' : pct(gap) + ' acima') + ' do valor. Anuncia em ' + money(anuncio) + ' e trabalha a negociação até ' + money(valor) + '.';
+  } else {
     vb.className = 'verdict v-warn';
     vt.innerHTML = 'Só avança se ele ajustar <span class="score">' + score + '/100</span>';
-    vp.textContent = 'Ele quer ' + money(expectativa) + ' e o imóvel sustenta ' + money(valor) + ', uma diferença de ' + money(expectativa - valor) + '. Leve o teto de ' + money(anuncio) + ' na primeira conversa: se ele não aceitar essa faixa, não gaste visita.';
-  } else {
-    vb.className = 'verdict v-bad';
-    vt.innerHTML = 'Não vale a avaliação agora <span class="score">' + score + '/100</span>';
-    vp.textContent = 'Entre expectativa ' + (gap > 0.18 ? 'muito acima do mercado' : 'desalinhada') + ', pendências de documentação e liquidez, esse caso consome tempo e não fecha. Reabra quando ele aceitar ' + money(valor) + ' ou quando a documentação estiver limpa.';
+    vp.textContent = 'Ele quer ' + money(expectativa) + ' e o parecer sustenta ' + money(valor) + ', diferença de ' + money(expectativa-valor) + '. Leve o intervalo de confiança na conversa: é o argumento técnico que a opinião dele não tem.';
   }
 
   /* -------- memória -------- */
   var L = [];
-  L.push(['<b>Método comparativo</b>','']);
-  L.push([temComps ? 'Média dos ' + m2s.length + ' comparáveis' : 'R$/m² de referência da região', money(m2bruto) + '/m²']);
-  L.push(['− Desconto de oferta', pct(descOferta,0)]);
-  L.push(['R$/m² de mercado', money(m2mercado)]);
+  L.push(['<b>Homogeneização da amostra</b>','']);
+  dados.forEach(function(d){
+    L.push([(d.ok?'':'<s>') + 'Comp. ' + d.i + ': ' + money(d.unit) + '/m² × área ' + fator(d.fa)
+      + ' × padrão ' + fator(d.fp) + ' × conserv. ' + fator(d.fc) + ' × idade ' + fator(d.fi) + (d.ok?'':'</s>'),
+      (d.ok?'<b>':'') + money(d.hom) + (d.ok?'</b>':' descartado')]);
+  });
+  L.push(['Fator de oferta aplicado', pct(descOferta,0)]);
+  L.push(['<b>Tratamento estatístico</b>','']);
+  L.push(['Amostra saneada', n + ' de ' + n0]);
+  L.push(['Média homogeneizada', money(media) + '/m²']);
+  L.push(['Desvio padrão', n>1 ? money(dp) : '—']);
+  L.push(['Coeficiente de variação', n>1 ? pct(cv) : '—']);
+  L.push(['t de Student (80%, ' + Math.max(0,n-1) + ' g.l.)', n>1 ? fator(t) : '—']);
+  L.push(['Erro amostral', n>1 ? money(erro) : '—']);
+  L.push(['Intervalo de confiança', n>1 ? money(icInf) + ' a ' + money(icSup) : '—']);
+  L.push(['<b>' + grauTxt + '</b>', n>1 ? '<b>amplitude ' + pct(amplitude) + '</b>' : '']);
+  L.push(['<b>Fatores complementares do avaliando</b>','']);
+  L.push(['Vagas / suítes / banheiros', fator(fVagas) + ' · ' + fator(fSuites) + ' · ' + fator(fBanhos)]);
+  L.push(['Benfeitorias', fator(fPisc*fEdic*fChurr*fSolar*fBoiler*fPoco*fPlan)]);
+  L.push(['Entorno / tipologia / topografia', fator(fRua*fCond*fSob) + ' · ' + fator(fTopo)]);
+  L.push(['Financiamento / documentação', fator(fFin) + ' · ' + fator(fDoc)]);
+  L.push(['<b>Fator complementar global</b>', '<b>' + fator(fCompl) + '</b>']);
   L.push(['Área construída', areaConst.toLocaleString('pt-BR') + ' m²']);
-  L.push(['Fator padrão de acabamento', fator(fPadrao)]);
-  L.push(['Fator conservação', fator(fConserv)]);
-  L.push(['Fator idade (' + idade + ' anos)', fator(fIdade)]);
-  L.push(['Fator vagas', fator(fVagas)]);
-  L.push(['Fator suítes', fator(fSuites)]);
-  L.push(['Fator piscina', fator(fPiscina)]);
-  L.push(['Fator edícula', fator(fEdicula)]);
-  L.push(['Fator posição solar', fator(fSol)]);
-  L.push(['Fator entorno', fator(fRua)]);
-  L.push(['Fator tipologia', fator(fCond*fSobrado)]);
-  L.push(['Fator financiamento', fator(fFin)]);
-  L.push(['Fator documentação', fator(fDoc)]);
-  L.push(['<b>Fator global</b>', '<b>' + fator(fAjuste) + '</b>']);
   L.push(['Terreno excedente (' + Math.round(excedente) + ' m² a 50%)', money(valorExcedente)]);
-  L.push(['<b>Valor comparativo</b>', '<b>' + money(valorComp) + '</b>']);
-  L.push(['<b>Método evolutivo</b>','']);
-  L.push(['Terreno: ' + areaTerreno.toLocaleString('pt-BR') + ' m² × ' + money(m2terreno), money(valorTerreno)]);
+  L.push(['<b>Valor pelo comparativo</b>', '<b>' + money(valorComp) + '</b>']);
+  L.push(['<b>Contraprova evolutiva</b>','']);
+  L.push(['Terreno ' + areaTerreno.toLocaleString('pt-BR') + ' m² × ' + money(m2terreno), money(valorTerreno)]);
   L.push(['Custo de reconstrução a novo', money(custoNovo)]);
-  L.push(['Ross (idade ' + idade + '/' + vidaUtil + ' anos)', pct(ross,1)]);
-  L.push(['Heideke (conservação)', pct(heid,1)]);
-  L.push(['<b>Depreciação total</b>', '<b>' + pct(deprec,1) + '</b>']);
+  L.push(['Ross (' + idade + '/' + vidaUtil + ' anos)', pct(ross)]);
+  L.push(['Heidecke (conservação)', pct(heid)]);
+  L.push(['<b>Depreciação total</b>', '<b>' + pct(deprec) + '</b>']);
   L.push(['Benfeitoria depreciada', money(benfeitoria)]);
-  L.push(['Fator de comercialização', fator(fcom)]);
-  L.push(['<b>Valor evolutivo</b>', '<b>' + money(valorEvo) + '</b>']);
-  L.push(['<b>Composição</b>','']);
-  L.push(['Peso comparativo / evolutivo aplicado', Math.round(wEfetivo*100) + '% / ' + Math.round((1-wEfetivo)*100) + '%']);
-  L.push(['<b>Valor de mercado</b>', '<b>' + money(valor) + '</b>']);
-  L.push(['<b>Triagem</b>','']);
-  L.push(['Expectativa do proprietário', sExp + '/30']);
-  L.push(['Documentação', sDoc + '/25']);
-  L.push(['Liquidez', sLiq + '/25']);
-  L.push(['Renda', sRenda + '/20']);
-  L.push(['<b>Score</b>', '<b>' + score + '/100</b>']);
+  L.push(['<b>Valor pelo evolutivo</b>', '<b>' + money(valorEvo) + '</b>']);
+  L.push(['<b>Conclusão</b>','']);
+  L.push(['Valor de mercado', '<b>' + money(valor) + '</b>']);
+  L.push(['Preço de anúncio', money(anuncio)]);
+  if(exigeForcada) L.push(['Liquidação forçada (75%)', money(forcada)]);
   el('r-memoria').innerHTML = L.map(function(l){
     return '<tr><td>' + l[0] + '</td><td class="num">' + l[1] + '</td></tr>';
   }).join('');
 
-  return {valor:valor, anuncio:anuncio, rapida:rapida, valorComp:valorComp, valorEvo:valorEvo,
-          liquido:liquido, expectativa:expectativa, score:score};
+  return {valor:valor, anuncio:anuncio, forcada:forcada, valorComp:valorComp, valorEvo:valorEvo,
+          liquido:liquido, expectativa:expectativa, score:score, n:n, grauTxt:grauTxt,
+          icInf:icInf, icSup:icSup, media:media};
 }
 
-/* ---------------- campos que dependem do tipo ---------------- */
 function alternarTipo(){
   var t = el('tipo').value === 'terreno';
-  ['areaConstruida','dorms','suites','vagas','idade','padrao','conserv','custoObra','vidaUtil']
+  ['areaConstruida','dorms','suites','banheiros','vagas','idade','padrao','conserv','custoObra','vidaUtil']
     .forEach(function(id){ el(id).closest('.f').style.display = t ? 'none' : '' });
 }
 
-/* ---------------- formatação dos campos em reais ---------------- */
-var MOEDA = ['m2terreno','m2casa','custoObra','aluguel','expectativa','aquisicao','saldoDevedor','areaTerreno','areaConstruida'];
+var MOEDA = ['m2terreno','m2casa','custoObra','aluguel','expectativa','aquisicao','saldoDevedor','areaTerreno','areaConstruida','testada'];
 for(var c=1;c<=N_COMPS;c++) MOEDA.push('cArea'+c, 'cPreco'+c);
 MOEDA.forEach(function(id){
   el(id).addEventListener('blur', function(){
@@ -807,7 +909,6 @@ MOEDA.forEach(function(id){
   });
 });
 
-/* ---------------- eventos ---------------- */
 document.addEventListener('input', calc);
 document.addEventListener('change', calc);
 el('regiao').addEventListener('change', function(){ aplicarRegiao(); calc(); });
@@ -819,7 +920,7 @@ el('btn-print').addEventListener('click', function(){
   var nome = el('apelido').value.trim();
   el('r-emitido').textContent = (nome ? nome + ' · ' : '')
     + 'Emitido em ' + new Date().toLocaleDateString('pt-BR')
-    + ' · Wisekey · CRECI SP 319841';
+    + ' · Validade 6 meses · Wisekey · Resp. técnico Raphael Piotto Cardoso · CRECI/SP 319841-F';
   window.print();
 });
 
@@ -831,23 +932,22 @@ el('btn-reset').addEventListener('click', function(){
 el('btn-wa').addEventListener('click', function(){
   var r = calc();
   var nome = el('apelido').value.trim() || 'Imovel sem identificacao';
-  var regiao = el('regiao').options[el('regiao').selectedIndex].text;
   var linhas = [
-    'Avaliacao Wisekey - lado do vendedor',
+    'PTAM Wisekey - memoria de calculo',
     nome,
-    regiao,
-    el('areaTerreno').value + ' m2 de terreno | ' + el('areaConstruida').value + ' m2 construidos',
+    el('regiao').options[el('regiao').selectedIndex].text,
     '',
-    'Comparativo: ' + money(r.valorComp),
-    'Evolutivo: ' + money(r.valorEvo),
+    'Amostra: ' + r.n + ' comparaveis saneados',
+    r.grauTxt,
+    'Media homogeneizada: ' + money(r.media) + '/m2',
+    '',
     'VALOR DE MERCADO: ' + money(r.valor),
     'Anuncio sugerido: ' + money(r.anuncio),
-    'Venda rapida: ' + money(r.rapida),
     'Liquido pro proprietario: ' + money(r.liquido)
   ];
   if(r.expectativa > 0){
     linhas.push('');
-    linhas.push('Expectativa dele: ' + money(r.expectativa));
+    linhas.push('Pedido hoje: ' + money(r.expectativa));
     linhas.push('Triagem: ' + el('r-verdict-t').textContent);
   }
   window.open('https://wa.me/5511917952603?text=' + encodeURIComponent(linhas.join('\n')), '_blank');
