@@ -1,0 +1,1906 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wisekey | Calculadora de imóveis</title>
+<meta name="description" content="Ferramenta Wisekey: avaliação para compra, PTAM para venda e a base de cálculo auditada de todas as premissas.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --navy:#2D1E80; --navy-deep:#1c1259;
+  --lilas:#DCD2FA; --lilas-soft:#efeafc;
+  --verde:#25D366; --verde-dark:#1DA851;
+  --ink:#333333; --muted:#6B6685; --line:#E8E4F6;
+  --ok:#1DA851; --warn:#B7791F; --bad:#C0392B;
+  --warn-bg:#FFF7E6; --ok-bg:#EAF9F0; --bad-bg:#FDEDEA;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Poppins',-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:#fff;line-height:1.6}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+header{position:sticky;top:0;background:rgba(255,255,255,.97);border-bottom:1px solid var(--line);z-index:20}
+.nav{display:flex;align-items:center;justify-content:space-between;height:58px;gap:16px}
+.nav a.back{color:var(--muted);text-decoration:none;font-size:13.5px;font-weight:600}
+.nav a.back:hover{color:var(--navy)}
+.intro{background:var(--lilas-soft);padding:34px 0 30px}
+.kicker{color:var(--navy);font-weight:700;text-transform:uppercase;letter-spacing:.1em;font-size:12px;margin-bottom:8px}
+h1{font-size:clamp(24px,3.6vw,34px);line-height:1.2;font-weight:800;color:var(--navy);max-width:760px;margin-bottom:10px}
+.intro p{max-width:720px;color:var(--muted);font-size:15.5px}
+
+.layout{display:grid;grid-template-columns:minmax(0,1.32fr) minmax(0,1fr);gap:26px;padding:30px 0 60px;align-items:start}
+@media (max-width:940px){.layout{grid-template-columns:1fr}}
+
+fieldset{border:1px solid var(--line);border-radius:14px;padding:20px 20px 22px;margin-bottom:16px}
+legend{font-weight:800;color:var(--navy);font-size:14px;padding:0 8px;text-transform:uppercase;letter-spacing:.06em}
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px 14px}
+.f{display:flex;flex-direction:column}
+.f.span2{grid-column:span 2}
+@media (max-width:520px){.f.span2{grid-column:span 1}}
+label{font-weight:600;font-size:12.5px;margin-bottom:5px;color:var(--navy)}
+.hint{font-weight:400;color:var(--muted);font-size:11.5px;display:block;margin-top:4px;line-height:1.4}
+input[type=text],input[type=number],select{width:100%;padding:11px 12px;border-radius:10px;border:1px solid #CFC7EE;background:#fff;color:var(--ink);font-size:14.5px;font-family:inherit}
+input:focus,select:focus{outline:2px solid var(--lilas);border-color:var(--navy)}
+.inline{display:flex;align-items:center;gap:9px;font-size:13.5px;font-weight:600;color:var(--ink);padding:6px 0}
+.inline input[type=checkbox]{width:17px;height:17px;flex:none;accent-color:var(--navy)}
+.check-list{border-top:1px dashed var(--line);margin-top:6px;padding-top:8px}
+.check-list .inline{font-weight:400;align-items:flex-start;font-size:14px}
+.check-list .inline input{margin-top:4px}
+
+.panel{position:sticky;top:74px}
+@media (max-width:940px){.panel{position:static}}
+.result{border:2px solid var(--navy);border-radius:16px;overflow:hidden;background:#fff}
+.result .head{background:var(--navy);color:#fff;padding:20px 22px}
+.result .head span{display:block;font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--lilas);font-weight:700}
+.result .head b{display:block;font-size:clamp(30px,4.6vw,42px);font-weight:800;line-height:1.12;margin-top:4px}
+.result .head small{display:block;color:#C9BEF2;font-size:13px;margin-top:4px}
+.result .body{padding:18px 22px 22px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+.tile{border:1px solid var(--line);border-radius:12px;padding:13px 14px;background:#fff}
+.tile span{display:block;font-size:11.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;font-weight:700;line-height:1.35}
+.tile b{display:block;font-size:19px;color:var(--navy);font-weight:800;margin-top:4px}
+.tile em{display:block;font-style:normal;font-size:11.5px;color:var(--muted);margin-top:2px}
+.tile.teto{border:2px solid var(--verde);background:#F4FDF7}
+.tile.teto b{color:var(--verde-dark)}
+
+.verdict{border-radius:12px;padding:15px 16px;margin-bottom:16px;border:1px solid}
+.verdict b{display:block;font-size:15.5px;margin-bottom:4px}
+.verdict p{font-size:13.5px;line-height:1.5}
+.v-ok{background:var(--ok-bg);border-color:#9FE0BC;color:#14603A}
+.v-ok b{color:var(--ok)}
+.v-warn{background:var(--warn-bg);border-color:#F0D9A0;color:#7A5410}
+.v-warn b{color:var(--warn)}
+.v-bad{background:var(--bad-bg);border-color:#F2B7AC;color:#8A2B1E}
+.v-bad b{color:var(--bad)}
+
+table{width:100%;border-collapse:collapse;font-size:13.5px;margin-bottom:6px}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid var(--line)}
+th{background:var(--lilas-soft);color:var(--navy);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+td b{color:var(--navy)}
+tr:last-child td{border-bottom:none}
+.row-total td{background:var(--lilas-soft);font-weight:700}
+
+details{border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-top:14px}
+summary{font-weight:700;cursor:pointer;color:var(--navy);font-size:13.5px}
+details table{margin-top:10px;font-size:12.5px}
+details td{padding:6px 8px}
+
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.btn{display:inline-block;background:var(--verde);color:#0B3320;font-weight:700;text-decoration:none;padding:13px 22px;border-radius:11px;border:none;font-size:14.5px;cursor:pointer;transition:background .15s;font-family:inherit}
+.btn:hover{background:var(--verde-dark);color:#fff}
+.btn.ghost{background:#fff;border:1.5px solid var(--navy);color:var(--navy)}
+.btn.ghost:hover{background:var(--lilas-soft);color:var(--navy)}
+.disc{font-size:11.5px;color:var(--muted);margin-top:16px;line-height:1.55}
+.flag{font-size:12.5px;color:var(--warn);background:var(--warn-bg);border:1px solid #F0D9A0;border-radius:9px;padding:9px 11px;margin-bottom:12px;display:none}
+.flag.on{display:block}
+footer{background:var(--navy-deep);color:#B9AEE6;padding:26px 0;font-size:12.5px}
+footer i{color:var(--lilas)}
+
+.emitido{display:none}
+@media print{
+  .actions,.intro p,footer,.hint,.nav a.back{display:none!important}
+  header{position:static;border:none;padding-bottom:6px}
+  .emitido{display:block;font-size:11px;color:var(--muted);margin-top:10px;border-top:1px solid var(--line);padding-top:8px}
+  .layout{grid-template-columns:1fr;gap:14px;padding:0}
+  .panel{position:static}
+  fieldset{break-inside:avoid;page-break-inside:avoid}
+  .result{break-inside:avoid}
+  body{font-size:12px}
+  details{display:block}
+  details[open] table{font-size:11px}
+}
+
+  --azul:#132F70;
+.kicker{color:var(--azul);font-weight:700;text-transform:uppercase;letter-spacing:.1em;font-size:12px;margin-bottom:8px}
+h1{font-size:clamp(24px,3.6vw,34px);line-height:1.2;font-weight:800;color:var(--azul);max-width:800px;margin-bottom:10px}
+.intro p{max-width:780px;color:var(--muted);font-size:15.5px}
+legend{font-weight:800;color:var(--azul);font-size:14px;padding:0 8px;text-transform:uppercase;letter-spacing:.06em}
+legend .req{color:var(--bad);font-size:11px;letter-spacing:.04em}
+.checks{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:0 16px}
+.checks .inline{font-weight:400;font-size:13.5px}
+.comps-scroll{overflow-x:auto;margin-top:6px}
+.comps{width:100%;min-width:620px;border-collapse:collapse;font-size:13px}
+.comps th{color:var(--azul);font-size:11px;text-transform:uppercase;letter-spacing:.04em;padding:0 5px 6px;text-align:left;font-weight:700;white-space:nowrap}
+.comps td{padding:3px 5px 3px 0;border:none}
+.comps input,.comps select{padding:8px 8px;font-size:13.5px}
+.comps .n{width:26px;color:var(--muted);font-weight:700;font-size:12px;padding-right:0}
+.comps .hom{white-space:nowrap;font-variant-numeric:tabular-nums;text-align:right;font-size:12.5px;font-weight:700;color:var(--azul);padding-right:0}
+.comps tr.fora .hom{color:var(--bad);text-decoration:line-through;font-weight:400}
+.comps tr.fora input,.comps tr.fora select{opacity:.55}
+.result{border:2px solid var(--azul);border-radius:16px;overflow:hidden;background:#fff}
+.result .head{background:var(--azul);color:#fff;padding:20px 22px}
+.result .head small{display:block;color:#C3D0F0;font-size:13px;margin-top:4px}
+.grau{display:inline-block;margin-top:10px;font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;border-radius:20px;padding:4px 13px;background:rgba(255,255,255,.16);color:#fff;border:1px solid rgba(255,255,255,.4)}
+.tile.anuncio{border:2px solid var(--azul);background:var(--lilas-soft)}
+.tile.anuncio b{color:var(--azul)}
+.tile.forcada{border:2px solid var(--warn);background:var(--warn-bg)}
+.tile.forcada b{color:var(--warn)}
+.verdict .score{float:right;font-size:12px;font-weight:700;opacity:.8}
+table.out{width:100%;border-collapse:collapse;font-size:13.5px;margin-bottom:6px}
+table.out th,table.out td{padding:9px 10px;text-align:left;border-bottom:1px solid var(--line)}
+table.out th{background:var(--lilas-soft);color:var(--azul);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+table.out td.num,table.out th.num{text-align:right;font-variant-numeric:tabular-nums}
+table.out tr:last-child td{border-bottom:none}
+.row-total td{background:var(--lilas-soft);font-weight:700;color:var(--azul)}
+summary{font-weight:700;cursor:pointer;color:var(--azul);font-size:13.5px}
+details table{margin-top:10px;font-size:12.5px;width:100%;border-collapse:collapse}
+details td{padding:6px 8px;border-bottom:1px solid var(--line)}
+details td.num{text-align:right;font-variant-numeric:tabular-nums}
+.btn.ghost{background:#fff;border:1.5px solid var(--azul);color:var(--azul)}
+.btn.ghost:hover{background:var(--lilas-soft);color:var(--azul)}
+  .comps{min-width:0}
+
+.tabs{display:flex;gap:6px;overflow-x:auto}
+.tabs button{font-family:inherit;font-size:13.5px;font-weight:700;color:var(--muted);background:none;
+  border:none;border-bottom:3px solid transparent;padding:10px 14px;cursor:pointer;white-space:nowrap}
+.tabs button:hover{color:var(--navy)}
+.tabs button[aria-selected="true"]{color:var(--azul);border-bottom-color:var(--azul)}
+.tabs button:focus-visible{outline:2px solid var(--lilas);outline-offset:2px;border-radius:6px}
+.tabpane[hidden]{display:none}
+.basegrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:16px;align-items:start}
+.bcard{border:1px solid var(--line);border-left:4px solid var(--line);border-radius:12px;padding:18px 20px;background:#fff}
+.bcard.ok{border-left-color:var(--ok)} .bcard.mid{border-left-color:var(--azul)}
+.bcard.warn{border-left-color:var(--warn)} .bcard.bad{border-left-color:var(--bad)}
+.bcard h3{font-size:15.5px;color:var(--azul);font-weight:800;margin-bottom:6px;line-height:1.35}
+.sel{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;
+  border-radius:20px;padding:3px 9px;margin-right:7px;background:var(--line);color:var(--muted);vertical-align:2px}
+.sel-ok{background:var(--ok-bg);color:#14603A} .sel-mid{background:var(--lilas-soft);color:var(--azul)}
+.sel-warn{background:var(--warn-bg);color:#7A5410} .sel-bad{background:var(--bad-bg);color:#8A2B1E}
+.bcard .src{font-size:12px;color:var(--muted);margin-bottom:12px}
+.btab{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:10px}
+.btab td{padding:7px 0;border-bottom:1px solid var(--line);vertical-align:top}
+.btab td.num{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;color:var(--navy);padding-left:12px}
+.btab td.num.neg{color:var(--bad)}
+.btab tr:last-child td{border-bottom:none}
+.blist{list-style:none;margin-bottom:10px}
+.blist li{font-size:13px;padding:6px 0 6px 15px;position:relative;border-bottom:1px solid var(--line);line-height:1.5}
+.blist li:last-child{border-bottom:none}
+.blist li::before{content:"";position:absolute;left:0;top:14px;width:5px;height:5px;border-radius:50%;background:var(--lilas)}
+.bcard .note{font-size:12.5px;color:var(--muted);line-height:1.55;margin-top:8px}
+.bcard code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11.5px;background:var(--lilas-soft);
+  padding:1px 5px;border-radius:4px;color:var(--azul)}
+@media print{.tabs{display:none}.tabpane[hidden]{display:block!important}}
+
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="index.html"><img src="data:image/png;base64,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" alt="wisekey" style="height:24px;display:block"></a>
+    <div class="tabs" role="tablist">
+      <button role="tab" data-tab="compra"  aria-selected="true">Comprar</button>
+      <button role="tab" data-tab="venda"   aria-selected="false">Avaliar para vender</button>
+      <button role="tab" data-tab="base"    aria-selected="false">Base de cálculo</button>
+    </div>
+  </div>
+</header>
+
+<div class="tabpane" id="pane-compra" role="tabpanel">
+<section class="intro">
+  <div class="wrap">
+    <div class="kicker">Ferramenta interna · Régua Wisekey</div>
+    <h1>Quanto esse imóvel vale, e quanto vale a pena pagar por ele.</h1>
+    <p>Três respostas, porque uma só engana: o <b>valor de mercado</b> (o que o metro quadrado da região justifica), o <b>valor pela renda</b> (o que o aluguel sustenta) e o <b>teto de compra</b> (o preço máximo que ainda fecha a sua meta de retorno). Preencha o imóvel e a conta roda sozinha.</p>
+  </div>
+</section>
+
+<div class="wrap">
+<div class="layout">
+
+  <!-- ============ COLUNA ESQUERDA: ENTRADAS ============ -->
+  <div>
+
+    <fieldset>
+      <legend>1 · Imóvel e localização</legend>
+      <div class="fields">
+        <div class="f span2">
+          <label for="apelido">Identificação do imóvel</label>
+          <input type="text" id="apelido" placeholder="Ex.: Studio Rua Augusta 1200, apto 84">
+        </div>
+        <div class="f span2">
+          <label for="bairro">Região / bairro</label>
+          <select id="bairro"></select>
+          <span class="hint">Preenche as referências de mercado. Todas ficam editáveis abaixo.</span>
+        </div>
+        <div class="f">
+          <label for="m2base">R$/m² de referência da região</label>
+          <input type="text" id="m2base" inputmode="decimal">
+          <span class="hint">Ajuste com a sua pesquisa de anúncios e transações recentes.</span>
+        </div>
+        <div class="f">
+          <label for="tipo">Tipo de unidade</label>
+          <select id="tipo">
+            <option value="1">Studio / kitnet</option>
+            <option value="0.97">1 dormitório</option>
+            <option value="0.93">2 dormitórios</option>
+            <option value="0.9">3 dormitórios ou mais</option>
+          </select>
+        </div>
+        <div class="f">
+          <label for="area">Área privativa (m²)</label>
+          <input type="number" id="area" value="26" min="8" step="0.5">
+        </div>
+        <div class="f">
+          <label for="metro">Metrô / trem a pé</label>
+          <select id="metro">
+            <option value="1.10">Até 5 minutos</option>
+            <option value="1.05" selected>6 a 10 minutos</option>
+            <option value="1.01">11 a 15 minutos</option>
+            <option value="0.97">16 a 25 minutos</option>
+            <option value="0.92">Mais de 25 min ou sem metrô</option>
+          </select>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>2 · Características físicas</legend>
+      <div class="fields">
+        <div class="f">
+          <label for="andar">Andar</label>
+          <select id="andar">
+            <option value="0.96">Térreo ou 1º</option>
+            <option value="1.00" selected>2º ao 5º</option>
+            <option value="1.03">6º ao 12º</option>
+            <option value="1.06">13º ou mais</option>
+          </select>
+        </div>
+        <div class="f">
+          <label for="idade">Idade do prédio (anos)</label>
+          <input type="number" id="idade" value="3" min="0" step="1">
+        </div>
+        <div class="f">
+          <label for="conserv">Estado de conservação</label>
+          <select id="conserv">
+            <option value="1.08">Novo, nunca ocupado</option>
+            <option value="1.04">Reformado, impecável</option>
+            <option value="1.00" selected>Bom, pronto pra usar</option>
+            <option value="0.93">Precisa reforma leve</option>
+            <option value="0.84">Precisa reforma pesada</option>
+          </select>
+        </div>
+        <div class="f">
+          <label for="vaga">Vaga de garagem</label>
+          <select id="vaga">
+            <option value="1.00" selected>Sem vaga</option>
+            <option value="1.08">1 vaga</option>
+            <option value="1.13">2 vagas ou mais</option>
+          </select>
+        </div>
+        <div class="f">
+          <label for="lazer">Infraestrutura do prédio</label>
+          <select id="lazer">
+            <option value="0.97">Sem lazer, portaria simples</option>
+            <option value="1.00" selected>Básica: portaria 24h, elevador</option>
+            <option value="1.04">Completa: academia, coworking, rooftop</option>
+          </select>
+        </div>
+        <div class="f">
+          <label>Extras</label>
+          <label class="inline"><input type="checkbox" id="sacada"> Tem sacada / varanda</label>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>3 · Custos fixos do imóvel</legend>
+      <div class="fields">
+        <div class="f">
+          <label for="condominio">Condomínio (R$/mês)</label>
+          <input type="text" id="condominio" inputmode="decimal" value="580">
+        </div>
+        <div class="f">
+          <label for="iptu">IPTU (R$/ano)</label>
+          <input type="text" id="iptu" inputmode="decimal" value="1800">
+        </div>
+        <div class="f span2">
+          <label class="inline"><input type="checkbox" id="temporada" checked> O condomínio libera locação por temporada (Airbnb)</label>
+          <span class="hint">Se não libera, a avaliação passa a usar aluguel de longa duração e o valor de mercado leva um redutor por restrição de uso.</span>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>4 · Potencial de renda</legend>
+      <div class="fields">
+        <div class="f" id="wrap-diaria">
+          <label for="diaria">Diária média (R$)</label>
+          <input type="text" id="diaria" inputmode="decimal" value="240">
+        </div>
+        <div class="f" id="wrap-ocup">
+          <label for="ocup">Ocupação esperada (%)</label>
+          <input type="number" id="ocup" value="75" min="0" max="100" step="1">
+          <span class="hint">Use o cenário conservador, não o melhor mês.</span>
+        </div>
+        <div class="f">
+          <label for="alugLongo">Aluguel de longa duração (R$/mês)</label>
+          <input type="text" id="alugLongo" inputmode="decimal" value="2300">
+          <span class="hint">Serve de piso de segurança e é o modo usado se a temporada não for liberada.</span>
+        </div>
+        <div class="f" id="wrap-custosop">
+          <label for="custosOp">Contas da operação (R$/mês)</label>
+          <input type="text" id="custosOp" inputmode="decimal" value="320">
+          <span class="hint">Luz, água, internet, enxoval e consumíveis.</span>
+        </div>
+        <div class="f" id="wrap-taxaop">
+          <label for="taxaOp">Taxa do operador (% da receita)</label>
+          <input type="number" id="taxaOp" value="20" min="0" max="60" step="0.5">
+        </div>
+        <div class="f">
+          <label for="manut">Manutenção e reposição (% da receita)</label>
+          <input type="number" id="manut" value="5" min="0" max="30" step="0.5">
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>5 · Premissas do investidor</legend>
+      <div class="fields">
+        <div class="f">
+          <label for="capRate">Cap rate alvo (% a.a.)</label>
+          <input type="number" id="capRate" value="7.5" min="1" max="25" step="0.1">
+          <span class="hint">Renda líquida anual que você exige sobre o valor do imóvel.</span>
+        </div>
+        <div class="f">
+          <label for="pesoRenda">Peso do método da renda (%)</label>
+          <input type="number" id="pesoRenda" value="55" min="0" max="100" step="5">
+          <span class="hint">O restante vai para o método comparativo.</span>
+        </div>
+        <div class="f">
+          <label for="custoAq">Custos de aquisição (% do valor)</label>
+          <input type="number" id="custoAq" value="5" min="0" max="15" step="0.1">
+          <span class="hint">ITBI, escritura e registro. É o percentual que o banco estipula.</span>
+        </div>
+        <div class="f">
+          <label for="mobilia">Mobília e enxoval (R$)</label>
+          <input type="text" id="mobilia" inputmode="decimal" value="55976">
+          <span class="hint">Valor da base do site: capital total de R$ 423.476 sobre um imóvel de R$ 350 mil, com 5% de custos.</span>
+        </div>
+        <div class="f">
+          <label for="reforma">Reforma necessária (R$)</label>
+          <input type="text" id="reforma" inputmode="decimal" value="0">
+        </div>
+        <div class="f">
+          <label for="valoriz">Valorização esperada (% a.a.)</label>
+          <input type="number" id="valoriz" value="5.5" min="0" max="20" step="0.1">
+        </div>
+        <div class="f">
+          <label for="cdi">CDI bruto (% a.a.)</label>
+          <input type="number" id="cdi" value="10.5" min="0" max="30" step="0.1">
+          <span class="hint">A comparação usa o CDI líquido de 15% de IR.</span>
+        </div>
+        <div class="f">
+          <label for="entradaPct">Entrada no financiamento (%)</label>
+          <input type="number" id="entradaPct" value="20" min="5" max="100" step="1">
+        </div>
+        <div class="f">
+          <label for="taxaFin">Juros do financiamento (% a.a.)</label>
+          <input type="number" id="taxaFin" value="11.7" min="0" max="30" step="0.1">
+        </div>
+        <div class="f">
+          <label for="prazoFin">Prazo (anos)</label>
+          <input type="number" id="prazoFin" value="30" min="1" max="35" step="1">
+        </div>
+        <div class="f">
+          <label for="sistema">Sistema de amortização</label>
+          <select id="sistema">
+            <option value="sac" selected>SAC</option>
+            <option value="price">Price</option>
+          </select>
+          <span class="hint">No SAC a parcela começa mais alta e amortiza muito mais rápido.</span>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>6 · Os 5 filtros Wisekey</legend>
+      <span class="hint" style="margin:0 0 4px">Se falhar em uma, não compra. O veredito considera esse checklist.</span>
+      <div class="check-list">
+        <label class="inline"><input type="checkbox" class="filtro" checked> A localização tem demanda estrutural por locação, não só promessa.</label>
+        <label class="inline"><input type="checkbox" class="filtro" checked> O preço por metro está abaixo do potencial de renda da região.</label>
+        <label class="inline"><input type="checkbox" class="filtro" checked> A liquidez de revenda é real, com histórico de transações.</label>
+        <label class="inline"><input type="checkbox" class="filtro" checked> O perfil de locatário é resiliente a crise (corporativo, saúde, universitário).</label>
+        <label class="inline"><input type="checkbox" class="filtro" checked> A conta fecha depois de reforma, mobília e vacância, não só no papel.</label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>7 · Preço pedido</legend>
+      <div class="fields">
+        <div class="f span2">
+          <label for="pedido">Preço pedido pelo vendedor (R$)</label>
+          <input type="text" id="pedido" inputmode="decimal" placeholder="Ex.: 350000">
+          <span class="hint">Deixe em branco se ainda estiver só avaliando o ativo.</span>
+        </div>
+      </div>
+    </fieldset>
+
+  </div>
+
+  <!-- ============ COLUNA DIREITA: RESULTADO ============ -->
+  <div class="panel">
+    <div class="result">
+      <div class="head">
+        <span>Avaliação Wisekey</span>
+        <b id="r-valor">—</b>
+        <small id="r-faixa">—</small>
+      </div>
+      <div class="body">
+        <div class="flag" id="r-flag"></div>
+
+        <div class="two">
+          <div class="tile">
+            <span>Valor de mercado<br>(comparativo)</span>
+            <b id="r-mercado">—</b>
+            <em id="r-mercado-m2">—</em>
+          </div>
+          <div class="tile">
+            <span>Valor pela renda<br>(capitalização)</span>
+            <b id="r-renda">—</b>
+            <em id="r-renda-noi">—</em>
+          </div>
+        </div>
+
+        <div class="two" style="grid-template-columns:1fr">
+          <div class="tile teto">
+            <span>Teto de compra para bater a meta</span>
+            <b id="r-teto">—</b>
+            <em id="r-teto-desc">—</em>
+          </div>
+        </div>
+
+        <div class="verdict v-warn" id="r-verdict">
+          <b id="r-verdict-t">Preencha o preço pedido</b>
+          <p id="r-verdict-p">Sem o preço pedido a ferramenta entrega só a avaliação. Com ele, entrega também o veredito e o desconto necessário.</p>
+        </div>
+
+        <table>
+          <thead>
+            <tr><th>Cenário no preço pedido</th><th class="num">À vista</th><th class="num">Alavancado</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Capital próprio</td><td class="num" id="r-cap-vista">—</td><td class="num" id="r-cap-alav">—</td></tr>
+            <tr><td>Sobra no bolso por mês</td><td class="num" id="r-mes-vista">—</td><td class="num" id="r-mes-alav">—</td></tr>
+            <tr><td>Amortização por mês</td><td class="num">—</td><td class="num" id="r-amort">—</td></tr>
+            <tr><td>Retorno de renda a.a.</td><td class="num" id="r-yield-vista">—</td><td class="num" id="r-yield-alav">—</td></tr>
+            <tr class="row-total"><td>Retorno total com valorização</td><td class="num" id="r-tot-vista">—</td><td class="num" id="r-tot-alav">—</td></tr>
+            <tr><td>CDI líquido no mesmo período</td><td class="num" id="r-cdi">—</td><td class="num" id="r-cdi2">—</td></tr>
+          </tbody>
+        </table>
+
+        <details>
+          <summary>Memória de cálculo</summary>
+          <table id="r-memoria"></table>
+        </details>
+
+        <div class="actions">
+          <button class="btn ghost" id="btn-base" type="button">Carregar a base do site</button>
+          <button class="btn" id="btn-wa" type="button">Enviar resumo no WhatsApp</button>
+          <button class="btn ghost" id="btn-print" type="button">Gerar PDF do laudo</button>
+          <button class="btn ghost" id="btn-reset" type="button">Limpar</button>
+        </div>
+
+        <p class="emitido" id="r-emitido"></p>
+
+        <p class="disc">Avaliação indicativa para decisão de investimento, inspirada nos métodos comparativo direto de dados de mercado e da capitalização da renda (NBR 14653-2). <b>Não é laudo de avaliação com força legal</b> e não substitui vistoria, análise documental e due diligence da matrícula. Os R$/m² de referência são estimativas iniciais: substitua pela sua pesquisa antes de decidir. Rentabilidade passada não garante rentabilidade futura.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+</div>
+
+<div class="tabpane" id="pane-venda" role="tabpanel" hidden>
+<section class="intro">
+  <div class="wrap">
+    <div class="kicker">Uso interno · PTAM · COFECI 1.066/2014 · NBR 14653-2</div>
+    <h1>Parecer Técnico de Avaliação Mercadológica</h1>
+    <p>Método Comparativo Direto de Dados de Mercado: cada comparável é <b>homogeneizado</b> para as características do avaliando, a amostra passa por <b>saneamento</b>, e o valor sai com <b>desvio padrão, intervalo de confiança e grau de fundamentação</b>. O método evolutivo entra como contraprova. Depreciação por Ross-Heidecke, como manda o checklist.</p>
+  </div>
+</section>
+
+<div class="wrap">
+<div class="layout">
+
+  <!-- ============ ENTRADAS ============ -->
+  <div>
+
+    <fieldset>
+      <legend>1 · Identificação e finalidade <span class="req">obrigatório</span></legend>
+      <div class="fields">
+        <div class="f span2">
+          <label for="solicitante">Solicitante</label>
+          <input type="text" id="solicitante" placeholder="Nome completo, e relação com o imóvel">
+        </div>
+        <div class="f span2">
+          <label for="v-apelido">Imóvel avaliando</label>
+          <input type="text" id="v-apelido" placeholder="Ex.: Rua das Acácias 340, Jardim Amélia, São João da Boa Vista/SP">
+        </div>
+        <div class="f span2">
+          <label for="finalidade">Finalidade do parecer</label>
+          <select id="finalidade">
+            <option value="venda">Venda no mercado aberto</option>
+            <option value="anuncio">Definição de preço de anúncio</option>
+            <option value="inventario">Inventário ou partilha</option>
+            <option value="divorcio">Divórcio ou dissolução</option>
+            <option value="garantia">Garantia ou análise patrimonial</option>
+            <option value="particulares">Negociação entre particulares</option>
+          </select>
+          <span class="hint">Em inventário, partilha, divórcio e garantia o parecer precisa trazer também o valor de liquidação forçada.</span>
+        </div>
+        <div class="f span2">
+          <label for="regiao">Cidade / região</label>
+          <select id="regiao"></select>
+          <span class="hint">Preenche as referências de terreno e obra. Todas ficam editáveis.</span>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>2 · Dados físicos <span class="req">obrigatório</span></legend>
+      <div class="fields">
+        <div class="f">
+          <label for="v-tipo">Tipo do imóvel</label>
+          <select id="v-tipo">
+            <option value="casa">Casa térrea</option>
+            <option value="sobrado">Sobrado</option>
+            <option value="condominio">Casa em condomínio fechado</option>
+            <option value="chacara">Chácara / sítio</option>
+            <option value="terreno">Terreno sem construção</option>
+          </select>
+        </div>
+        <div class="f">
+          <label for="areaTerreno">Área do terreno (m²)</label>
+          <input type="text" id="areaTerreno" inputmode="decimal" value="250">
+        </div>
+        <div class="f">
+          <label for="areaConstruida">Área construída (m²)</label>
+          <input type="text" id="areaConstruida" inputmode="decimal" value="159">
+        </div>
+        <div class="f">
+          <label for="testada">Testada (m)</label>
+          <input type="text" id="testada" inputmode="decimal" value="10">
+          <span class="hint">Frente do lote.</span>
+        </div>
+        <div class="f">
+          <label for="topografia">Topografia</label>
+          <select id="topografia">
+            <option value="1.00" selected>Plano</option>
+            <option value="0.95">Aclive suave</option>
+            <option value="0.92">Declive suave</option>
+            <option value="0.85">Aclive ou declive acentuado</option>
+          </select>
+        </div>
+        <div class="f">
+          <label for="dorms">Dormitórios</label>
+          <input type="number" id="dorms" value="3" min="0" step="1">
+        </div>
+        <div class="f">
+          <label for="suites">Suítes</label>
+          <input type="number" id="suites" value="1" min="0" step="1">
+        </div>
+        <div class="f">
+          <label for="banheiros">Banheiros e lavabos</label>
+          <input type="number" id="banheiros" value="2" min="0" step="1">
+        </div>
+        <div class="f">
+          <label for="vagas">Vagas de garagem</label>
+          <input type="number" id="vagas" value="2" min="0" step="1">
+        </div>
+        <div class="f">
+          <label for="v-idade">Ano ou idade da construção</label>
+          <input type="number" id="v-idade" value="12" min="0" step="1">
+          <span class="hint">Em anos. Entra na escala de Ross-Heidecke.</span>
+        </div>
+        <div class="f">
+          <label for="v-conserv">Estado de conservação</label>
+          <select id="v-conserv">
+            <option value="novo">Novo</option>
+            <option value="otimo">Ótimo, sem reparos</option>
+            <option value="regular" selected>Regular, habitável</option>
+            <option value="simples">Precisa reparos simples</option>
+            <option value="importantes">Precisa reparos importantes</option>
+          </select>
+        </div>
+        <div class="f">
+          <label for="padrao">Padrão construtivo</label>
+          <select id="padrao">
+            <option value="popular">Simples</option>
+            <option value="normal" selected>Normal</option>
+            <option value="alto">Alto</option>
+            <option value="luxo">Luxo</option>
+          </select>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>3 · Amostra de comparáveis <span class="req">mínimo 5</span></legend>
+      <span class="hint" style="margin:0 0 8px">Imóveis semelhantes no mesmo bairro, anunciados hoje. Cada linha é homogeneizada para as características do avaliando: área, idade, conservação e padrão. A coluna da direita mostra o R$/m² já homogeneizado e com o fator de oferta aplicado.</span>
+      <div class="comps-scroll">
+        <table class="comps">
+          <thead>
+            <tr>
+              <th class="n"></th>
+              <th style="width:14%">Área (m²)</th>
+              <th style="width:22%">Preço anunciado</th>
+              <th style="width:13%">Idade</th>
+              <th style="width:20%">Conservação</th>
+              <th style="width:16%">Padrão</th>
+              <th class="hom">R$/m² hom.</th>
+            </tr>
+          </thead>
+          <tbody id="comps-body"></tbody>
+        </table>
+      </div>
+      <div class="fields" style="margin-top:14px">
+        <div class="f">
+          <label for="fatorOferta">Fator de oferta (%)</label>
+          <input type="number" id="fatorOferta" value="8" min="0" max="30" step="0.5">
+          <span class="hint">Desconto médio entre anúncio e fechamento na região.</span>
+        </div>
+        <div class="f">
+          <label for="saneamento">Critério de saneamento (%)</label>
+          <input type="number" id="saneamento" value="30" min="10" max="60" step="5">
+          <span class="hint">Descarta o comparável que se afastar mais que isso da média homogeneizada.</span>
+        </div>
+        <div class="f">
+          <label for="m2casa">R$/m² de referência da região</label>
+          <input type="text" id="m2casa" inputmode="decimal">
+          <span class="hint">Só entra se a amostra ficar vazia. Nesse caso não há parecer, só estimativa.</span>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>4 · Contraprova pelo método evolutivo</legend>
+      <div class="fields">
+        <div class="f">
+          <label for="m2terreno">Terreno na região (R$/m²)</label>
+          <input type="text" id="m2terreno" inputmode="decimal">
+        </div>
+        <div class="f">
+          <label for="custoObra">Custo de reconstrução (R$/m²)</label>
+          <input type="text" id="custoObra" inputmode="decimal">
+          <span class="hint">CUB do padrão, com o adicional de pessoa física.</span>
+        </div>
+        <div class="f">
+          <label for="vidaUtil">Vida útil da construção (anos)</label>
+          <input type="number" id="vidaUtil" value="60" min="20" max="100" step="5">
+        </div>
+        <div class="f">
+          <label for="fc">Fator de comercialização</label>
+          <input type="number" id="fc" value="1.00" min="0.6" max="1.4" step="0.01">
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>5 · Benfeitorias e diferenciais</legend>
+      <div class="checks">
+        <label class="inline"><input type="checkbox" id="piscina"> Piscina</label>
+        <label class="inline"><input type="checkbox" id="edicula"> Edícula ou área gourmet</label>
+        <label class="inline"><input type="checkbox" id="churrasqueira"> Churrasqueira</label>
+        <label class="inline"><input type="checkbox" id="solar"> Energia solar</label>
+        <label class="inline"><input type="checkbox" id="boiler"> Aquecimento solar</label>
+        <label class="inline"><input type="checkbox" id="poco"> Poço artesiano</label>
+        <label class="inline"><input type="checkbox" id="planejados"> Armários planejados</label>
+        <label class="inline"><input type="checkbox" id="ruaBoa" checked> Entorno sem passivo</label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>6 · Documentação e ressalvas</legend>
+      <div class="checks">
+        <label class="inline"><input type="checkbox" id="dMatricula"> Matrícula com pendência</label>
+        <label class="inline"><input type="checkbox" id="dAverbacao"> Construção não averbada</label>
+        <label class="inline"><input type="checkbox" id="dEspolio"> Espólio ou inventário em curso</label>
+        <label class="inline"><input type="checkbox" id="dAlienado"> Financiado ou alienado</label>
+        <label class="inline"><input type="checkbox" id="dDebitos"> IPTU ou condomínio em atraso</label>
+        <label class="inline"><input type="checkbox" id="dInquilino"> Ocupado por inquilino</label>
+        <label class="inline"><input type="checkbox" id="dSemFin"> Não aceita financiamento</label>
+        <label class="inline"><input type="checkbox" id="dPressa"> Urgência real de venda</label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>7 · Contexto e conta do proprietário</legend>
+      <div class="fields">
+        <div class="f span2">
+          <label for="expectativa">Valor pedido hoje (R$)</label>
+          <input type="text" id="expectativa" inputmode="decimal" placeholder="Ex.: 850000">
+          <span class="hint">O número que ele tem na cabeça. É o que decide se o caso avança.</span>
+        </div>
+        <div class="f">
+          <label for="aluguel">Aluguel praticável (R$/mês)</label>
+          <input type="text" id="aluguel" inputmode="decimal" value="2200">
+        </div>
+        <div class="f">
+          <label for="v-cdi">CDI bruto (% a.a.)</label>
+          <input type="number" id="v-cdi" value="10.5" min="0" max="30" step="0.1">
+        </div>
+        <div class="f">
+          <label for="aquisicao">Valor de aquisição declarado (R$)</label>
+          <input type="text" id="aquisicao" inputmode="decimal" placeholder="Ex.: 320000">
+        </div>
+        <div class="f">
+          <label for="comissao">Comissão de corretagem (%)</label>
+          <input type="number" id="comissao" value="6" min="0" max="12" step="0.5">
+        </div>
+        <div class="f">
+          <label for="saldoDevedor">Saldo devedor a quitar (R$)</label>
+          <input type="text" id="saldoDevedor" inputmode="decimal" value="0">
+        </div>
+        <div class="f span2">
+          <label class="inline"><input type="checkbox" id="isencaoIR"> Isento de ganho de capital</label>
+        </div>
+      </div>
+    </fieldset>
+
+  </div>
+
+  <!-- ============ RESULTADO ============ -->
+  <div class="panel">
+    <div class="result">
+      <div class="head">
+        <span>Valor de mercado</span>
+        <b id="v-r-valor">—</b>
+        <small id="v-r-faixa">—</small>
+        <span class="grau" id="r-grau">Amostra insuficiente</span>
+      </div>
+      <div class="body">
+        <div class="flag" id="v-r-flag"></div>
+
+        <div class="two">
+          <div class="tile anuncio">
+            <span>Preço de anúncio</span>
+            <b id="r-anuncio">—</b>
+            <em id="r-anuncio-desc">com margem de negociação</em>
+          </div>
+          <div class="tile forcada" id="tile-forcada">
+            <span>Liquidação forçada</span>
+            <b id="r-forcada">—</b>
+            <em>venda em até 90 dias</em>
+          </div>
+        </div>
+
+        <table class="out">
+          <thead><tr><th>Tratamento estatístico da amostra</th><th class="num">Valor</th></tr></thead>
+          <tbody>
+            <tr><td>Comparáveis coletados</td><td class="num" id="r-n">—</td></tr>
+            <tr><td>Descartados no saneamento</td><td class="num" id="r-desc">—</td></tr>
+            <tr><td>Média homogeneizada</td><td class="num" id="r-media">—</td></tr>
+            <tr><td>Desvio padrão</td><td class="num" id="r-dp">—</td></tr>
+            <tr><td>Coeficiente de variação</td><td class="num" id="r-cv">—</td></tr>
+            <tr><td>Intervalo de confiança de 80%</td><td class="num" id="r-ic">—</td></tr>
+            <tr class="row-total"><td>Amplitude do intervalo</td><td class="num" id="r-amp">—</td></tr>
+          </tbody>
+        </table>
+
+        <div class="two">
+          <div class="tile">
+            <span>Comparativo homogeneizado</span>
+            <b id="r-comp">—</b>
+            <em id="r-comp-m2">—</em>
+          </div>
+          <div class="tile">
+            <span>Evolutivo (contraprova)</span>
+            <b id="r-evo">—</b>
+            <em id="r-evo-dep">—</em>
+          </div>
+        </div>
+
+        <div class="verdict v-warn" id="v-r-verdict">
+          <b id="v-r-verdict-t">Preencha a amostra</b>
+          <p id="v-r-verdict-p">Sem pelo menos cinco comparáveis do bairro não há parecer com fundamentação, só estimativa.</p>
+        </div>
+
+        <table class="out">
+          <thead><tr><th>O que sobra pro proprietário</th><th class="num">No valor de mercado</th></tr></thead>
+          <tbody>
+            <tr><td>Preço de venda</td><td class="num" id="r-pv">—</td></tr>
+            <tr><td>− Comissão de corretagem</td><td class="num" id="r-com">—</td></tr>
+            <tr><td>− Ganho de capital</td><td class="num" id="r-ir">—</td></tr>
+            <tr><td>− Quitação do saldo devedor</td><td class="num" id="r-saldo">—</td></tr>
+            <tr class="row-total"><td>Líquido no bolso</td><td class="num" id="r-liquido">—</td></tr>
+          </tbody>
+        </table>
+
+        <table class="out">
+          <thead><tr><th>Checagem pela renda</th><th class="num">Valor</th></tr></thead>
+          <tbody>
+            <tr><td>Aluguel sobre o valor, por mês</td><td class="num" id="r-ymes">—</td></tr>
+            <tr><td>Renda bruta ao ano</td><td class="num" id="r-yano">—</td></tr>
+            <tr><td>CDI líquido ao ano</td><td class="num" id="v-r-cdi">—</td></tr>
+            <tr><td>Leitura</td><td class="num" id="r-leitura">—</td></tr>
+          </tbody>
+        </table>
+
+        <details>
+          <summary>Memória de cálculo</summary>
+          <table id="v-r-memoria"></table>
+        </details>
+
+        <div class="actions">
+          <button class="btn" id="v-btn-wa" type="button">Enviar resumo no WhatsApp</button>
+          <button class="btn ghost" id="v-btn-print" type="button">Gerar PDF</button>
+          <button class="btn ghost" id="v-btn-reset" type="button">Limpar</button>
+        </div>
+
+        <p class="emitido" id="v-r-emitido"></p>
+
+        <p class="disc">Memória de cálculo de apoio ao Parecer Técnico de Avaliação Mercadológica, emitido por corretor de imóveis habilitado nos termos da Resolução COFECI nº 1.066/2014, com metodologia baseada na NBR 14653-2 (Método Comparativo Direto de Dados de Mercado) e depreciação por Ross-Heidecke. <b>Esta tela não é o parecer</b>: o PTAM exige vistoria, análise da matrícula e das certidões, registro das fontes e datas de coleta de cada comparável, e assinatura do responsável técnico. Para finalidades judiciais ou periciais pode ser exigida avaliação por engenheiro ou arquiteto habilitado. Validade sugerida do parecer: 6 meses. O cálculo de ganho de capital é simplificado e não substitui a orientação de um contador.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+</div>
+
+<div class="tabpane" id="pane-base" role="tabpanel" hidden>
+<section class="intro">
+  <div class="wrap">
+    <div class="kicker">Base de cálculo · auditoria das premissas</div>
+    <h1>De onde vem cada número das duas calculadoras.</h1>
+    <p>Toda premissa está classificada por origem. <b>Confirmado</b> é dado que veio de documento de vocês. <b>Derivado</b> é conta feita em cima de confirmado. <b>Estimativa</b> é chute meu, que precisa ser trocado antes de virar número em negociação.</p>
+  </div>
+</section>
+
+<div class="wrap" style="padding:30px 0 60px">
+
+  <div class="basegrid">
+
+    <section class="bcard ok">
+      <h3><span class="sel sel-ok">Confirmado</span> A base do site</h3>
+      <p class="src">Fonte: os números publicados na landing page, que fecham entre si.</p>
+      <table class="btab">
+        <tr><td>Imóvel de referência</td><td class="num">R$ 350.000</td></tr>
+        <tr><td>Capital total à vista</td><td class="num">R$ 423.476</td></tr>
+        <tr><td>Capital próprio com 20% de entrada</td><td class="num">R$ 143.476</td></tr>
+        <tr><td>Renda líquida por mês</td><td class="num">R$ 2.640</td></tr>
+        <tr><td>Renda sobre o capital</td><td class="num">7,5% a.a.</td></tr>
+        <tr><td>Valorização adotada</td><td class="num">5,5% a.a.</td></tr>
+        <tr><td>Painel da operação real</td><td class="num">91% · 4,8★ · R$ 3.482</td></tr>
+      </table>
+      <p class="note">A própria página declara as fontes: book e tabela do Reserva Boa Vista de julho de 2026, CUB Sinduscon acrescido de 25% para pessoa física, e o painel da operação entre dezembro de 2025 e junho de 2026.</p>
+    </section>
+
+    <section class="bcard ok">
+      <h3><span class="sel sel-ok">Confirmado</span> Operações reais</h3>
+      <p class="src">Fonte: e-mails da assessoria de crédito e da curadoria, entre setembro e novembro de 2025.</p>
+      <table class="btab">
+        <tr><td>MOVI Campo Belo, unidade 2107</td><td class="num">R$ 307.200</td></tr>
+        <tr><td>HUB Alto da Boa Vista, unidade 2605</td><td class="num">R$ 292.800</td></tr>
+        <tr><td>Nurban Ibirapuera, R2V de 36 m²</td><td class="num">R$ 354.524</td></tr>
+        <tr><td>Juros vigentes dos empreendimentos</td><td class="num">11,70% a.a.</td></tr>
+        <tr><td>ITBI e registro, percentual do banco</td><td class="num">5%</td></tr>
+        <tr><td>Sistema de amortização escolhido</td><td class="num">SAC</td></tr>
+        <tr><td>Teto de financiamento</td><td class="num">90% do valor avaliado</td></tr>
+      </table>
+      <p class="note">O Nurban dá R$ 9.848/m², mas é unidade R2V, com regra própria: não serve de referência para o mercado aberto de Ibirapuera.</p>
+    </section>
+
+    <section class="bcard ok">
+      <h3><span class="sel sel-ok">Confirmado</span> Metodologia do PTAM</h3>
+      <p class="src">Fonte: <code>ptam/</code> no branch <code>claude/analise-imovel-sjbv-clys39</code>, checklist do imóvel do Jardim Amélia.</p>
+      <ul class="blist">
+        <li>Emissão por corretor habilitado, Resolução COFECI nº 1.066/2014, metodologia NBR 14653.</li>
+        <li>Método Comparativo Direto de Dados de Mercado, com <b>mínimo de 5 comparáveis do próprio bairro</b>, com fonte e data de coleta.</li>
+        <li>Homogeneização por área, localização, idade, conservação e padrão, com fator de oferta.</li>
+        <li>Tratamento estatístico: média saneada, desvio padrão e intervalo de confiança.</li>
+        <li>Depreciação pela escala de <b>Ross-Heidecke</b>: sem idade e estado de conservação, não se aplica.</li>
+        <li>Inventário, partilha, divórcio e garantia exigem também o <b>valor de liquidação forçada</b>.</li>
+        <li>Construção não averbada entra como ressalva expressa e afeta a liquidez.</li>
+        <li>Prazo de elaboração de 5 dias úteis. Validade do parecer: 6 meses.</li>
+      </ul>
+      <table class="btab">
+        <tr><td>Emissora</td><td class="num">Wisekey Estrategia e Assessoria Ltda</td></tr>
+        <tr><td>CNPJ · NIRE</td><td class="num">58.501.287/0001-13 · 35265750384</td></tr>
+        <tr><td>Responsável técnico</td><td class="num">Raphael Piotto Cardoso</td></tr>
+        <tr><td>CRECI</td><td class="num">SP 319841-F</td></tr>
+      </table>
+      <p class="note">Ainda sem CRECI de pessoa jurídica: os documentos identificam só o responsável técnico. Quando a inscrição da PJ sair, ela entra no timbre e no rodapé, e a sociedade passa a figurar como emissora.</p>
+    </section>
+
+    <section class="bcard mid">
+      <h3><span class="sel sel-mid">Derivado</span> O que eu calculei em cima do confirmado</h3>
+      <table class="btab">
+        <tr><td>Mobília e enxoval</td><td class="num">R$ 55.976</td></tr>
+        <tr><td>Diária do studio padrão</td><td class="num">R$ 216</td></tr>
+      </table>
+      <p class="note">A mobília sai de R$ 423.476 menos o imóvel de R$ 350 mil, menos os 5% de custos: sobra R$ 55.976, e o número bate pelos dois caminhos, à vista e alavancado. A diária de R$ 216 foi resolvida de trás pra frente para reproduzir exatamente os R$ 2.640 líquidos a 75% de ocupação. Nenhuma das duas veio de documento: se a planilha da operação disser outra coisa, ela ganha.</p>
+    </section>
+
+    <section class="bcard bad">
+      <h3><span class="sel sel-bad">Divergência</span> O que não fecha entre o site e a conta</h3>
+      <table class="btab">
+        <tr><td>Retorno à vista: a página diz</td><td class="num">~13% a.a.</td></tr>
+        <tr><td>A conta dá</td><td class="num">12,0% a.a.</td></tr>
+        <tr><td>Alavancado a 75% de ocupação</td><td class="num">14,2% a.a.</td></tr>
+        <tr><td>Alavancado a 91%, já estabilizado</td><td class="num">20,8% a.a.</td></tr>
+        <tr><td>Fluxo mensal no 1º ano, SAC a 75%</td><td class="num neg">−R$ 688</td></tr>
+      </table>
+      <p class="note">Os 13% somam 7,5% de renda com 5,5% de valorização como se as duas incidissem sobre a mesma base. Não incidem: a valorização é do imóvel, de R$ 350 mil, e o retorno é medido sobre o capital total, de R$ 423 mil. Mobília não valoriza.</p>
+      <p class="note">Os 19% alavancados ficam entre o cenário conservador e o estabilizado. E a frase <b>"o hóspede paga a parcela"</b> só vale depois de estabilizar: no primeiro ano, em SAC e a 75% de ocupação, faltam R$ 688 por mês, que saem do bolso do investidor. Não é erro de conta da página, é escolha de qual cenário virou manchete.</p>
+    </section>
+
+    <section class="bcard warn">
+      <h3><span class="sel sel-warn">Estimativa</span> O que ainda é chute meu</h3>
+      <ul class="blist">
+        <li><b>Todos os R$/m² por bairro</b> — 23 regiões na calculadora de compra e 17 na de venda. Nenhum veio de pesquisa.</li>
+        <li><b>Terreno em R$/m² e CUB por padrão</b> — inclusive o Jardim Amélia, que eu acrescentei com número inventado.</li>
+        <li><b>Fatores de homogeneização</b> — área, padrão, conservação, idade, benfeitorias, topografia. Estão em faixas usuais de mercado, mas não calibrados na região de vocês.</li>
+        <li><b>Diária e ocupação por bairro</b> na calculadora de compra.</li>
+      </ul>
+      <p class="note">Por isso as duas calculadoras avisam em amarelo enquanto a amostra estiver vazia, e por isso o comparável que você digita sempre vence a referência da região. Estimativa serve para ter um ponto de partida na tela, não para levar número ao cliente.</p>
+    </section>
+
+    <section class="bcard">
+      <h3><span class="sel">Pendente</span> O que falta buscar</h3>
+      <ul class="blist">
+        <li><b>Planilhas <code>Apartamentos</code>, <code>ABNB 706</code> e <code>Apto 706</code></b> — anexos XLSX no e-mail. Têm diária, ocupação e receita reais, que substituem a estimativa da calculadora de compra.</li>
+        <li><b>Curadoria de Imóveis</b> e os 5 books dos empreendimentos — anexos PDF.</li>
+        <li><b>Curadoria V03</b>, com os imóveis do mercado secundário — Google Doc.</li>
+        <li><b>Estudo do Reserva Boa Vista</b> — é o que fecha o cenário do lote na página, de R$ 1.025.533 para 250 m² de terreno mais 159 m² de obra. Não está no e-mail.</li>
+        <li><b>Fonte e data de coleta por comparável</b> — o checklist exige, e a calculadora do PTAM ainda não captura. São duas colunas a mais na amostra.</li>
+      </ul>
+      <p class="note">Anexos de e-mail eu não consigo baixar. Documentos do Drive dependem do conector autorizado. Qualquer um dos dois destrava a calibração das regiões.</p>
+    </section>
+
+  </div>
+</div>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    Wisekey Estrategia e Assessoria Ltda · CNPJ 58.501.287/0001-13 · Resp. técnico: Raphael Piotto Cardoso · CRECI/SP 319841-F · <i>Investir assim faz sentido.</i>
+  </div>
+</footer>
+
+<script>
+
+(function(){
+  var abas = [].slice.call(document.querySelectorAll('.tabs button'));
+  function ir(alvo){
+    abas.forEach(function(b){
+      var on = b.dataset.tab === alvo;
+      b.setAttribute('aria-selected', on ? 'true' : 'false');
+      b.tabIndex = on ? 0 : -1;
+      document.getElementById('pane-' + b.dataset.tab).hidden = !on;
+    });
+    try{ history.replaceState(null,'','#'+alvo); }catch(e){}
+  }
+  abas.forEach(function(b){ b.addEventListener('click', function(){ ir(b.dataset.tab) }); });
+  ir((location.hash || '#compra').slice(1));
+})();
+
+(function(){
+
+/* ---------------- Referências de mercado por região ----------------
+   m2: R$/m² de venda calibrado para studio de ~25 m²
+   diaria: diária média de temporada mobiliado
+   aluguel: aluguel de longa duração mobiliado
+   Estimativas de partida. Sempre confirmar com pesquisa antes de ofertar. */
+var REGIOES = [
+  {id:'itaim',    n:'São Paulo · Itaim Bibi',              m2:18500, diaria:330, aluguel:3300},
+  {id:'jardins',  n:'São Paulo · Jardins / Cerqueira César',m2:17500, diaria:320, aluguel:3200},
+  {id:'vilaolim', n:'São Paulo · Vila Olímpia',            m2:16800, diaria:310, aluguel:3100},
+  {id:'pinheiros',n:'São Paulo · Pinheiros',               m2:16200, diaria:300, aluguel:3000},
+  {id:'moema',    n:'São Paulo · Moema',                   m2:15200, diaria:285, aluguel:2900},
+  {id:'brooklin', n:'São Paulo · Brooklin / Campo Belo',   m2:14000, diaria:270, aluguel:2650},
+  {id:'consola',  n:'São Paulo · Consolação / Higienópolis',m2:13800, diaria:265, aluguel:2500},
+  {id:'vmariana', n:'São Paulo · Vila Mariana',            m2:13500, diaria:260, aluguel:2550},
+  {id:'perdizes', n:'São Paulo · Perdizes / Pompeia',      m2:13200, diaria:250, aluguel:2450},
+  {id:'saude',    n:'São Paulo · Saúde / Chácara Klabin',  m2:11800, diaria:225, aluguel:2200},
+  {id:'stacecil', n:'São Paulo · Santa Cecília',           m2:11200, diaria:220, aluguel:2100},
+  {id:'belavista',n:'São Paulo · Bela Vista / Liberdade',  m2:11000, diaria:215, aluguel:2050},
+  {id:'butanta',  n:'São Paulo · Butantã / Cidade Universitária', m2:11000, diaria:210, aluguel:2050},
+  {id:'tatuape',  n:'São Paulo · Tatuapé',                 m2:10800, diaria:205, aluguel:2000},
+  {id:'santana',  n:'São Paulo · Santana',                 m2:10500, diaria:200, aluguel:1950},
+  {id:'barrafunda',n:'São Paulo · Barra Funda',            m2:10200, diaria:200, aluguel:1950},
+  {id:'ipiranga', n:'São Paulo · Ipiranga',                m2:9800,  diaria:190, aluguel:1850},
+  {id:'republica',n:'São Paulo · República / Centro',      m2:8800,  diaria:190, aluguel:1750},
+  {id:'cambui',   n:'Campinas · Cambuí',                   m2:9800,  diaria:200, aluguel:1900},
+  {id:'baraogeraldo',n:'Campinas · Barão Geraldo',         m2:7800,  diaria:170, aluguel:1600},
+  {id:'campcentro',n:'Campinas · Centro / Botafogo',       m2:6500,  diaria:150, aluguel:1400},
+  {id:'sjbv',     n:'São João da Boa Vista e região',      m2:6000,  diaria:140, aluguel:1300},
+  {id:'outro',    n:'Outra região (preencho na mão)',      m2:0,     diaria:0,   aluguel:0}
+];
+
+var DIAS_MES = 30.4;
+
+/* ---------------- helpers ---------------- */
+function el(id){return document.getElementById(id)}
+/* Aceita "350000", "350.000", "350.000,50" e "350000,50". */
+function num(id){
+  var raw = String(el(id).value).trim();
+  if(!raw) return 0;
+  raw = raw.replace(/[R$\s]/g,'');
+  if(raw.indexOf(',') > -1){
+    raw = raw.replace(/\./g,'').replace(',','.');
+  } else if(/^-?\d{1,3}(\.\d{3})+$/.test(raw)){
+    raw = raw.replace(/\./g,'');
+  }
+  var v = parseFloat(raw);
+  return isFinite(v) ? v : 0;
+}
+function sel(id){return parseFloat(el(id).value) || 0}
+var fmtBRL = new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0});
+var fmtBRL2 = new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL',minimumFractionDigits:0,maximumFractionDigits:0});
+function money(v){return isFinite(v) ? fmtBRL.format(Math.round(v)) : '—'}
+function pct(v){return isFinite(v) ? (v*100).toFixed(1).replace('.',',')+'%' : '—'}
+function fator(v){return v.toFixed(3).replace('.',',')}
+
+/* ---------------- popular select de regiões ---------------- */
+(function(){
+  var s = el('bairro');
+  REGIOES.forEach(function(r){
+    var o = document.createElement('option');
+    o.value = r.id; o.textContent = r.n;
+    s.appendChild(o);
+  });
+  s.value = 'consola';
+})();
+
+function aplicarRegiao(){
+  var r = REGIOES.filter(function(x){return x.id === el('bairro').value})[0];
+  if(!r || r.id === 'outro') return;
+  el('m2base').value = r.m2.toLocaleString('pt-BR');
+  el('diaria').value = r.diaria.toLocaleString('pt-BR');
+  el('alugLongo').value = r.aluguel.toLocaleString('pt-BR');
+}
+
+/* ---------------- motor de cálculo ---------------- */
+function calc(){
+  var area      = num('area');
+  var m2base    = num('m2base');
+  var temporada = el('temporada').checked;
+
+  /* -------- Método comparativo -------- */
+  var fTipo    = sel('tipo');
+  var fAndar   = sel('andar');
+  var fConserv = sel('conserv');
+  var fVaga    = sel('vaga');
+  var fLazer   = sel('lazer');
+  var fMetro   = sel('metro');
+  var fSacada  = el('sacada').checked ? 1.03 : 1.00;
+  var idade    = num('idade');
+  var fIdade   = 1 - Math.min(0.28, idade * 0.006);
+  var fArea    = area > 0 ? Math.min(1.18, Math.max(0.85, Math.pow(25/area, 0.15))) : 1;
+  var fRestr   = temporada ? 1.00 : 0.97;
+
+  var fatorTotal = fTipo*fAndar*fConserv*fVaga*fLazer*fMetro*fSacada*fIdade*fArea*fRestr;
+  var valorMercado = area * m2base * fatorTotal;
+
+  /* -------- Receita e NOI -------- */
+  var condominio = num('condominio');
+  var iptuMes    = num('iptu')/12;
+  var receita, custoOper, detalheRenda;
+
+  if(temporada){
+    var receitaBruta = num('diaria') * DIAS_MES * (num('ocup')/100);
+    var taxaOper  = receitaBruta * (num('taxaOp')/100);
+    var manut     = receitaBruta * (num('manut')/100);
+    var contas    = num('custosOp');
+    receita   = receitaBruta;
+    custoOper = taxaOper + manut + contas + condominio + iptuMes;
+    detalheRenda = [
+      ['Receita bruta (diária × 30,4 × ocupação)', money(receitaBruta)],
+      ['− Taxa do operador', money(-taxaOper)],
+      ['− Manutenção e reposição', money(-manut)],
+      ['− Contas da operação', money(-contas)],
+      ['− Condomínio', money(-condominio)],
+      ['− IPTU mensalizado', money(-iptuMes)]
+    ];
+  } else {
+    var aluguel  = num('alugLongo');
+    var vacancia = aluguel * 0.05;
+    var admin    = aluguel * 0.08;
+    var manutL   = aluguel * (num('manut')/100);
+    receita   = aluguel;
+    /* Na longa duração o inquilino paga condomínio e IPTU; sobra a vacância do proprietário. */
+    custoOper = vacancia + admin + manutL + (condominio + iptuMes) * 0.05;
+    detalheRenda = [
+      ['Aluguel contratado', money(aluguel)],
+      ['− Vacância estimada (5%)', money(-vacancia)],
+      ['− Administração (8%)', money(-admin)],
+      ['− Manutenção', money(-manutL)],
+      ['− Condomínio e IPTU na vacância', money(-((condominio + iptuMes) * 0.05))]
+    ];
+  }
+
+  var noiMes = receita - custoOper;
+  var noiAno = noiMes * 12;
+
+  /* -------- Método da renda -------- */
+  var capRate = num('capRate')/100;
+  var valorRenda = capRate > 0 ? noiAno / capRate : 0;
+
+  /* -------- Avaliação ponderada --------
+     Cada método só entra se tiver dado que o sustente. Se só um for válido,
+     ele responde sozinho. Trava de mercado: por melhor que seja a renda, na
+     saída você vende pelo que a região paga, então o valor final não passa de
+     1,15× o comparativo. */
+  var mercadoOk = area > 0 && m2base > 0;
+  var rendaOk   = capRate > 0 && noiAno > 0;
+  var completo  = mercadoOk || rendaOk;
+
+  var w = Math.min(1, Math.max(0, num('pesoRenda')/100));
+  var wEfetivo = (mercadoOk && rendaOk) ? w : (rendaOk ? 1 : 0);
+  var avaliacaoBruta = 0;
+  if(mercadoOk && rendaOk)  avaliacaoBruta = valorRenda * w + valorMercado * (1 - w);
+  else if(rendaOk)          avaliacaoBruta = valorRenda;
+  else if(mercadoOk)        avaliacaoBruta = valorMercado;
+
+  var tetoMercado = valorMercado * 1.15;
+  var travou = mercadoOk && rendaOk && avaliacaoBruta > tetoMercado;
+  var avaliacao = travou ? tetoMercado : avaliacaoBruta;
+
+  /* -------- Teto de compra --------
+     É o menor entre o que a renda suporta e a própria avaliação: renda boa não é
+     motivo pra pagar acima do que o ativo vale. */
+  var custoAq = num('custoAq')/100;
+  var mobilia = num('mobilia');
+  var reforma = num('reforma');
+  var tetoRenda = rendaOk ? (noiAno/capRate - mobilia - reforma) / (1 + custoAq) : 0;
+  if(tetoRenda < 0) tetoRenda = 0;
+  var tetoLimitado = rendaOk && avaliacao > 0 && tetoRenda > avaliacao;
+  var teto = rendaOk ? (tetoLimitado ? avaliacao : tetoRenda) : avaliacao;
+
+  /* -------- Cenários no preço pedido -------- */
+  var pedido = num('pedido');
+  var temPedido = pedido > 0;
+  var capitalVista = pedido * (1 + custoAq) + mobilia + reforma;
+  var yieldVista = capitalVista > 0 ? noiAno / capitalVista : 0;
+
+  var entradaPct = num('entradaPct')/100;
+  var entrada    = pedido * entradaPct;
+  var financiado = pedido - entrada;
+  var iAno = num('taxaFin')/100;
+  var iMes = Math.pow(1 + iAno, 1/12) - 1;
+  var nMes = num('prazoFin') * 12;
+  var sistema = el('sistema').value;
+  var parcela = 0, amortAno1 = 0;
+  if(financiado > 0 && iMes > 0 && nMes > 0){
+    if(sistema === 'sac'){
+      /* Amortização constante. A parcela cai todo mês, então o fluxo do primeiro
+         ano usa a média das 12 primeiras: o mês 1 é o pior e some rápido. */
+      var amortMes = financiado / nMes;
+      amortAno1 = amortMes * 12;
+      parcela = amortMes + iMes * financiado * (1 - 5.5/nMes);
+    } else {
+      parcela = financiado * iMes / (1 - Math.pow(1 + iMes, -nMes));
+      var saldo12 = financiado * Math.pow(1+iMes,12) - parcela * ((Math.pow(1+iMes,12) - 1)/iMes);
+      amortAno1 = financiado - saldo12;
+    }
+  }
+  var capitalAlav = entrada + pedido * custoAq + mobilia + reforma;
+  var fluxoAlavMes = noiMes - parcela;
+  var yieldAlav = capitalAlav > 0 ? (fluxoAlavMes * 12) / capitalAlav : 0;
+  var totalAlav  = capitalAlav > 0 ? (fluxoAlavMes * 12 + amortAno1 + pedido * (num('valoriz')/100)) / capitalAlav : 0;
+  var totalVista = capitalVista > 0 ? yieldVista + (pedido * (num('valoriz')/100)) / capitalVista : 0;
+  var cdiLiq = (num('cdi')/100) * 0.85;
+
+  /* ---------------- render ---------------- */
+  el('r-valor').textContent = completo && avaliacao > 0 ? money(avaliacao) : '—';
+  el('r-faixa').textContent = completo && avaliacao > 0
+    ? 'Faixa de trabalho: ' + money(avaliacao*0.93) + ' a ' + money(avaliacao*1.07)
+    : 'Preencha área e R$/m², ou a renda do imóvel, para começar';
+
+  el('r-mercado').textContent = mercadoOk ? money(valorMercado) : '—';
+  el('r-mercado-m2').textContent = mercadoOk ? money(valorMercado/area) + '/m² ajustado' : 'Falta área ou R$/m²';
+  el('r-renda').textContent = rendaOk ? money(valorRenda) : '—';
+  el('r-renda-noi').textContent = 'Renda líquida de ' + money(noiMes) + '/mês';
+  el('r-teto').textContent = completo && teto > 0 ? money(teto) : '—';
+  el('r-teto-desc').textContent = !rendaOk
+    ? 'Sem renda válida, o teto é a própria avaliação'
+    : (tetoLimitado
+      ? 'Limitado pela avaliação: a renda suportaria ' + money(tetoRenda) + ', mas o ativo não vale isso'
+      : 'Preço máximo para render ' + num('capRate').toString().replace('.',',') + '% a.a. sobre o capital total');
+
+  /* alertas */
+  var flags = [];
+  if(m2base <= 0) flags.push('Falta o R$/m² de referência da região.');
+  if(!temporada) flags.push('Temporada não liberada: a avaliação está usando aluguel de longa duração.');
+  if(temporada && noiMes > 0 && num('alugLongo') > 0 && receita < num('alugLongo')) flags.push('A temporada está rendendo menos que o aluguel longo. Reveja diária e ocupação.');
+  if(noiMes <= 0) flags.push('A renda líquida está negativa: os custos comem toda a receita.');
+  if(valorMercado > 0 && valorRenda > 0 && valorRenda < valorMercado*0.7) flags.push('A renda sustenta bem menos que o mercado pede. Ativo de valorização, não de renda.');
+  if(completo && mercadoOk && !rendaOk) flags.push('Só o método comparativo está válido: a avaliação está saindo 100% do mercado, sem contraprova pela renda.');
+  if(completo && rendaOk && !mercadoOk) flags.push('Só o método da renda está válido: preencha área e R$/m² da região para ancorar no mercado.');
+  if(travou) flags.push('A renda sustenta bem mais que o mercado da região. A avaliação foi travada em 1,15× o comparativo, porque na revenda vale o que o bairro paga. O prêmio da operação aparece no teto de compra, não no valor do ativo.');
+  var fl = el('r-flag');
+  fl.className = flags.length ? 'flag on' : 'flag';
+  fl.innerHTML = flags.map(function(f){return '⚠ ' + f}).join('<br>');
+
+  /* veredito */
+  var filtrosFalhos = 0;
+  Array.prototype.forEach.call(document.querySelectorAll('.filtro'), function(c){ if(!c.checked) filtrosFalhos++; });
+  var vt = el('r-verdict-t'), vp = el('r-verdict-p'), vb = el('r-verdict');
+
+  if(!completo || avaliacao <= 0){
+    vb.className = 'verdict v-warn';
+    vt.textContent = 'Faltam dados para avaliar';
+    vp.textContent = 'Preencha área e R$/m² da região para o método comparativo, ou a renda do imóvel para o método da capitalização. Um dos dois já produz avaliação; os dois juntos produzem a boa.';
+  } else if(filtrosFalhos > 0){
+    vb.className = 'verdict v-bad';
+    vt.textContent = 'Não compra: reprovou em ' + filtrosFalhos + ' dos 5 filtros';
+    vp.textContent = 'A régua Wisekey é eliminatória. Independente do preço, um imóvel que falha em um dos cinco filtros não entra na carteira. Resolva o filtro ou passe para o próximo ativo.';
+  } else if(!temPedido){
+    vb.className = 'verdict v-warn';
+    vt.textContent = 'Preencha o preço pedido';
+    vp.textContent = 'Sem o preço pedido a ferramenta entrega só a avaliação. Com ele, entrega também o veredito e o desconto necessário.';
+  } else if(pedido <= teto){
+    vb.className = 'verdict v-ok';
+    vt.textContent = 'Comprar: está dentro do teto';
+    vp.textContent = 'O pedido está ' + money(teto - pedido) + ' abaixo do seu teto e rende ' + pct(yieldVista) + ' a.a. à vista, contra ' + pct(cdiLiq) + ' do CDI líquido. Vale ancorar a oferta ainda mais baixo, mas a conta já fecha.';
+  } else if(pedido <= avaliacao*1.02){
+    var desconto = pedido - teto;
+    vb.className = 'verdict v-warn';
+    vt.textContent = 'Negociar até ' + money(teto);
+    vp.textContent = 'O preço está coerente com o mercado, mas acima do que a sua meta de ' + num('capRate').toString().replace('.',',') + '% suporta. Faltam ' + money(desconto) + ' de desconto (' + pct(desconto/pedido) + '). No pedido atual o retorno de renda cai para ' + pct(yieldVista) + ' a.a.';
+  } else {
+    var acima = pedido - avaliacao;
+    vb.className = 'verdict v-bad';
+    vt.textContent = 'Caro: ' + pct(acima/avaliacao) + ' acima da avaliação';
+    vp.textContent = 'O pedido está ' + money(acima) + ' acima do que mercado e renda justificam. Para entrar, o vendedor precisa aceitar ' + money(teto) + '. Sem isso, passa.';
+  }
+
+  /* tabela de cenários */
+  el('r-cap-vista').textContent   = temPedido ? money(capitalVista) : '—';
+  el('r-cap-alav').textContent    = temPedido ? money(capitalAlav) : '—';
+  el('r-mes-vista').textContent   = temPedido ? money(noiMes) : '—';
+  el('r-mes-alav').textContent    = temPedido ? money(fluxoAlavMes) : '—';
+  el('r-amort').textContent       = temPedido ? money(amortAno1/12) : '—';
+  el('r-yield-vista').textContent = temPedido ? pct(yieldVista) : '—';
+  el('r-yield-alav').textContent  = temPedido ? pct(yieldAlav) : '—';
+  el('r-tot-vista').textContent   = temPedido ? pct(totalVista) : '—';
+  el('r-tot-alav').textContent    = temPedido ? pct(totalAlav) : '—';
+  el('r-cdi').textContent         = pct(cdiLiq);
+  el('r-cdi2').textContent        = pct(cdiLiq);
+
+  /* memória de cálculo */
+  var linhas = [];
+  linhas.push(['<b>Método comparativo</b>','']);
+  linhas.push(['Base da região', money(m2base) + '/m²']);
+  linhas.push(['Área privativa', area.toString().replace('.',',') + ' m²']);
+  linhas.push(['Fator tipo de unidade', fator(fTipo)]);
+  linhas.push(['Fator andar', fator(fAndar)]);
+  linhas.push(['Fator conservação', fator(fConserv)]);
+  linhas.push(['Fator idade (' + idade + ' anos)', fator(fIdade)]);
+  linhas.push(['Fator vaga', fator(fVaga)]);
+  linhas.push(['Fator infraestrutura', fator(fLazer)]);
+  linhas.push(['Fator metrô', fator(fMetro)]);
+  linhas.push(['Fator sacada', fator(fSacada)]);
+  linhas.push(['Fator área (escala do studio)', fator(fArea)]);
+  linhas.push(['Fator restrição de temporada', fator(fRestr)]);
+  linhas.push(['<b>Fator global</b>', '<b>' + fator(fatorTotal) + '</b>']);
+  linhas.push(['<b>Valor de mercado</b>', '<b>' + money(valorMercado) + '</b>']);
+  linhas.push(['<b>Método da renda</b>','']);
+  detalheRenda.forEach(function(d){ linhas.push(d) });
+  linhas.push(['<b>Renda líquida mensal</b>', '<b>' + money(noiMes) + '</b>']);
+  linhas.push(['Renda líquida anual', money(noiAno)]);
+  linhas.push(['÷ cap rate alvo', num('capRate').toString().replace('.',',') + '%']);
+  linhas.push(['<b>Valor pela renda</b>', '<b>' + money(valorRenda) + '</b>']);
+  linhas.push(['<b>Composição</b>','']);
+  linhas.push(['Peso renda / mercado aplicado', Math.round(wEfetivo*100) + '% / ' + Math.round((1-wEfetivo)*100) + '%']);
+  linhas.push(['Ponderação simples', money(avaliacaoBruta)]);
+  if(travou) linhas.push(['Trava de mercado (1,15× comparativo)', money(tetoMercado)]);
+  linhas.push(['<b>Avaliação Wisekey</b>', '<b>' + money(avaliacao) + '</b>']);
+  linhas.push(['<b>Teto de compra</b>','']);
+  linhas.push(['Custos de aquisição', pct(custoAq)]);
+  linhas.push(['Mobília e enxoval', money(mobilia)]);
+  linhas.push(['Reforma', money(reforma)]);
+  linhas.push(['Teto pela renda', money(tetoRenda)]);
+  if(tetoLimitado) linhas.push(['Limitado pela avaliação', money(avaliacao)]);
+  linhas.push(['<b>Teto de compra</b>', '<b>' + money(teto) + '</b>']);
+  if(temPedido){
+    linhas.push(['<b>Financiamento no preço pedido</b>','']);
+    linhas.push(['Entrada', money(entrada)]);
+    linhas.push(['Valor financiado', money(financiado)]);
+    linhas.push(['Sistema', sistema === 'sac' ? 'SAC' : 'Price']);
+    linhas.push([sistema === 'sac' ? 'Parcela média do 1º ano' : 'Parcela estimada', money(parcela)]);
+    linhas.push(['Amortização no 1º ano', money(amortAno1)]);
+  }
+  el('r-memoria').innerHTML = linhas.map(function(l){
+    return '<tr><td>' + l[0] + '</td><td class="num">' + l[1] + '</td></tr>';
+  }).join('');
+
+  return {avaliacao:avaliacao, valorMercado:valorMercado, valorRenda:valorRenda, teto:teto,
+          noiMes:noiMes, pedido:pedido, yieldVista:yieldVista, yieldAlav:yieldAlav, totalAlav:totalAlav};
+}
+
+/* ---------------- modo temporada x longa ---------------- */
+function alternarModo(){
+  var t = el('temporada').checked;
+  ['wrap-diaria','wrap-ocup','wrap-custosop','wrap-taxaop'].forEach(function(id){
+    el(id).style.display = t ? '' : 'none';
+  });
+}
+
+/* ---------------- formatação dos campos em reais ---------------- */
+['m2base','condominio','iptu','diaria','alugLongo','custosOp','mobilia','reforma','pedido'].forEach(function(id){
+  el(id).addEventListener('blur', function(){
+    var v = num(id);
+    el(id).value = v ? v.toLocaleString('pt-BR',{maximumFractionDigits:2}) : '';
+    calc();
+  });
+});
+
+/* ---------------- eventos ---------------- */
+document.addEventListener('input', calc);
+document.addEventListener('change', calc);
+el('bairro').addEventListener('change', function(){ aplicarRegiao(); calc(); });
+el('temporada').addEventListener('change', function(){ alternarModo(); calc(); });
+
+el('btn-print').addEventListener('click', function(){
+  var d = document.querySelector('details'); if(d) d.open = true;
+  var nome = el('apelido').value.trim();
+  el('r-emitido').textContent = (nome ? nome + ' · ' : '')
+    + 'Emitido em ' + new Date().toLocaleDateString('pt-BR')
+    + ' · Wisekey · CRECI SP 319841';
+  window.print();
+});
+
+/* Cenário publicado na landing page: studio de R$ 350 mil, capital total de
+   R$ 423.476, R$ 2.640 líquidos por mês, 7,5% de renda. A diária está calibrada
+   para reproduzir exatamente esses R$ 2.640 no cenário conservador de 75%. */
+el('btn-base').addEventListener('click', function(){
+  el('apelido').value = 'Base do site: studio padrão Wisekey';
+  el('bairro').value = 'consola'; aplicarRegiao();
+  el('area').value = 26;
+  el('condominio').value = '580';
+  el('iptu').value = '1.800';
+  el('temporada').checked = true; alternarModo();
+  el('diaria').value = '216';
+  el('ocup').value = 75;
+  el('custosOp').value = '320';
+  el('taxaOp').value = 20;
+  el('manut').value = 5;
+  el('capRate').value = 7.5;
+  el('pesoRenda').value = 55;
+  el('custoAq').value = 5;
+  el('mobilia').value = '55.976';
+  el('reforma').value = '0';
+  el('valoriz').value = 5.5;
+  el('entradaPct').value = 20;
+  el('taxaFin').value = 11.7;
+  el('prazoFin').value = 30;
+  el('pedido').value = '350.000';
+  calc();
+});
+
+el('btn-reset').addEventListener('click', function(){
+  if(!confirm('Limpar todos os campos e voltar aos valores padrão?')) return;
+  location.reload();
+});
+
+el('btn-wa').addEventListener('click', function(){
+  var r = calc();
+  var nome = el('apelido').value.trim() || 'Imóvel sem identificação';
+  var regiao = el('bairro').options[el('bairro').selectedIndex].text;
+  var linhas = [
+    'Avaliacao Wisekey',
+    nome,
+    regiao + ' | ' + el('area').value + ' m2',
+    '',
+    'Valor de mercado: ' + money(r.valorMercado),
+    'Valor pela renda: ' + money(r.valorRenda),
+    'AVALIACAO: ' + money(r.avaliacao),
+    'Teto de compra: ' + money(r.teto),
+    'Renda liquida: ' + money(r.noiMes) + '/mes'
+  ];
+  if(r.pedido > 0){
+    linhas.push('');
+    linhas.push('Preco pedido: ' + money(r.pedido));
+    linhas.push('Veredito: ' + el('r-verdict-t').textContent);
+    linhas.push('Retorno a vista: ' + pct(r.yieldVista) + ' a.a.');
+    linhas.push('Retorno alavancado: ' + pct(r.totalAlav) + ' a.a. sobre capital proprio');
+  }
+  window.open('https://wa.me/5511917952603?text=' + encodeURIComponent(linhas.join('\n')), '_blank');
+});
+
+aplicarRegiao();
+alternarModo();
+calc();
+
+})();
+(function(){
+
+/* Referências por região. Estimativas de partida: a amostra manda sempre que existir. */
+var REGIOES = [
+  {id:'sjbv-centro', n:'São João da Boa Vista · Centro',             terreno:900,  casa:3600},
+  {id:'sjbv-amelia', n:'São João da Boa Vista · Jardim Amélia',      terreno:600,  casa:3100},
+  {id:'sjbv-bairro', n:'São João da Boa Vista · Bairros residenciais',terreno:550, casa:3000},
+  {id:'sjbv-cond',   n:'São João da Boa Vista · Condomínio fechado',  terreno:700,  casa:4200},
+  {id:'sjbv-chac',   n:'São João da Boa Vista · Chácaras e rural',    terreno:120,  casa:2600},
+  {id:'regiao-peq',  n:'Aguaí, Vargem Grande, Casa Branca',           terreno:380,  casa:2500},
+  {id:'regiao-med',  n:'Espírito Santo do Pinhal, Mococa, S. J. Rio Pardo', terreno:420, casa:2700},
+  {id:'pocos',       n:'Poços de Caldas',                             terreno:800,  casa:3600},
+  {id:'cps-cambui',  n:'Campinas · Cambuí e Taquaral',                terreno:2600, casa:6500},
+  {id:'cps-barao',   n:'Campinas · Barão Geraldo',                    terreno:1600, casa:5200},
+  {id:'cps-cond',    n:'Campinas · Condomínios fechados',             terreno:1500, casa:5800},
+  {id:'cps-bairro',  n:'Campinas · Bairros medianos',                 terreno:900,  casa:3800},
+  {id:'sp-oeste',    n:'São Paulo · Zona Oeste',                      terreno:11000,casa:12000},
+  {id:'sp-sul',      n:'São Paulo · Zona Sul',                        terreno:8500, casa:10000},
+  {id:'sp-leste',    n:'São Paulo · Zona Leste',                      terreno:5500, casa:7500},
+  {id:'sp-norte',    n:'São Paulo · Zona Norte',                      terreno:5000, casa:7000},
+  {id:'outra',       n:'Outra região (preencho na mão)',              terreno:0,    casa:0}
+];
+
+var CUSTO_OBRA   = {popular:2200, normal:3200, alto:4800, luxo:7200};
+var FATOR_PADRAO = {popular:0.88, normal:1.00, alto:1.15, luxo:1.30};
+var HEIDECKE     = {novo:0, otimo:0.032, regular:0.182, simples:0.331, importantes:0.523};
+var FATOR_CONSERV= {novo:1.08, otimo:1.04, regular:1.00, simples:0.92, importantes:0.82};
+
+/* t de Student para intervalo de confiança de 80%, bicaudal, por graus de liberdade. */
+var T80 = [3.078,1.886,1.638,1.533,1.476,1.440,1.415,1.397,1.383,1.372,1.363,1.356,1.350,1.345,1.341];
+function tStudent(n){ var df = n - 1; if(df < 1) return 0; return T80[Math.min(df, T80.length) - 1]; }
+
+var N_COMPS = 8;
+
+function el(id){return document.getElementById(id)}
+function parseNum(raw){
+  raw = String(raw == null ? '' : raw).trim();
+  if(!raw) return 0;
+  raw = raw.replace(/[R$\s]/g,'');
+  if(raw.indexOf(',') > -1) raw = raw.replace(/\./g,'').replace(',','.');
+  else if(/^-?\d{1,3}(\.\d{3})+$/.test(raw)) raw = raw.replace(/\./g,'');
+  var v = parseFloat(raw);
+  return isFinite(v) ? v : 0;
+}
+function num(id){return parseNum(el(id).value)}
+var fmtBRL = new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0});
+function money(v){return isFinite(v) ? fmtBRL.format(Math.round(v)) : '—'}
+function pct(v,c){return isFinite(v) ? (v*100).toFixed(c==null?1:c).replace('.',',')+'%' : '—'}
+function fator(v){return v.toFixed(3).replace('.',',')}
+
+/* Fator de área: unidade menor tem R$/m² maior. Homogeneíza o comparável ao avaliando. */
+function fArea(areaComp, areaAval){
+  if(areaComp <= 0 || areaAval <= 0) return 1;
+  return Math.min(1.20, Math.max(0.83, Math.pow(areaComp/areaAval, 0.125)));
+}
+function fIdade(anos){ return 1 - Math.min(0.30, anos * 0.005); }
+
+/* ---------------- montagem da amostra ---------------- */
+(function(){
+  var optConserv = '<option value="novo">Novo</option><option value="otimo">Ótimo</option>'
+                 + '<option value="regular" selected>Regular</option><option value="simples">Reparos simples</option>'
+                 + '<option value="importantes">Reparos importantes</option>';
+  var optPadrao  = '<option value="popular">Simples</option><option value="normal" selected>Normal</option>'
+                 + '<option value="alto">Alto</option><option value="luxo">Luxo</option>';
+  var tb = el('comps-body');
+  for(var i=1;i<=N_COMPS;i++){
+    var tr = document.createElement('tr');
+    tr.id = 'row'+i;
+    tr.innerHTML = '<td class="n">'+i+'</td>'
+      + '<td><input type="text" inputmode="decimal" id="cArea'+i+'" placeholder="m²"></td>'
+      + '<td><input type="text" inputmode="decimal" id="cPreco'+i+'" placeholder="R$"></td>'
+      + '<td><input type="number" id="cIdade'+i+'" placeholder="anos" min="0" step="1"></td>'
+      + '<td><select id="cConserv'+i+'">'+optConserv+'</select></td>'
+      + '<td><select id="cPadrao'+i+'">'+optPadrao+'</select></td>'
+      + '<td class="hom" id="cOut'+i+'">—</td>';
+    tb.appendChild(tr);
+  }
+})();
+
+(function(){
+  var s = el('regiao');
+  REGIOES.forEach(function(r){
+    var o = document.createElement('option');
+    o.value = r.id; o.textContent = r.n;
+    s.appendChild(o);
+  });
+  s.value = 'sjbv-amelia';
+})();
+
+function aplicarRegiao(){
+  var r = REGIOES.filter(function(x){return x.id === el('regiao').value})[0];
+  if(!r || r.id === 'outra') return;
+  el('m2terreno').value = r.terreno.toLocaleString('pt-BR');
+  el('m2casa').value    = r.casa.toLocaleString('pt-BR');
+}
+function aplicarPadrao(){ el('custoObra').value = CUSTO_OBRA[el('padrao').value].toLocaleString('pt-BR'); }
+
+/* ---------------- motor ---------------- */
+function calc(){
+  var tipo        = el('v-tipo').value;
+  var eTerreno    = tipo === 'terreno';
+  var areaTerreno = num('areaTerreno');
+  var areaConst   = eTerreno ? 0 : num('areaConstruida');
+  var m2terreno   = num('m2terreno');
+  var idade       = num('v-idade');
+  var vidaUtil    = Math.max(1, num('vidaUtil'));
+  var padrao      = el('padrao').value;
+  var conserv     = el('v-conserv').value;
+  var descOferta  = num('fatorOferta')/100;
+  var limSaneio   = num('saneamento')/100;
+
+  /* -------- homogeneização de cada comparável -------- */
+  var fPadraoAval  = FATOR_PADRAO[padrao];
+  var fConservAval = FATOR_CONSERV[conserv];
+  var fIdadeAval   = fIdade(idade);
+
+  var dados = [];
+  for(var i=1;i<=N_COMPS;i++){
+    var a = parseNum(el('cArea'+i).value), p = parseNum(el('cPreco'+i).value);
+    if(a > 0 && p > 0){
+      var fa = fArea(a, areaConst > 0 ? areaConst : a);
+      var fp = fPadraoAval  / FATOR_PADRAO[el('cPadrao'+i).value];
+      var fc = fConservAval / FATOR_CONSERV[el('cConserv'+i).value];
+      var fi = fIdadeAval   / fIdade(parseNum(el('cIdade'+i).value));
+      var hom = (p/a) * fa * fp * fc * fi * (1 - descOferta);
+      dados.push({i:i, area:a, preco:p, unit:p/a, hom:hom, fa:fa, fp:fp, fc:fc, fi:fi});
+    } else {
+      el('cOut'+i).textContent = '—';
+      el('row'+i).className = '';
+    }
+  }
+
+  /* -------- saneamento -------- */
+  var n0 = dados.length;
+  var mediaBruta = n0 ? dados.reduce(function(s,d){return s+d.hom},0)/n0 : 0;
+  dados.forEach(function(d){ d.ok = n0 < 3 ? true : Math.abs(d.hom - mediaBruta)/mediaBruta <= limSaneio; });
+  var validos = dados.filter(function(d){return d.ok});
+  var descartados = n0 - validos.length;
+
+  dados.forEach(function(d){
+    el('cOut'+d.i).textContent = fmtBRL.format(Math.round(d.hom));
+    el('row'+d.i).className = d.ok ? '' : 'fora';
+  });
+
+  /* -------- estatística da amostra saneada -------- */
+  var n = validos.length;
+  var media = n ? validos.reduce(function(s,d){return s+d.hom},0)/n : 0;
+  var dp = 0;
+  if(n > 1){
+    var somaQ = validos.reduce(function(s,d){return s + Math.pow(d.hom - media, 2)},0);
+    dp = Math.sqrt(somaQ/(n-1));
+  }
+  var cv = media ? dp/media : 0;
+  var t = tStudent(n);
+  var erro = n > 1 ? t * dp / Math.sqrt(n) : 0;
+  var icInf = media - erro, icSup = media + erro;
+  var amplitude = media ? (icSup - icInf)/media : 0;
+
+  /* -------- grau de fundamentação -------- */
+  var grau, grauTxt;
+  if(n >= 12 && amplitude <= 0.30)      { grau = 3; grauTxt = 'Grau III de fundamentação'; }
+  else if(n >= 5 && amplitude <= 0.40)  { grau = 2; grauTxt = 'Grau II de fundamentação'; }
+  else if(n >= 3 && amplitude <= 0.50)  { grau = 1; grauTxt = 'Grau I de fundamentação'; }
+  else if(n > 0)                        { grau = 0; grauTxt = 'Amostra fora do grau mínimo'; }
+  else                                  { grau = -1; grauTxt = 'Sem amostra: estimativa, não parecer'; }
+
+  /* -------- fatores complementares do avaliando -------- */
+  var fVagas  = 1 + Math.min(0.06, Math.max(0, num('vagas') - 1) * 0.03);
+  var fSuites = 1 + Math.min(0.06, num('suites') * 0.03);
+  var fBanhos = 1 + Math.min(0.04, Math.max(0, num('banheiros') - 2) * 0.02);
+  var fPisc   = el('piscina').checked ? 1.04 : 1.00;
+  var fEdic   = el('edicula').checked ? 1.03 : 1.00;
+  var fChurr  = el('churrasqueira').checked ? 1.01 : 1.00;
+  var fSolar  = el('solar').checked ? 1.03 : 1.00;
+  var fBoiler = el('boiler').checked ? 1.01 : 1.00;
+  var fPoco   = el('poco').checked ? 1.01 : 1.00;
+  var fPlan   = el('planejados').checked ? 1.02 : 1.00;
+  var fRua    = el('ruaBoa').checked ? 1.00 : 0.94;
+  var fCond   = tipo === 'condominio' ? 1.08 : 1.00;
+  var fSob    = tipo === 'sobrado' ? 0.98 : 1.00;
+  var fTopo   = parseFloat(el('topografia').value) || 1;
+  var fFin    = el('dSemFin').checked ? 0.93 : 1.00;
+  var fDoc    = 1.00;
+  if(el('dMatricula').checked) fDoc *= 0.90;
+  if(el('dAverbacao').checked) fDoc *= 0.96;
+  if(el('dEspolio').checked)   fDoc *= 0.95;
+  if(el('dInquilino').checked) fDoc *= 0.97;
+  var fCompl = fVagas*fSuites*fBanhos*fPisc*fEdic*fChurr*fSolar*fBoiler*fPoco*fPlan*fRua*fCond*fSob*fFin*fDoc;
+
+  /* -------- valor pelo comparativo -------- */
+  var m2ref = num('m2casa');
+  var temAmostra = n > 0;
+  var unitBase = temAmostra ? media : m2ref * (1 - descOferta);
+  var terrenoTipico = areaConst * 3;
+  var excedente = Math.max(0, areaTerreno - terrenoTipico);
+  var valorExcedente = excedente * m2terreno * 0.5 * fTopo;
+
+  var compOk = eTerreno ? (areaTerreno > 0 && m2terreno > 0) : (areaConst > 0 && unitBase > 0);
+  var valorComp = 0;
+  if(eTerreno) valorComp = areaTerreno * m2terreno * fTopo * fRua * fDoc;
+  else if(compOk) valorComp = areaConst * unitBase * fCompl + valorExcedente;
+
+  /* -------- evolutivo -------- */
+  var valorTerreno = areaTerreno * m2terreno * fTopo;
+  var custoObra = num('custoObra');
+  var custoNovo = areaConst * custoObra;
+  var k = Math.min(1, idade/vidaUtil);
+  var ross = 0.5 * (k + k*k);
+  var heid = HEIDECKE[conserv];
+  var deprec = Math.min(0.95, ross + heid * (1 - ross));
+  var benfeitoria = custoNovo * (1 - deprec);
+  var fcom = num('fc') || 1;
+  var evoOk = eTerreno ? (areaTerreno > 0 && m2terreno > 0)
+                       : (areaTerreno > 0 && m2terreno > 0 && areaConst > 0 && custoObra > 0);
+  var valorEvo = evoOk ? (valorTerreno + benfeitoria) * fcom * fDoc * fFin : 0;
+
+  /* O parecer conclui pelo comparativo. O evolutivo é contraprova, não média. */
+  var valor = compOk ? valorComp : (evoOk ? valorEvo : 0);
+  var completo = valor > 0;
+
+  /* -------- preços derivados -------- */
+  var anuncio = valor * (1 + descOferta);
+  var forcada = valor * 0.75;
+  var finalidade = el('finalidade').value;
+  var exigeForcada = ['inventario','divorcio','garantia'].indexOf(finalidade) > -1;
+  el('tile-forcada').style.display = exigeForcada ? '' : 'none';
+
+  /* -------- conta do proprietário -------- */
+  var comissao = valor * (num('comissao')/100);
+  var aquisicao = num('aquisicao');
+  var ganho = Math.max(0, valor - aquisicao);
+  var ir = (el('isencaoIR').checked || aquisicao <= 0) ? 0 : ganho * 0.15;
+  var saldo = num('saldoDevedor');
+  var liquido = valor - comissao - ir - saldo;
+
+  /* -------- renda -------- */
+  var aluguel = num('aluguel');
+  var yMes = valor > 0 ? aluguel/valor : 0;
+  var cdiLiq = (num('v-cdi')/100) * 0.85;
+
+  /* ---------------- render ---------------- */
+  el('v-r-valor').textContent = completo ? money(valor) : '—';
+  el('v-r-faixa').textContent = completo
+    ? (n > 1 ? 'Intervalo de confiança: ' + money(valor*(icInf/media)) + ' a ' + money(valor*(icSup/media))
+             : 'Faixa de trabalho: ' + money(valor*0.92) + ' a ' + money(valor*1.08))
+    : 'Preencha os dados físicos e a amostra';
+  el('r-grau').textContent = grauTxt;
+
+  el('r-n').textContent    = n0 ? n0 + ' comparáve' + (n0>1?'is':'l') : '—';
+  el('r-desc').textContent = n0 ? (descartados ? descartados + ' (fora de ' + pct(limSaneio,0) + ' da média)' : 'nenhum') : '—';
+  el('r-media').textContent= n ? money(media) + '/m²' : '—';
+  el('r-dp').textContent   = n > 1 ? money(dp) + '/m²' : '—';
+  el('r-cv').textContent   = n > 1 ? pct(cv) : '—';
+  el('r-ic').textContent   = n > 1 ? money(icInf) + ' a ' + money(icSup) : '—';
+  el('r-amp').textContent  = n > 1 ? pct(amplitude) : '—';
+
+  el('r-anuncio').textContent = completo ? money(anuncio) : '—';
+  el('r-anuncio-desc').textContent = 'margem de ' + pct(descOferta,0) + ' para negociar';
+  el('r-forcada').textContent = completo ? money(forcada) : '—';
+  el('r-comp').textContent = compOk ? money(valorComp) : '—';
+  el('r-comp-m2').textContent = temAmostra
+    ? money(unitBase) + '/m² de ' + n + ' comparáve' + (n>1?'is':'l')
+    : (compOk ? money(unitBase) + '/m² da referência da região' : 'Faltam dados');
+  el('r-evo').textContent = evoOk ? money(valorEvo) : '—';
+  el('r-evo-dep').textContent = eTerreno ? 'Terreno sem benfeitoria'
+    : 'Terreno ' + money(valorTerreno) + ' + obra depreciada em ' + pct(deprec,0);
+
+  el('r-pv').textContent = completo ? money(valor) : '—';
+  el('r-com').textContent = completo ? money(-comissao) : '—';
+  el('r-ir').textContent = completo ? (aquisicao > 0 ? money(-ir) : 'sem valor de aquisição') : '—';
+  el('r-saldo').textContent = completo ? money(-saldo) : '—';
+  el('r-liquido').textContent = completo ? money(liquido) : '—';
+
+  el('r-ymes').textContent = (aluguel > 0 && valor > 0) ? pct(yMes,2) : '—';
+  el('r-yano').textContent = (aluguel > 0 && valor > 0) ? pct(yMes*12) : '—';
+  el('v-r-cdi').textContent = pct(cdiLiq);
+  el('r-leitura').textContent = (aluguel > 0 && valor > 0)
+    ? (yMes >= 0.005 ? 'Renda boa para casa' : (yMes >= 0.0035 ? 'Renda na média' : 'Ativo de moradia, não de renda'))
+    : '—';
+
+  /* -------- alertas -------- */
+  var flags = [];
+  if(n0 === 0 && compOk) flags.push('Sem amostra: o número está saindo do R$/m² genérico da região. Isso é estimativa, não parecer. O PTAM exige no mínimo cinco comparáveis do próprio bairro, com fonte e data de coleta.');
+  else if(n0 > 0 && n < 5) flags.push('Só ' + n + ' comparáve' + (n>1?'is válidos':'l válido') + ' na amostra. O checklist exige cinco. Abaixo disso o parecer sai sem grau de fundamentação defensável.');
+  if(n > 1 && cv > 0.25) flags.push('Dispersão alta na amostra (coeficiente de variação de ' + pct(cv) + '). Os comparáveis não são tão parecidos entre si quanto deveriam. Reveja a seleção antes de concluir.');
+  if(descartados > 0) flags.push(descartados + ' comparáve' + (descartados>1?'is foram descartados':'l foi descartado') + ' no saneamento. Confira se não é erro de digitação antes de aceitar o descarte.');
+  if(compOk && evoOk && valorEvo > 0 && Math.abs(valorComp - valorEvo)/valorEvo > 0.30) flags.push('O evolutivo diverge mais de 30% do comparativo. Reveja o R$/m² de terreno e o custo de obra: a contraprova não está confirmando a conclusão.');
+  if(el('dAverbacao').checked && areaConst > 0) flags.push('Construção não averbada: precisa constar como ressalva expressa no parecer, e afeta a liquidez. Para o banco, o imóvel é um terreno.');
+  if(el('dMatricula').checked || el('dEspolio').checked) flags.push('Pendência de matrícula ou inventário em curso: ressalva obrigatória no parecer.');
+  if(idade > vidaUtil*0.8) flags.push('Construção perto do fim da vida útil adotada. O valor está quase todo no terreno.');
+  if(exigeForcada) flags.push('A finalidade escolhida exige que o parecer traga também o valor de liquidação forçada, além do valor de mercado.');
+  var fl = el('v-r-flag');
+  fl.className = flags.length ? 'flag on' : 'flag';
+  fl.innerHTML = flags.map(function(f){return '⚠ ' + f}).join('<br>');
+
+  /* -------- triagem -------- */
+  var expectativa = num('expectativa');
+  var temExp = expectativa > 0;
+  var gap = (temExp && valor > 0) ? (expectativa - valor)/valor : 0;
+  var sExp = !temExp ? 15 : (gap <= 0 ? 30 : gap <= 0.05 ? 27 : gap <= 0.10 ? 22 : gap <= 0.18 ? 14 : gap <= 0.30 ? 6 : 0);
+  var sDoc = 25;
+  if(el('dMatricula').checked) sDoc -= 12;
+  if(el('dAverbacao').checked) sDoc -= 8;
+  if(el('dEspolio').checked)   sDoc -= 7;
+  if(el('dAlienado').checked)  sDoc -= 3;
+  if(el('dDebitos').checked)   sDoc -= 3;
+  if(el('dInquilino').checked) sDoc -= 3;
+  sDoc = Math.max(0, sDoc);
+  var sLiq = 25;
+  if(el('dSemFin').checked) sLiq -= 10;
+  if(!el('ruaBoa').checked) sLiq -= 4;
+  if(conserv === 'importantes') sLiq -= 5;
+  if(padrao === 'luxo') sLiq -= 4;
+  if(areaConst > 350) sLiq -= 4;
+  if(!eTerreno && areaConst > 0 && areaTerreno/areaConst > 6) sLiq -= 3;
+  if(el('dPressa').checked) sLiq += 4;
+  sLiq = Math.max(0, Math.min(25, sLiq));
+  var sRenda = (aluguel <= 0 || valor <= 0) ? 8 : (yMes >= 0.005 ? 20 : yMes >= 0.004 ? 15 : yMes >= 0.003 ? 10 : 5);
+  var score = Math.round(sExp + sDoc + sLiq + sRenda);
+
+  var vb = el('v-r-verdict'), vt = el('v-r-verdict-t'), vp = el('v-r-verdict-p');
+  var vetoExp = temExp && gap > 0.30;
+  var vetoDoc = el('dMatricula').checked || el('dEspolio').checked;
+
+  if(!completo){
+    vb.className = 'verdict v-warn';
+    vt.innerHTML = 'Preencha a amostra';
+    vp.textContent = 'Sem pelo menos cinco comparáveis do bairro não há parecer com fundamentação, só estimativa.';
+  } else if(n < 5){
+    vb.className = 'verdict v-warn';
+    vt.innerHTML = 'Amostra ainda insuficiente <span class="score">' + n + ' de 5</span>';
+    vp.textContent = 'O valor de ' + money(valor) + ' já aparece, mas sem os cinco comparáveis o parecer não sustenta grau de fundamentação. Colete mais ' + (5-n) + ' no Jardim Amélia e entorno, com fonte e data.';
+  } else if(!temExp){
+    vb.className = 'verdict v-warn';
+    vt.innerHTML = 'Pergunte quanto ele quer <span class="score">' + (sDoc+sLiq+sRenda) + '/70</span>';
+    vp.textContent = 'A amostra sustenta ' + money(valor) + ' com ' + grauTxt.toLowerCase() + '. Documentação, liquidez e renda somam ' + (sDoc+sLiq+sRenda) + ' dos 70 pontos que independem dele.';
+  } else if(vetoExp){
+    vb.className = 'verdict v-bad';
+    vt.innerHTML = 'Expectativa ' + pct(gap) + ' acima do parecer <span class="score">' + score + '/100</span>';
+    vp.textContent = 'Ele quer ' + money(expectativa) + ' e a amostra sustenta ' + money(valor) + '. Diferença dessa ordem não se resolve em visita. Entregue o parecer com o intervalo de confiança e deixe o mercado responder.';
+  } else if(vetoDoc){
+    vb.className = 'verdict v-warn';
+    vt.innerHTML = 'Ressalva de documentação <span class="score">' + score + '/100</span>';
+    vp.textContent = (el('dMatricula').checked ? 'A matrícula tem pendência' : 'O imóvel está em inventário')
+      + '. O parecer sai, com a ressalva expressa e o desconto de ' + pct(1-fDoc) + ' já aplicado, mas sem regularizar não há venda financiada nem prazo previsível.';
+  } else if(score >= 70){
+    vb.className = 'verdict v-ok';
+    vt.innerHTML = 'Caso sustentado <span class="score">' + score + '/100</span>';
+    vp.textContent = 'Amostra com ' + grauTxt.toLowerCase() + ' e expectativa ' + (gap <= 0 ? pct(Math.abs(gap)) + ' abaixo' : pct(gap) + ' acima') + ' do valor. Anuncia em ' + money(anuncio) + ' e trabalha a negociação até ' + money(valor) + '.';
+  } else {
+    vb.className = 'verdict v-warn';
+    vt.innerHTML = 'Só avança se ele ajustar <span class="score">' + score + '/100</span>';
+    vp.textContent = 'Ele quer ' + money(expectativa) + ' e o parecer sustenta ' + money(valor) + ', diferença de ' + money(expectativa-valor) + '. Leve o intervalo de confiança na conversa: é o argumento técnico que a opinião dele não tem.';
+  }
+
+  /* -------- memória -------- */
+  var L = [];
+  L.push(['<b>Homogeneização da amostra</b>','']);
+  dados.forEach(function(d){
+    L.push([(d.ok?'':'<s>') + 'Comp. ' + d.i + ': ' + money(d.unit) + '/m² × área ' + fator(d.fa)
+      + ' × padrão ' + fator(d.fp) + ' × conserv. ' + fator(d.fc) + ' × idade ' + fator(d.fi) + (d.ok?'':'</s>'),
+      (d.ok?'<b>':'') + money(d.hom) + (d.ok?'</b>':' descartado')]);
+  });
+  L.push(['Fator de oferta aplicado', pct(descOferta,0)]);
+  L.push(['<b>Tratamento estatístico</b>','']);
+  L.push(['Amostra saneada', n + ' de ' + n0]);
+  L.push(['Média homogeneizada', money(media) + '/m²']);
+  L.push(['Desvio padrão', n>1 ? money(dp) : '—']);
+  L.push(['Coeficiente de variação', n>1 ? pct(cv) : '—']);
+  L.push(['t de Student (80%, ' + Math.max(0,n-1) + ' g.l.)', n>1 ? fator(t) : '—']);
+  L.push(['Erro amostral', n>1 ? money(erro) : '—']);
+  L.push(['Intervalo de confiança', n>1 ? money(icInf) + ' a ' + money(icSup) : '—']);
+  L.push(['<b>' + grauTxt + '</b>', n>1 ? '<b>amplitude ' + pct(amplitude) + '</b>' : '']);
+  L.push(['<b>Fatores complementares do avaliando</b>','']);
+  L.push(['Vagas / suítes / banheiros', fator(fVagas) + ' · ' + fator(fSuites) + ' · ' + fator(fBanhos)]);
+  L.push(['Benfeitorias', fator(fPisc*fEdic*fChurr*fSolar*fBoiler*fPoco*fPlan)]);
+  L.push(['Entorno / tipologia / topografia', fator(fRua*fCond*fSob) + ' · ' + fator(fTopo)]);
+  L.push(['Financiamento / documentação', fator(fFin) + ' · ' + fator(fDoc)]);
+  L.push(['<b>Fator complementar global</b>', '<b>' + fator(fCompl) + '</b>']);
+  L.push(['Área construída', areaConst.toLocaleString('pt-BR') + ' m²']);
+  L.push(['Terreno excedente (' + Math.round(excedente) + ' m² a 50%)', money(valorExcedente)]);
+  L.push(['<b>Valor pelo comparativo</b>', '<b>' + money(valorComp) + '</b>']);
+  L.push(['<b>Contraprova evolutiva</b>','']);
+  L.push(['Terreno ' + areaTerreno.toLocaleString('pt-BR') + ' m² × ' + money(m2terreno), money(valorTerreno)]);
+  L.push(['Custo de reconstrução a novo', money(custoNovo)]);
+  L.push(['Ross (' + idade + '/' + vidaUtil + ' anos)', pct(ross)]);
+  L.push(['Heidecke (conservação)', pct(heid)]);
+  L.push(['<b>Depreciação total</b>', '<b>' + pct(deprec) + '</b>']);
+  L.push(['Benfeitoria depreciada', money(benfeitoria)]);
+  L.push(['<b>Valor pelo evolutivo</b>', '<b>' + money(valorEvo) + '</b>']);
+  L.push(['<b>Conclusão</b>','']);
+  L.push(['Valor de mercado', '<b>' + money(valor) + '</b>']);
+  L.push(['Preço de anúncio', money(anuncio)]);
+  if(exigeForcada) L.push(['Liquidação forçada (75%)', money(forcada)]);
+  el('v-r-memoria').innerHTML = L.map(function(l){
+    return '<tr><td>' + l[0] + '</td><td class="num">' + l[1] + '</td></tr>';
+  }).join('');
+
+  return {valor:valor, anuncio:anuncio, forcada:forcada, valorComp:valorComp, valorEvo:valorEvo,
+          liquido:liquido, expectativa:expectativa, score:score, n:n, grauTxt:grauTxt,
+          icInf:icInf, icSup:icSup, media:media};
+}
+
+function alternarTipo(){
+  var t = el('v-tipo').value === 'terreno';
+  ['areaConstruida','dorms','suites','banheiros','vagas','v-idade','padrao','v-conserv','custoObra','vidaUtil']
+    .forEach(function(id){ el(id).closest('.f').style.display = t ? 'none' : '' });
+}
+
+var MOEDA = ['m2terreno','m2casa','custoObra','aluguel','expectativa','aquisicao','saldoDevedor','areaTerreno','areaConstruida','testada'];
+for(var c=1;c<=N_COMPS;c++) MOEDA.push('cArea'+c, 'cPreco'+c);
+MOEDA.forEach(function(id){
+  el(id).addEventListener('blur', function(){
+    var v = parseNum(el(id).value);
+    el(id).value = v ? v.toLocaleString('pt-BR',{maximumFractionDigits:2}) : '';
+    calc();
+  });
+});
+
+document.addEventListener('input', calc);
+document.addEventListener('change', calc);
+el('regiao').addEventListener('change', function(){ aplicarRegiao(); calc(); });
+el('padrao').addEventListener('change', function(){ aplicarPadrao(); calc(); });
+el('v-tipo').addEventListener('change', function(){ alternarTipo(); calc(); });
+
+el('v-btn-print').addEventListener('click', function(){
+  var d = document.querySelector('details'); if(d) d.open = true;
+  var nome = el('v-apelido').value.trim();
+  el('v-r-emitido').textContent = (nome ? nome + ' · ' : '')
+    + 'Emitido em ' + new Date().toLocaleDateString('pt-BR')
+    + ' · Validade 6 meses · Wisekey · Resp. técnico Raphael Piotto Cardoso · CRECI/SP 319841-F';
+  window.print();
+});
+
+el('v-btn-reset').addEventListener('click', function(){
+  if(!confirm('Limpar todos os campos e voltar aos valores padrão?')) return;
+  location.reload();
+});
+
+el('v-btn-wa').addEventListener('click', function(){
+  var r = calc();
+  var nome = el('v-apelido').value.trim() || 'Imovel sem identificacao';
+  var linhas = [
+    'PTAM Wisekey - memoria de calculo',
+    nome,
+    el('regiao').options[el('regiao').selectedIndex].text,
+    '',
+    'Amostra: ' + r.n + ' comparaveis saneados',
+    r.grauTxt,
+    'Media homogeneizada: ' + money(r.media) + '/m2',
+    '',
+    'VALOR DE MERCADO: ' + money(r.valor),
+    'Anuncio sugerido: ' + money(r.anuncio),
+    'Liquido pro proprietario: ' + money(r.liquido)
+  ];
+  if(r.expectativa > 0){
+    linhas.push('');
+    linhas.push('Pedido hoje: ' + money(r.expectativa));
+    linhas.push('Triagem: ' + el('v-r-verdict-t').textContent);
+  }
+  window.open('https://wa.me/5511917952603?text=' + encodeURIComponent(linhas.join('\n')), '_blank');
+});
+
+aplicarRegiao();
+aplicarPadrao();
+alternarTipo();
+calc();
+
+})();
+</script>
+</body>
+</html>
