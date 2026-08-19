@@ -117,22 +117,13 @@ footer i{color:var(--lilas)}
   white-space:nowrap;min-width:62px;text-align:right}
 .cl.stop .meses{color:#C0392B}
 .curva-nota{font-size:11.5px;color:var(--muted);margin-top:12px;line-height:1.5}
+.calib{display:flex;align-items:center;gap:9px;font-size:12px;color:var(--muted);margin-top:10px;font-weight:600}
+.calib input{width:74px;padding:7px 9px;border-radius:8px;border:1px solid #CFC7EE;font-size:13px;
+  font-family:inherit;color:var(--ink);font-weight:700;text-align:center}
+.calib input:focus{outline:2px solid var(--lilas);border-color:var(--azul)}
 
-table.est{width:100%;border-collapse:collapse;font-size:13.5px}
-table.est th{background:var(--lilas-soft);color:var(--azul);font-size:11.5px;text-transform:uppercase;
-  letter-spacing:.04em;font-weight:700;padding:9px 10px;text-align:left}
-table.est th.num,table.est td.num{text-align:right}
-table.est td{padding:9px 10px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
-table.est tr:last-child td{border-bottom:none}
-table.est td.num{font-weight:700;color:var(--navy)}
-table.est tr.destaque td{background:var(--lilas-soft);font-weight:700;color:var(--azul)}
-.veredito{border-radius:12px;padding:15px 16px;font-size:13.5px;line-height:1.55;border:1px solid}
-.veredito b{display:block;font-size:15px;margin-bottom:5px}
 .vd-ok{background:var(--ok-bg);border-color:#9FE0BC;color:#14603A}.vd-ok b{color:var(--ok)}
 .vd-no{background:var(--bad-bg);border-color:#F2B7AC;color:#8A2B1E}.vd-no b{color:var(--bad)}
-.carrego{display:flex;flex-wrap:wrap;gap:20px;align-items:baseline}
-.carrego .big{font-size:30px;font-weight:800;color:var(--bad);line-height:1}
-.carrego .lbl{font-size:12.5px;color:var(--muted);max-width:280px;line-height:1.45}
 @media print{
   .q-ask,.q-actions,.nav a.back,.intro{display:none!important}
   .print-head{display:block;padding:18px 0 14px;border-bottom:2px solid var(--azul);margin-bottom:18px}
@@ -461,17 +452,6 @@ footer i{color:var(--lilas)}
     </div>
     <span class="hint">Se estiver em dúvida, deixe na média. O ajuste fino é trabalho do PTAM.</span>
 
-    <details class="q-det">
-      <summary>Dados do proprietário, para o estudo completo</summary>
-      <div class="fields">
-        <div><label for="q-iptu">IPTU (R$/ano)</label><input type="text" id="q-iptu" inputmode="decimal" value="2400"></div>
-        <div><label for="q-condo">Condomínio (R$/mês)</label><input type="text" id="q-condo" inputmode="decimal" value="0"></div>
-        <div><label for="q-aquis">Valor de aquisição (R$)</label><input type="text" id="q-aquis" inputmode="decimal" placeholder="para o IR"></div>
-        <div><label for="q-saldo">Saldo devedor (R$)</label><input type="text" id="q-saldo" inputmode="decimal" value="0"></div>
-        <div><label for="q-comis">Comissão (%)</label><input type="text" id="q-comis" inputmode="decimal" value="6"></div>
-        <div><label for="q-meses">Meses no preço de mercado</label><input type="text" id="q-meses" inputmode="decimal" placeholder="do modelo"></div>
-      </div>
-    </details>
   </div>
 
   <div class="q-out">
@@ -509,11 +489,11 @@ footer i{color:var(--lilas)}
 
 <div class="wrap">
 <div class="estudo" id="q-estudo">
-  <h2>Estudo para o proprietário</h2>
+  <h2>Leitura de valor</h2>
 
   <div class="bloco">
     <h3>Três preços, três resultados</h3>
-    <p class="sub">O mesmo imóvel vale coisas diferentes conforme a pressa. Escolher o preço é escolher o prazo.</p>
+    <p class="sub">O mesmo imóvel tem três preços conforme a pressa de vender. Escolher o preço é escolher o prazo.</p>
     <div class="tres">
       <div class="preco"><em>Venda rápida</em><b id="e-rapida">—</b><i>fecha em semanas, com desconto</i></div>
       <div class="preco mid"><em>Valor de mercado</em><b id="e-mercado">—</b><i>o que a região paga hoje</i></div>
@@ -526,39 +506,12 @@ footer i{color:var(--lilas)}
     <p class="sub">Tempo estimado até fechar, conforme o preço pedido acima do valor de mercado.</p>
     <div class="curva" id="e-curva"></div>
     <p class="curva-nota" id="e-curva-nota"></p>
+    <label class="calib">Meses no preço de mercado, pela sua leitura da região:
+      <input type="text" id="q-meses" inputmode="decimal" placeholder="do modelo"></label>
   </div>
 
-  <div class="bloco">
-    <h3>O imóvel parado não é neutro</h3>
-    <p class="sub">Enquanto não vende, ele consome. IPTU, condomínio, manutenção e o dinheiro parado que poderia render.</p>
-    <div class="carrego">
-      <span class="big" id="e-carrego">—</span>
-      <span class="lbl" id="e-carrego-lbl">por mês para manter o imóvel sem vender</span>
-    </div>
-    <table class="est" style="margin-top:16px">
-      <tbody id="e-carrego-tab"></tbody>
-    </table>
-  </div>
 
-  <div class="bloco">
-    <h3>Pedir mais caro compensa?</h3>
-    <p class="sub">A conta que quase ninguém faz. O custo da espera você paga de qualquer jeito. O preço mais alto só entra se aparecer um comprador disposto a pagar acima do que a região pratica, e essa chance cai rápido.</p>
-    <table class="est">
-      <thead><tr><th>Preço pedido</th><th class="num">A mais na venda</th><th class="num">Chance de fechar</th><th class="num">Custo da espera</th><th class="num">Resultado esperado</th></tr></thead>
-      <tbody id="e-compensa"></tbody>
-    </table>
-    <div class="veredito" id="e-veredito" style="margin-top:16px"></div>
-  </div>
 
-  <div class="bloco">
-    <h3>O que sobra no seu bolso</h3>
-    <p class="sub">Depois de corretagem, imposto sobre o ganho e quitação do que ainda é do banco.</p>
-    <table class="est">
-      <thead><tr><th>Na venda por</th><th class="num">Venda rápida</th><th class="num">Mercado</th></tr></thead>
-      <tbody id="e-bolso"></tbody>
-    </table>
-    <p class="curva-nota">Ganho de capital calculado a 15% sobre a diferença entre venda e aquisição, sem os fatores de redução por tempo de posse. Confirme com seu contador. Há isenção quando é o único imóvel até R$ 440 mil, ou quando o valor é reinvestido em outro residencial em 180 dias.</p>
-  </div>
 </div>
 </div>
 </div>
@@ -1099,7 +1052,7 @@ footer i{color:var(--lilas)}
     </fieldset>
 
     <fieldset>
-      <legend>7 · Contexto e conta do proprietário</legend>
+      <legend>7 · Contexto de mercado</legend>
       <div class="fields">
         <div class="f span2">
           <label for="expectativa">Valor pedido hoje (R$)</label>
@@ -1113,21 +1066,6 @@ footer i{color:var(--lilas)}
         <div class="f">
           <label for="v-cdi">CDI bruto (% a.a.)</label>
           <input type="number" id="v-cdi" value="10.5" min="0" max="30" step="0.1">
-        </div>
-        <div class="f">
-          <label for="aquisicao">Valor de aquisição declarado (R$)</label>
-          <input type="text" id="aquisicao" inputmode="decimal" placeholder="Ex.: 320000">
-        </div>
-        <div class="f">
-          <label for="comissao">Comissão de corretagem (%)</label>
-          <input type="number" id="comissao" value="6" min="0" max="12" step="0.5">
-        </div>
-        <div class="f">
-          <label for="saldoDevedor">Saldo devedor a quitar (R$)</label>
-          <input type="text" id="saldoDevedor" inputmode="decimal" value="0">
-        </div>
-        <div class="f span2">
-          <label class="inline"><input type="checkbox" id="isencaoIR"> Isento de ganho de capital</label>
         </div>
       </div>
     </fieldset>
@@ -1190,16 +1128,6 @@ footer i{color:var(--lilas)}
           <p id="v-r-verdict-p">Sem pelo menos cinco comparáveis do bairro não há parecer com fundamentação, só estimativa.</p>
         </div>
 
-        <table class="out">
-          <thead><tr><th>O que sobra pro proprietário</th><th class="num">No valor de mercado</th></tr></thead>
-          <tbody>
-            <tr><td>Preço de venda</td><td class="num" id="r-pv">—</td></tr>
-            <tr><td>− Comissão de corretagem</td><td class="num" id="r-com">—</td></tr>
-            <tr><td>− Ganho de capital</td><td class="num" id="r-ir">—</td></tr>
-            <tr><td>− Quitação do saldo devedor</td><td class="num" id="r-saldo">—</td></tr>
-            <tr class="row-total"><td>Líquido no bolso</td><td class="num" id="r-liquido">—</td></tr>
-          </tbody>
-        </table>
 
         <table class="out">
           <thead><tr><th>Checagem pela renda</th><th class="num">Valor</th></tr></thead>
@@ -1224,7 +1152,7 @@ footer i{color:var(--lilas)}
 
         <p class="emitido" id="v-r-emitido"></p>
 
-        <p class="disc">Memória de cálculo de apoio ao Parecer Técnico de Avaliação Mercadológica, emitido por corretor de imóveis habilitado nos termos da Resolução COFECI nº 1.066/2014, com metodologia baseada na NBR 14653-2 (Método Comparativo Direto de Dados de Mercado) e depreciação por Ross-Heidecke. <b>Esta tela não é o parecer</b>: o PTAM exige vistoria, análise da matrícula e das certidões, registro das fontes e datas de coleta de cada comparável, e assinatura do responsável técnico. Para finalidades judiciais ou periciais pode ser exigida avaliação por engenheiro ou arquiteto habilitado. Validade sugerida do parecer: 6 meses. O cálculo de ganho de capital é simplificado e não substitui a orientação de um contador.</p>
+        <p class="disc">Memória de cálculo de apoio ao Parecer Técnico de Avaliação Mercadológica, emitido por corretor de imóveis habilitado nos termos da Resolução COFECI nº 1.066/2014, com metodologia baseada na NBR 14653-2 (Método Comparativo Direto de Dados de Mercado) e depreciação por Ross-Heidecke. <b>Esta tela não é o parecer</b>: o PTAM exige vistoria, análise da matrícula e das certidões, registro das fontes e datas de coleta de cada comparável, e assinatura do responsável técnico. Para finalidades judiciais ou periciais pode ser exigida avaliação por engenheiro ou arquiteto habilitado. Validade sugerida do parecer: 6 meses.</p>
       </div>
     </div>
   </div>
@@ -1485,7 +1413,7 @@ function qcalc(){
                       : 'com ' + qp(1-aj,0) + ' de desconto pelo estado e porte');
   qel('ph-tit').textContent = 'Estudo de valor · ' + QT[tipo] + ' em ' + cid;
   qel('ph-sub').textContent = 'Emitido em ' + new Date().toLocaleDateString('pt-BR')
-    + ' · Estimativa de partida por mediana de mercado, para orientar a decisão de preço. '
+    + ' · Estimativa de valor por mediana de mercado, para orientar a decisão de preço. '
     + 'Não constitui avaliação de imóvel. Wisekey Estrategia e Assessoria Ltda · '
     + 'Resp. técnico Raphael Piotto Cardoso · CRECI/SP 319841-F.';
   qel('q-frase').innerHTML = 'Imóvel ' + ajTxt + '. A mediana de ' + cid + ' para <b>'
@@ -1499,9 +1427,6 @@ function qcalc(){
 
 
 /* ================= Estudo para o proprietário ================= */
-var CDI_LIQ = 0.1475 * 0.85;   /* SELIC do motor, líquida de 15% de IR */
-var MANUT_AA = 0.002;          /* manutenção anual, como no motor do interior */
-
 function qn(id){var e=qel(id); if(!e) return 0; var r=String(e.value||'').trim();
   if(!r) return 0; r=r.replace(/[R$\s]/g,'');
   if(r.indexOf(',')>-1) r=r.replace(/\./g,'').replace(',','.');
@@ -1514,11 +1439,11 @@ function mesesBase(vac){ return 2.5 + vac * 2.5; }
 
 /* Quanto o prazo estica conforme o preço sobe acima do mercado. */
 var DEGRAUS = [
-  {p:-0.10, k:0.55, c:0.95, rot:'Venda rápida',  sub:'10% abaixo'},
-  {p: 0.00, k:1.00, c:0.85, rot:'Valor de mercado', sub:'o preço certo'},
-  {p: 0.10, k:1.80, c:0.55, rot:'10% acima',    sub:''},
-  {p: 0.20, k:3.00, c:0.25, rot:'20% acima',    sub:''},
-  {p: 0.30, k:5.00, c:0.08, rot:'30% acima',    sub:'trava'}
+  {p:-0.10, k:0.55, rot:'Venda rápida',     sub:'10% abaixo'},
+  {p: 0.00, k:1.00, rot:'Valor de mercado', sub:'o preço certo'},
+  {p: 0.10, k:1.80, rot:'10% acima',        sub:''},
+  {p: 0.20, k:3.00, rot:'20% acima',        sub:''},
+  {p: 0.30, k:5.00, rot:'30% acima',        sub:'trava'}
 ];
 
 function estudo(r){
@@ -1529,20 +1454,6 @@ function estudo(r){
   qel('e-rapida').textContent  = qm(rapida);
   qel('e-mercado').textContent = qm(mercado);
   qel('e-anuncio').textContent = qm(anuncio);
-
-  /* --- carrego mensal --- */
-  var iptu = qn('q-iptu')/12, condo = qn('q-condo');
-  var manut = valor * MANUT_AA / 12;
-  var oport = valor * CDI_LIQ / 12;
-  var carrego = iptu + condo + manut + oport;
-  qel('e-carrego').textContent = qBRL.format(Math.round(carrego));
-  qel('e-carrego-lbl').textContent = 'por mês para manter o imóvel sem vender, contando o que ele custa e o que o dinheiro dele deixa de render';
-  qel('e-carrego-tab').innerHTML =
-      '<tr><td>IPTU</td><td class="num">' + qBRL.format(Math.round(iptu)) + '</td></tr>'
-    + '<tr><td>Condomínio</td><td class="num">' + qBRL.format(Math.round(condo)) + '</td></tr>'
-    + '<tr><td>Manutenção</td><td class="num">' + qBRL.format(Math.round(manut)) + '</td></tr>'
-    + '<tr><td>Capital parado, ao CDI líquido</td><td class="num">' + qBRL.format(Math.round(oport)) + '</td></tr>'
-    + '<tr class="destaque"><td>Custo por mês</td><td class="num">' + qBRL.format(Math.round(carrego)) + '</td></tr>';
 
   /* --- curva preço x tempo --- */
   var base = qn('q-meses') || mesesBase(r.vac);
@@ -1561,50 +1472,6 @@ function estudo(r){
     + ' mês por ano de ' + r.cid + ': ' + base.toFixed(1).replace('.',',')
     + ' meses no preço de mercado. Ajuste o campo de meses com a sua leitura da região.';
 
-  /* --- pedir mais caro compensa? --- */
-  var corpo = '', melhorGanho = -Infinity, melhorRot = '';
-  DEGRAUS.filter(function(d){return d.p > 0}).forEach(function(d){
-    var aMais = mercado * d.p;
-    var mesesExtra = base * d.k - base;
-    var custo = mesesExtra * carrego;      /* pago de qualquer jeito */
-    var esperado = aMais * d.c - custo;    /* o ganho só vem se aparecer comprador acima do mercado */
-    if(esperado > melhorGanho){ melhorGanho = esperado; melhorRot = d.rot; }
-    corpo += '<tr><td>' + qm(mercado*(1+d.p)) + ' <span style="color:var(--muted)">(' + d.rot + ')</span></td>'
-      + '<td class="num">+' + qBRL.format(Math.round(aMais)) + '</td>'
-      + '<td class="num">' + Math.round(d.c*100) + '%</td>'
-      + '<td class="num">−' + qBRL.format(Math.round(custo)) + '</td>'
-      + '<td class="num" style="color:' + (esperado>=0?'var(--ok)':'var(--bad)') + '">'
-      + (esperado>=0?'+':'−') + qBRL.format(Math.abs(Math.round(esperado))) + '</td></tr>';
-  });
-  qel('e-compensa').innerHTML = corpo;
-
-  var vd = qel('e-veredito');
-  if(melhorGanho > carrego){
-    vd.className = 'veredito vd-ok';
-    vd.innerHTML = '<b>Dá pra tentar ' + melhorRot.toLowerCase() + ', com prazo curto</b>'
-      + 'Ponderado pela chance de aparecer comprador, essa é a única faixa acima do mercado que ainda sobra positiva, em '
-      + qBRL.format(Math.round(melhorGanho)) + '. Combine um prazo para revisar o preço: se não fechar, o carrego de '
-      + qBRL.format(Math.round(carrego)) + ' por mês passa a comer o ganho.';
-  } else {
-    vd.className = 'veredito vd-no';
-    vd.innerHTML = '<b>Não compensa pedir acima do mercado</b>'
-      + 'Em qualquer degrau acima de ' + qm(mercado) + ', o ganho ponderado pela chance de fechar é menor do que o custo certo da espera. '
-      + 'Cada mês de espera custa ' + qBRL.format(Math.round(carrego)) + '. Anunciar no preço certo é o cenário que entrega mais dinheiro no bolso.';
-  }
-
-  /* --- líquido no bolso --- */
-  var com = qn('q-comis')/100, aquis = qn('q-aquis'), saldo = qn('q-saldo');
-  function bolso(v){
-    var c = v*com, ir = aquis>0 ? Math.max(0, v-aquis)*0.15 : 0;
-    return {c:c, ir:ir, liq: v - c - ir - saldo};
-  }
-  var bR = bolso(rapida), bM = bolso(mercado);
-  qel('e-bolso').innerHTML =
-      '<tr><td>Preço de venda</td><td class="num">' + qm(rapida) + '</td><td class="num">' + qm(mercado) + '</td></tr>'
-    + '<tr><td>− Corretagem</td><td class="num">−' + qBRL.format(Math.round(bR.c)) + '</td><td class="num">−' + qBRL.format(Math.round(bM.c)) + '</td></tr>'
-    + '<tr><td>− Ganho de capital</td><td class="num">' + (aquis>0?'−'+qBRL.format(Math.round(bR.ir)):'—') + '</td><td class="num">' + (aquis>0?'−'+qBRL.format(Math.round(bM.ir)):'—') + '</td></tr>'
-    + '<tr><td>− Saldo devedor</td><td class="num">−' + qBRL.format(Math.round(saldo)) + '</td><td class="num">−' + qBRL.format(Math.round(saldo)) + '</td></tr>'
-    + '<tr class="destaque"><td>Líquido no bolso</td><td class="num">' + qm(bR.liq) + '</td><td class="num">' + qm(bM.liq) + '</td></tr>';
 }
 
 qel('q-cidade').addEventListener('change', function(){ qTipos(); qcalc(); });
@@ -1612,7 +1479,7 @@ qel('q-tipo').addEventListener('change', qcalc);
 document.querySelectorAll('input[name="q-cons"],input[name="q-porte"]').forEach(function(r){
   r.addEventListener('change', qcalc);
 });
-['q-iptu','q-condo','q-aquis','q-saldo','q-comis','q-meses'].forEach(function(id){
+['q-meses'].forEach(function(id){
   var e=qel(id); if(e) e.addEventListener('input', qcalc);
 });
 
@@ -2297,14 +2164,6 @@ function calc(){
   var exigeForcada = ['inventario','divorcio','garantia'].indexOf(finalidade) > -1;
   el('tile-forcada').style.display = exigeForcada ? '' : 'none';
 
-  /* -------- conta do proprietário -------- */
-  var comissao = valor * (num('comissao')/100);
-  var aquisicao = num('aquisicao');
-  var ganho = Math.max(0, valor - aquisicao);
-  var ir = (el('isencaoIR').checked || aquisicao <= 0) ? 0 : ganho * 0.15;
-  var saldo = num('saldoDevedor');
-  var liquido = valor - comissao - ir - saldo;
-
   /* -------- renda -------- */
   var aluguel = num('aluguel');
   var yMes = valor > 0 ? aluguel/valor : 0;
@@ -2336,12 +2195,6 @@ function calc(){
   el('r-evo').textContent = evoOk ? money(valorEvo) : '—';
   el('r-evo-dep').textContent = eTerreno ? 'Terreno sem benfeitoria'
     : 'Terreno ' + money(valorTerreno) + ' + obra depreciada em ' + pct(deprec,0);
-
-  el('r-pv').textContent = completo ? money(valor) : '—';
-  el('r-com').textContent = completo ? money(-comissao) : '—';
-  el('r-ir').textContent = completo ? (aquisicao > 0 ? money(-ir) : 'sem valor de aquisição') : '—';
-  el('r-saldo').textContent = completo ? money(-saldo) : '—';
-  el('r-liquido').textContent = completo ? money(liquido) : '—';
 
   el('r-ymes').textContent = (aluguel > 0 && valor > 0) ? pct(yMes,2) : '—';
   el('r-yano').textContent = (aluguel > 0 && valor > 0) ? pct(yMes*12) : '—';
@@ -2469,7 +2322,7 @@ function calc(){
   }).join('');
 
   return {valor:valor, anuncio:anuncio, forcada:forcada, valorComp:valorComp, valorEvo:valorEvo,
-          liquido:liquido, expectativa:expectativa, score:score, n:n, grauTxt:grauTxt,
+          expectativa:expectativa, score:score, n:n, grauTxt:grauTxt,
           icInf:icInf, icSup:icSup, media:media};
 }
 
@@ -2479,7 +2332,7 @@ function alternarTipo(){
     .forEach(function(id){ el(id).closest('.f').style.display = t ? 'none' : '' });
 }
 
-var MOEDA = ['m2terreno','m2casa','custoObra','aluguel','expectativa','aquisicao','saldoDevedor','areaTerreno','areaConstruida','testada'];
+var MOEDA = ['m2terreno','m2casa','custoObra','aluguel','expectativa','areaTerreno','areaConstruida','testada'];
 for(var c=1;c<=N_COMPS;c++) MOEDA.push('cArea'+c, 'cPreco'+c);
 MOEDA.forEach(function(id){
   el(id).addEventListener('blur', function(){
@@ -2522,8 +2375,7 @@ el('v-btn-wa').addEventListener('click', function(){
     'Media homogeneizada: ' + money(r.media) + '/m2',
     '',
     'VALOR DE MERCADO: ' + money(r.valor),
-    'Anuncio sugerido: ' + money(r.anuncio),
-    'Liquido pro proprietario: ' + money(r.liquido)
+    'Anuncio sugerido: ' + money(r.anuncio)
   ];
   if(r.expectativa > 0){
     linhas.push('');

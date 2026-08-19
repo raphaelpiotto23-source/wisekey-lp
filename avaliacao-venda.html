@@ -352,7 +352,7 @@ footer i{color:var(--lilas)}
     </fieldset>
 
     <fieldset>
-      <legend>7 · Contexto e conta do proprietário</legend>
+      <legend>7 · Contexto de mercado</legend>
       <div class="fields">
         <div class="f span2">
           <label for="expectativa">Valor pedido hoje (R$)</label>
@@ -366,21 +366,6 @@ footer i{color:var(--lilas)}
         <div class="f">
           <label for="cdi">CDI bruto (% a.a.)</label>
           <input type="number" id="cdi" value="10.5" min="0" max="30" step="0.1">
-        </div>
-        <div class="f">
-          <label for="aquisicao">Valor de aquisição declarado (R$)</label>
-          <input type="text" id="aquisicao" inputmode="decimal" placeholder="Ex.: 320000">
-        </div>
-        <div class="f">
-          <label for="comissao">Comissão de corretagem (%)</label>
-          <input type="number" id="comissao" value="6" min="0" max="12" step="0.5">
-        </div>
-        <div class="f">
-          <label for="saldoDevedor">Saldo devedor a quitar (R$)</label>
-          <input type="text" id="saldoDevedor" inputmode="decimal" value="0">
-        </div>
-        <div class="f span2">
-          <label class="inline"><input type="checkbox" id="isencaoIR"> Isento de ganho de capital</label>
         </div>
       </div>
     </fieldset>
@@ -443,16 +428,6 @@ footer i{color:var(--lilas)}
           <p id="r-verdict-p">Sem pelo menos cinco comparáveis do bairro não há parecer com fundamentação, só estimativa.</p>
         </div>
 
-        <table class="out">
-          <thead><tr><th>O que sobra pro proprietário</th><th class="num">No valor de mercado</th></tr></thead>
-          <tbody>
-            <tr><td>Preço de venda</td><td class="num" id="r-pv">—</td></tr>
-            <tr><td>− Comissão de corretagem</td><td class="num" id="r-com">—</td></tr>
-            <tr><td>− Ganho de capital</td><td class="num" id="r-ir">—</td></tr>
-            <tr><td>− Quitação do saldo devedor</td><td class="num" id="r-saldo">—</td></tr>
-            <tr class="row-total"><td>Líquido no bolso</td><td class="num" id="r-liquido">—</td></tr>
-          </tbody>
-        </table>
 
         <table class="out">
           <thead><tr><th>Checagem pela renda</th><th class="num">Valor</th></tr></thead>
@@ -477,7 +452,7 @@ footer i{color:var(--lilas)}
 
         <p class="emitido" id="r-emitido"></p>
 
-        <p class="disc">Memória de cálculo de apoio ao Parecer Técnico de Avaliação Mercadológica, emitido por corretor de imóveis habilitado nos termos da Resolução COFECI nº 1.066/2014, com metodologia baseada na NBR 14653-2 (Método Comparativo Direto de Dados de Mercado) e depreciação por Ross-Heidecke. <b>Esta tela não é o parecer</b>: o PTAM exige vistoria, análise da matrícula e das certidões, registro das fontes e datas de coleta de cada comparável, e assinatura do responsável técnico. Para finalidades judiciais ou periciais pode ser exigida avaliação por engenheiro ou arquiteto habilitado. Validade sugerida do parecer: 6 meses. O cálculo de ganho de capital é simplificado e não substitui a orientação de um contador.</p>
+        <p class="disc">Memória de cálculo de apoio ao Parecer Técnico de Avaliação Mercadológica, emitido por corretor de imóveis habilitado nos termos da Resolução COFECI nº 1.066/2014, com metodologia baseada na NBR 14653-2 (Método Comparativo Direto de Dados de Mercado) e depreciação por Ross-Heidecke. <b>Esta tela não é o parecer</b>: o PTAM exige vistoria, análise da matrícula e das certidões, registro das fontes e datas de coleta de cada comparável, e assinatura do responsável técnico. Para finalidades judiciais ou periciais pode ser exigida avaliação por engenheiro ou arquiteto habilitado. Validade sugerida do parecer: 6 meses.</p>
       </div>
     </div>
   </div>
@@ -717,14 +692,6 @@ function calc(){
   var exigeForcada = ['inventario','divorcio','garantia'].indexOf(finalidade) > -1;
   el('tile-forcada').style.display = exigeForcada ? '' : 'none';
 
-  /* -------- conta do proprietário -------- */
-  var comissao = valor * (num('comissao')/100);
-  var aquisicao = num('aquisicao');
-  var ganho = Math.max(0, valor - aquisicao);
-  var ir = (el('isencaoIR').checked || aquisicao <= 0) ? 0 : ganho * 0.15;
-  var saldo = num('saldoDevedor');
-  var liquido = valor - comissao - ir - saldo;
-
   /* -------- renda -------- */
   var aluguel = num('aluguel');
   var yMes = valor > 0 ? aluguel/valor : 0;
@@ -756,12 +723,6 @@ function calc(){
   el('r-evo').textContent = evoOk ? money(valorEvo) : '—';
   el('r-evo-dep').textContent = eTerreno ? 'Terreno sem benfeitoria'
     : 'Terreno ' + money(valorTerreno) + ' + obra depreciada em ' + pct(deprec,0);
-
-  el('r-pv').textContent = completo ? money(valor) : '—';
-  el('r-com').textContent = completo ? money(-comissao) : '—';
-  el('r-ir').textContent = completo ? (aquisicao > 0 ? money(-ir) : 'sem valor de aquisição') : '—';
-  el('r-saldo').textContent = completo ? money(-saldo) : '—';
-  el('r-liquido').textContent = completo ? money(liquido) : '—';
 
   el('r-ymes').textContent = (aluguel > 0 && valor > 0) ? pct(yMes,2) : '—';
   el('r-yano').textContent = (aluguel > 0 && valor > 0) ? pct(yMes*12) : '—';
@@ -889,7 +850,7 @@ function calc(){
   }).join('');
 
   return {valor:valor, anuncio:anuncio, forcada:forcada, valorComp:valorComp, valorEvo:valorEvo,
-          liquido:liquido, expectativa:expectativa, score:score, n:n, grauTxt:grauTxt,
+          expectativa:expectativa, score:score, n:n, grauTxt:grauTxt,
           icInf:icInf, icSup:icSup, media:media};
 }
 
@@ -899,7 +860,7 @@ function alternarTipo(){
     .forEach(function(id){ el(id).closest('.f').style.display = t ? 'none' : '' });
 }
 
-var MOEDA = ['m2terreno','m2casa','custoObra','aluguel','expectativa','aquisicao','saldoDevedor','areaTerreno','areaConstruida','testada'];
+var MOEDA = ['m2terreno','m2casa','custoObra','aluguel','expectativa','areaTerreno','areaConstruida','testada'];
 for(var c=1;c<=N_COMPS;c++) MOEDA.push('cArea'+c, 'cPreco'+c);
 MOEDA.forEach(function(id){
   el(id).addEventListener('blur', function(){
@@ -942,8 +903,7 @@ el('btn-wa').addEventListener('click', function(){
     'Media homogeneizada: ' + money(r.media) + '/m2',
     '',
     'VALOR DE MERCADO: ' + money(r.valor),
-    'Anuncio sugerido: ' + money(r.anuncio),
-    'Liquido pro proprietario: ' + money(r.liquido)
+    'Anuncio sugerido: ' + money(r.anuncio)
   ];
   if(r.expectativa > 0){
     linhas.push('');
