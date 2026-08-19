@@ -4,14 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Wisekey | Calculadora de imóveis</title>
-<meta name="description" content="Ferramenta Wisekey: avaliação para compra, PTAM para venda e a base de cálculo auditada de todas as premissas.">
+<meta name="description" content="Ferramenta Wisekey: ideia de valor em dois cliques, avaliação para compra, PTAM para venda e a base de cálculo auditada.">
 <meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
+
 :root{
-  --navy:#2D1E80; --navy-deep:#1c1259;
+  --azul:#132F70; --navy:#2D1E80; --navy-deep:#1c1259;
   --lilas:#DCD2FA; --lilas-soft:#efeafc;
   --verde:#25D366; --verde-dark:#1DA851;
   --ink:#333333; --muted:#6B6685; --line:#E8E4F6;
@@ -24,15 +25,67 @@ body{font-family:'Poppins',-apple-system,"Segoe UI",Roboto,Arial,sans-serif;colo
 header{position:sticky;top:0;background:rgba(255,255,255,.97);border-bottom:1px solid var(--line);z-index:20}
 .nav{display:flex;align-items:center;justify-content:space-between;height:58px;gap:16px}
 .nav a.back{color:var(--muted);text-decoration:none;font-size:13.5px;font-weight:600}
-.nav a.back:hover{color:var(--navy)}
 .intro{background:var(--lilas-soft);padding:34px 0 30px}
+.kicker{color:var(--azul);font-weight:700;text-transform:uppercase;letter-spacing:.1em;font-size:12px;margin-bottom:8px}
+h1{font-size:clamp(24px,3.6vw,34px);line-height:1.2;font-weight:800;color:var(--azul);max-width:800px;margin-bottom:10px}
+.intro p{max-width:760px;color:var(--muted);font-size:15.5px}
+
+.q-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:26px;padding:30px 0 60px;align-items:start}
+@media (max-width:860px){.q-layout{grid-template-columns:1fr}}
+
+.q-ask{border:1px solid var(--line);border-radius:16px;padding:22px 22px 24px;background:#fff}
+.q-step{display:flex;align-items:center;gap:9px;margin:0 0 8px}
+.q-step b{width:22px;height:22px;border-radius:50%;background:var(--azul);color:#fff;font-size:12px;
+  display:flex;align-items:center;justify-content:center;flex:none;font-weight:800}
+.q-step span{font-weight:700;font-size:14px;color:var(--azul)}
+.q-ask select{width:100%;padding:14px 14px;border-radius:12px;border:1.5px solid #CFC7EE;background:#fff;
+  color:var(--ink);font-size:16px;font-family:inherit;font-weight:600;margin-bottom:20px}
+.q-ask select:focus{outline:2px solid var(--lilas);border-color:var(--azul)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.chips label{flex:1;min-width:96px;margin:0}
+.chips input{position:absolute;opacity:0;width:0;height:0}
+.chips span{display:block;text-align:center;padding:11px 8px;border:1.5px solid #CFC7EE;border-radius:11px;
+  font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;transition:.12s;line-height:1.25}
+.chips span:hover{border-color:var(--azul);color:var(--azul)}
+.chips input:checked+span{background:var(--azul);border-color:var(--azul);color:#fff}
+.chips input:focus-visible+span{outline:2px solid var(--lilas);outline-offset:2px}
+.q-ask .hint{font-size:11.5px;color:var(--muted);display:block;margin:-14px 0 20px;line-height:1.45}
+
+.q-out{border:2px solid var(--azul);border-radius:16px;overflow:hidden;background:#fff}
+.q-out .head{background:var(--azul);color:#fff;padding:22px 24px}
+.q-out .head span{display:block;font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--lilas);font-weight:700}
+.q-out .head b{display:block;font-size:clamp(26px,4.2vw,36px);font-weight:800;line-height:1.15;margin-top:6px}
+.q-out .head small{display:block;color:#C3D0F0;font-size:13.5px;margin-top:6px}
+.q-badge{display:inline-block;margin-top:12px;font-size:11.5px;font-weight:700;letter-spacing:.05em;
+  text-transform:uppercase;border-radius:20px;padding:4px 12px;background:rgba(255,255,255,.16);
+  color:#fff;border:1px solid rgba(255,255,255,.4)}
+.q-out .body{padding:20px 24px 24px}
+.q-mid{font-size:14px;color:var(--muted);margin-bottom:16px;line-height:1.55}
+.q-mid b{color:var(--azul)}
+table.q-tab{width:100%;border-collapse:collapse;font-size:13.5px}
+table.q-tab td{padding:10px 0;border-bottom:1px solid var(--line)}
+table.q-tab td.num{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;color:var(--navy)}
+table.q-tab tr:last-child td{border-bottom:none}
+.q-flag{font-size:12.5px;color:var(--warn);background:var(--warn-bg);border:1px solid #F0D9A0;
+  border-radius:9px;padding:10px 12px;margin-bottom:16px;line-height:1.5}
+.q-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.btn{display:inline-block;background:var(--verde);color:#0B3320;font-weight:700;text-decoration:none;
+  padding:13px 22px;border-radius:11px;border:none;font-size:14.5px;cursor:pointer;font-family:inherit}
+.btn:hover{background:var(--verde-dark);color:#fff}
+.btn.ghost{background:#fff;border:1.5px solid var(--azul);color:var(--azul)}
+.btn.ghost:hover{background:var(--lilas-soft)}
+.q-disc{font-size:11.5px;color:var(--muted);margin-top:16px;line-height:1.55}
+footer{background:var(--navy-deep);color:#B9AEE6;padding:26px 0;font-size:12.5px}
+footer i{color:var(--lilas)}
+@media print{.q-actions,.nav a.back{display:none!important}header{position:static}}
+
+  --navy:#2D1E80; --navy-deep:#1c1259;
+.nav a.back:hover{color:var(--navy)}
 .kicker{color:var(--navy);font-weight:700;text-transform:uppercase;letter-spacing:.1em;font-size:12px;margin-bottom:8px}
 h1{font-size:clamp(24px,3.6vw,34px);line-height:1.2;font-weight:800;color:var(--navy);max-width:760px;margin-bottom:10px}
 .intro p{max-width:720px;color:var(--muted);font-size:15.5px}
-
 .layout{display:grid;grid-template-columns:minmax(0,1.32fr) minmax(0,1fr);gap:26px;padding:30px 0 60px;align-items:start}
 @media (max-width:940px){.layout{grid-template-columns:1fr}}
-
 fieldset{border:1px solid var(--line);border-radius:14px;padding:20px 20px 22px;margin-bottom:16px}
 legend{font-weight:800;color:var(--navy);font-size:14px;padding:0 8px;text-transform:uppercase;letter-spacing:.06em}
 .fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px 14px}
@@ -48,7 +101,6 @@ input:focus,select:focus{outline:2px solid var(--lilas);border-color:var(--navy)
 .check-list{border-top:1px dashed var(--line);margin-top:6px;padding-top:8px}
 .check-list .inline{font-weight:400;align-items:flex-start;font-size:14px}
 .check-list .inline input{margin-top:4px}
-
 .panel{position:sticky;top:74px}
 @media (max-width:940px){.panel{position:static}}
 .result{border:2px solid var(--navy);border-radius:16px;overflow:hidden;background:#fff}
@@ -64,7 +116,6 @@ input:focus,select:focus{outline:2px solid var(--lilas);border-color:var(--navy)
 .tile em{display:block;font-style:normal;font-size:11.5px;color:var(--muted);margin-top:2px}
 .tile.teto{border:2px solid var(--verde);background:#F4FDF7}
 .tile.teto b{color:var(--verde-dark)}
-
 .verdict{border-radius:12px;padding:15px 16px;margin-bottom:16px;border:1px solid}
 .verdict b{display:block;font-size:15.5px;margin-bottom:4px}
 .verdict p{font-size:13.5px;line-height:1.5}
@@ -74,7 +125,6 @@ input:focus,select:focus{outline:2px solid var(--lilas);border-color:var(--navy)
 .v-warn b{color:var(--warn)}
 .v-bad{background:var(--bad-bg);border-color:#F2B7AC;color:#8A2B1E}
 .v-bad b{color:var(--bad)}
-
 table{width:100%;border-collapse:collapse;font-size:13.5px;margin-bottom:6px}
 th,td{padding:9px 10px;text-align:left;border-bottom:1px solid var(--line)}
 th{background:var(--lilas-soft);color:var(--navy);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.04em}
@@ -82,23 +132,17 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
 td b{color:var(--navy)}
 tr:last-child td{border-bottom:none}
 .row-total td{background:var(--lilas-soft);font-weight:700}
-
 details{border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-top:14px}
 summary{font-weight:700;cursor:pointer;color:var(--navy);font-size:13.5px}
 details table{margin-top:10px;font-size:12.5px}
 details td{padding:6px 8px}
-
 .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
 .btn{display:inline-block;background:var(--verde);color:#0B3320;font-weight:700;text-decoration:none;padding:13px 22px;border-radius:11px;border:none;font-size:14.5px;cursor:pointer;transition:background .15s;font-family:inherit}
-.btn:hover{background:var(--verde-dark);color:#fff}
 .btn.ghost{background:#fff;border:1.5px solid var(--navy);color:var(--navy)}
 .btn.ghost:hover{background:var(--lilas-soft);color:var(--navy)}
 .disc{font-size:11.5px;color:var(--muted);margin-top:16px;line-height:1.55}
 .flag{font-size:12.5px;color:var(--warn);background:var(--warn-bg);border:1px solid #F0D9A0;border-radius:9px;padding:9px 11px;margin-bottom:12px;display:none}
 .flag.on{display:block}
-footer{background:var(--navy-deep);color:#B9AEE6;padding:26px 0;font-size:12.5px}
-footer i{color:var(--lilas)}
-
 .emitido{display:none}
 @media print{
   .actions,.intro p,footer,.hint,.nav a.back{display:none!important}
@@ -111,11 +155,7 @@ footer i{color:var(--lilas)}
   body{font-size:12px}
   details{display:block}
   details[open] table{font-size:11px}
-}
-
   --azul:#132F70;
-.kicker{color:var(--azul);font-weight:700;text-transform:uppercase;letter-spacing:.1em;font-size:12px;margin-bottom:8px}
-h1{font-size:clamp(24px,3.6vw,34px);line-height:1.2;font-weight:800;color:var(--azul);max-width:800px;margin-bottom:10px}
 .intro p{max-width:780px;color:var(--muted);font-size:15.5px}
 legend{font-weight:800;color:var(--azul);font-size:14px;padding:0 8px;text-transform:uppercase;letter-spacing:.06em}
 legend .req{color:var(--bad);font-size:11px;letter-spacing:.04em}
@@ -149,7 +189,6 @@ summary{font-weight:700;cursor:pointer;color:var(--azul);font-size:13.5px}
 details table{margin-top:10px;font-size:12.5px;width:100%;border-collapse:collapse}
 details td{padding:6px 8px;border-bottom:1px solid var(--line)}
 details td.num{text-align:right;font-variant-numeric:tabular-nums}
-.btn.ghost{background:#fff;border:1.5px solid var(--azul);color:var(--azul)}
 .btn.ghost:hover{background:var(--lilas-soft);color:var(--azul)}
   .comps{min-width:0}
 .tabs{display:flex;gap:6px;overflow-x:auto}
@@ -183,6 +222,7 @@ details td.num{text-align:right;font-variant-numeric:tabular-nums}
   padding:1px 5px;border-radius:4px;color:var(--azul)}
 @media print{.tabs{display:none}.tabpane[hidden]{display:block!important}}
 
+
 </style>
 </head>
 <body>
@@ -191,14 +231,82 @@ details td.num{text-align:right;font-variant-numeric:tabular-nums}
   <div class="wrap nav">
     <a href="index.html"><img src="data:image/png;base64,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" alt="wisekey" style="height:24px;display:block"></a>
     <div class="tabs" role="tablist">
-      <button role="tab" data-tab="compra"  aria-selected="true">Comprar</button>
-      <button role="tab" data-tab="venda"   aria-selected="false">Avaliar para vender</button>
-      <button role="tab" data-tab="base"    aria-selected="false">Base de cálculo</button>
+      <button role="tab" data-tab="estimativa" aria-selected="true">Ideia de valor</button>
+      <button role="tab" data-tab="compra"     aria-selected="false">Comprar</button>
+      <button role="tab" data-tab="venda"      aria-selected="false">Avaliar para vender</button>
+      <button role="tab" data-tab="base"       aria-selected="false">Base de cálculo</button>
     </div>
   </div>
 </header>
 
-<div class="tabpane" id="pane-compra" role="tabpanel">
+<div class="tabpane" id="pane-estimativa" role="tabpanel">
+<section class="intro">
+  <div class="wrap">
+    <div class="kicker">Uso interno · primeira conversa</div>
+    <h1>Uma ideia de valor em dois cliques.</h1>
+    <p>Para o telefone tocar e você já ter um número na mão. Sai da mediana real de mercado da cidade — 78 bairros levantados em março e abril de 2026 no FipeZAP, Quinto Andar, Chaves na Mão e imobiliárias locais. <b>É faixa de conversa, não é parecer</b>: quando o caso avançar, o PTAM entra com os comparáveis do bairro.</p>
+  </div>
+</section>
+
+<div class="wrap">
+<div class="q-layout">
+
+  <div class="q-ask">
+    <div class="q-step"><b>1</b><span>Onde é o imóvel?</span></div>
+    <select id="q-cidade"></select>
+
+    <div class="q-step"><b>2</b><span>Que tipo é?</span></div>
+    <select id="q-tipo"></select>
+
+    <div class="q-step"><b>3</b><span>Como está o imóvel?</span></div>
+    <div class="chips" id="q-cons">
+      <label><input type="radio" name="q-cons" value="1.10"><span>Novo ou reformado</span></label>
+      <label><input type="radio" name="q-cons" value="1.00" checked><span>Bom, pronto pra usar</span></label>
+      <label><input type="radio" name="q-cons" value="0.86"><span>Precisa reforma</span></label>
+    </div>
+
+    <div class="q-step"><b>4</b><span>Tamanho, comparado ao padrão da cidade?</span></div>
+    <div class="chips" id="q-porte">
+      <label><input type="radio" name="q-porte" value="0.82"><span>Menor</span></label>
+      <label><input type="radio" name="q-porte" value="1.00" checked><span>Na média</span></label>
+      <label><input type="radio" name="q-porte" value="1.25"><span>Maior</span></label>
+    </div>
+    <span class="hint">Se estiver em dúvida, deixe na média. O ajuste fino é trabalho do PTAM.</span>
+  </div>
+
+  <div class="q-out">
+    <div class="head">
+      <span>Faixa de conversa</span>
+      <b id="q-faixa">—</b>
+      <small id="q-ref">—</small>
+      <span class="q-badge" id="q-conf">—</span>
+    </div>
+    <div class="body">
+      <div class="q-flag" id="q-alerta" style="display:none"></div>
+      <p class="q-mid" id="q-frase">—</p>
+      <table class="q-tab">
+        <tbody>
+          <tr><td>Mediana da cidade para esse tipo</td><td class="num" id="q-mediana">—</td></tr>
+          <tr><td>Aluguel esperado por mês</td><td class="num" id="q-aluguel">—</td></tr>
+          <tr><td>Renda bruta sobre o valor</td><td class="num" id="q-yield">—</td></tr>
+          <tr><td>Valorização da região</td><td class="num" id="q-val">—</td></tr>
+          <tr><td>Vacância típica</td><td class="num" id="q-vac">—</td></tr>
+          <tr><td>Bairros na amostra</td><td class="num" id="q-n">—</td></tr>
+        </tbody>
+      </table>
+      <div class="q-actions">
+        <button class="btn" id="q-wa" type="button">Mandar a faixa no WhatsApp</button>
+        <button class="btn ghost" id="q-ptam" type="button">Aprofundar no PTAM</button>
+      </div>
+      <p class="q-disc">Estimativa de partida por mediana de mercado, para orientar a primeira conversa. Não é avaliação de imóvel e não substitui o Parecer Técnico de Avaliação Mercadológica, que exige vistoria, comparáveis do próprio bairro com fonte e data, e assinatura do responsável técnico. Wisekey · CRECI/SP 319841-F.</p>
+    </div>
+  </div>
+
+</div>
+</div>
+</div>
+
+<div class="tabpane" id="pane-compra" role="tabpanel" hidden>
 <section class="intro">
   <div class="wrap">
     <div class="kicker">Ferramenta interna · Régua Wisekey</div>
@@ -1020,6 +1128,7 @@ details td.num{text-align:right;font-variant-numeric:tabular-nums}
 (function(){
   var abas = [].slice.call(document.querySelectorAll('.tabs button'));
   function ir(alvo){
+    if(!document.getElementById('pane-'+alvo)) alvo = 'estimativa';
     abas.forEach(function(b){
       var on = b.dataset.tab === alvo;
       b.setAttribute('aria-selected', on ? 'true' : 'false');
@@ -1027,11 +1136,125 @@ details td.num{text-align:right;font-variant-numeric:tabular-nums}
       document.getElementById('pane-' + b.dataset.tab).hidden = !on;
     });
     try{ history.replaceState(null,'','#'+alvo); }catch(e){}
+    window.scrollTo({top:0,behavior:'smooth'});
   }
   abas.forEach(function(b){ b.addEventListener('click', function(){ ir(b.dataset.tab) }); });
-  ir((location.hash || '#compra').slice(1));
+  var atalho = document.getElementById('q-ptam');
+  if(atalho) atalho.addEventListener('click', function(){ ir('venda') });
+  ir((location.hash || '#estimativa').slice(1));
+})();
+(function(){
+
+/* Mediana de mercado por cidade e tipologia. Fonte: agregação de 78 registros de
+   bairro, anúncios de março e abril de 2026 (FipeZAP, Quinto Andar, Chaves na Mão
+   e imobiliárias locais), a mesma base do motor da calculadora do site.
+   [preço mediano, aluguel/mês, valorização a.a., vacância meses/ano, nº de bairros] */
+var QD = {
+ 'São João da Boa Vista':{'1q':[380000,1900,.054,.5,1],'2q':[580000,2400,.050,.9,3],'3q':[1100000,4200,.060,1.0,20]},
+ 'Campinas':{'1q':[380000,2700,.070,.6,1],'2q':[540000,3300,.070,.8,6],'3q':[850000,3850,.072,.8,7]},
+ 'Espírito Santo do Pinhal':{'2q':[320000,1400,.038,1.4,1],'3q':[480000,1900,.040,1.5,1]},
+ 'Itapira':{'2q':[360000,1650,.044,1.0,1],'3q':[540000,2200,.048,1.1,1]},
+ 'Itu':{'2q':[480000,2200,.058,.9,1],'3q':[750000,3100,.060,.8,1]},
+ 'Limeira':{'2q':[410000,1900,.052,.8,1],'3q':[620000,2500,.056,.9,1]},
+ 'Mogi Guaçu':{'2q':[400000,1750,.044,1.1,2],'3q':[1465000,4950,.055,1.15,2]},
+ 'Mogi Mirim':{'2q':[410000,1850,.052,.9,1],'3q':[860000,3350,.056,1.0,2]},
+ 'Pirassununga':{'2q':[390000,1750,.046,.8,1],'3q':[620000,2400,.048,.9,1]},
+ 'Pouso Alegre':{'2q':[460000,2100,.058,.9,1],'3q':[720000,3000,.062,1.0,1]},
+ 'Poços de Caldas':{'2q':[500000,2300,.053,.9,4],'3q':[850000,3550,.059,1.0,4]},
+ 'Rio Claro':{'2q':[420000,1950,.058,.7,1],'3q':[680000,2700,.062,.8,1]},
+ 'São Carlos':{'2q':[460000,2200,.064,.7,1],'3q':[720000,2900,.068,.8,1]},
+ 'Serra Negra':{'2q':[550000,2300,.048,1.4,1]},
+ 'Vargem Grande do Sul':{'2q':[380000,1700,.038,1.3,1],'3q':[1090000,3750,.048,1.45,2]},
+ 'Águas de Lindóia':{'2q':[480000,2100,.045,1.5,1]}
+};
+var QT = {'1q':'Apartamento de 1 a 2 dormitórios','2q':'Apartamento de 2 dormitórios','3q':'Casa ou 3+ dormitórios'};
+
+function qel(id){return document.getElementById(id)}
+var qBRL = new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0});
+function qm(v){return qBRL.format(Math.round(v/1000)*1000)}
+function qp(v,c){return (v*100).toFixed(c==null?1:c).replace('.',',')+'%'}
+function qsel(nome){var e=document.querySelector('input[name="'+nome+'"]:checked');return e?parseFloat(e.value):1}
+
+(function(){
+  var s=qel('q-cidade');
+  Object.keys(QD).forEach(function(c){
+    var o=document.createElement('option');o.value=c;o.textContent=c;s.appendChild(o);
+  });
+  s.value='São João da Boa Vista';
 })();
 
+function qTipos(){
+  var cid=qel('q-cidade').value, sel=qel('q-tipo'), antes=sel.value;
+  sel.innerHTML='';
+  ['3q','2q','1q'].forEach(function(t){
+    if(QD[cid][t]){var o=document.createElement('option');o.value=t;o.textContent=QT[t];sel.appendChild(o)}
+  });
+  if(QD[cid][antes]) sel.value=antes;
+}
+
+function qcalc(){
+  var cid=qel('q-cidade').value, tipo=qel('q-tipo').value;
+  var d=QD[cid][tipo]; if(!d) return;
+  var preco=d[0], aluguel=d[1], val=d[2], vac=d[3], n=d[4];
+
+  var aj = qsel('q-cons') * qsel('q-porte');
+  var centro = preco * aj;
+  var inf = centro * 0.88, sup = centro * 1.12;
+
+  qel('q-faixa').textContent = qm(inf) + ' a ' + qm(sup);
+  qel('q-ref').textContent = QT[tipo] + ' em ' + cid;
+
+  /* A confiança vem do tamanho da amostra por trás da mediana, não do ajuste. */
+  var conf, alerta='';
+  if(n >= 6){ conf='Amostra forte · ' + n + ' bairros'; }
+  else if(n >= 3){ conf='Amostra média · ' + n + ' bairros'; }
+  else {
+    conf='Amostra fina · ' + n + ' bairro' + (n>1?'s':'');
+    alerta='A mediana desta célula vem de ' + n + ' bairro' + (n>1?'s':'') + '. Serve para abrir conversa, mas não aguenta discussão de preço: puxe três anúncios da rua antes de falar um número em voz alta.';
+  }
+  qel('q-conf').textContent = conf;
+  var fl=qel('q-alerta');
+  fl.style.display = alerta ? 'block' : 'none';
+  fl.textContent = alerta ? '⚠ ' + alerta : '';
+
+  qel('q-mediana').textContent = qm(preco);
+  qel('q-aluguel').textContent = qBRL.format(aluguel);
+  qel('q-yield').textContent = qp(aluguel*12/preco) + ' a.a.';
+  qel('q-val').textContent = qp(val) + ' a.a.';
+  qel('q-vac').textContent = vac.toString().replace('.',',') + (vac===1?' mês por ano':' meses por ano');
+  qel('q-n').textContent = n;
+
+  var ajTxt = aj === 1 ? 'no padrão da cidade'
+            : (aj > 1 ? 'com ' + qp(aj-1,0) + ' de prêmio pelo estado e porte'
+                      : 'com ' + qp(1-aj,0) + ' de desconto pelo estado e porte');
+  qel('q-frase').innerHTML = 'Imóvel ' + ajTxt + '. A mediana de ' + cid + ' para <b>'
+    + QT[tipo].toLowerCase() + '</b> é <b>' + qm(preco) + '</b>, com aluguel de <b>'
+    + qBRL.format(aluguel) + '</b> por mês.';
+
+  return {cid:cid,tipo:tipo,inf:inf,sup:sup,preco:preco,aluguel:aluguel,n:n};
+}
+
+qel('q-cidade').addEventListener('change', function(){ qTipos(); qcalc(); });
+qel('q-tipo').addEventListener('change', qcalc);
+document.querySelectorAll('input[name="q-cons"],input[name="q-porte"]').forEach(function(r){
+  r.addEventListener('change', qcalc);
+});
+
+qel('q-wa').addEventListener('click', function(){
+  var r=qcalc(); if(!r) return;
+  var t=['Wisekey - ideia de valor','',
+    QT[r.tipo]+' em '+r.cid,
+    'Faixa de conversa: '+qm(r.inf)+' a '+qm(r.sup),
+    'Mediana da cidade: '+qm(r.preco),
+    'Aluguel esperado: '+qBRL.format(r.aluguel)+'/mes','',
+    'Estimativa de partida por mediana de mercado. Nao e avaliacao: o parecer sai depois da vistoria e dos comparaveis do bairro.'];
+  window.open('https://wa.me/5511917952603?text='+encodeURIComponent(t.join('\n')),'_blank');
+});
+
+qTipos();
+qcalc();
+
+})();
 (function(){
 
 /* ---------------- Referências de mercado por região ----------------
