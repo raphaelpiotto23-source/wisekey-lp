@@ -256,8 +256,8 @@ footer i{color:var(--lilas)}
         </div>
         <div class="f" id="wrap-ocup">
           <label for="ocup">Ocupação esperada (%)</label>
-          <input type="number" id="ocup" value="75" min="0" max="100" step="1">
-          <span class="hint">Use o cenário conservador, não o melhor mês.</span>
+          <input type="number" id="ocup" value="88" min="0" max="100" step="1">
+          <span class="hint">88% é a ocupação do benchmark do motor do site.</span>
         </div>
         <div class="f">
           <label for="alugLongo">Aluguel de longa duração (R$/mês)</label>
@@ -271,7 +271,7 @@ footer i{color:var(--lilas)}
         </div>
         <div class="f" id="wrap-taxaop">
           <label for="taxaOp">Taxa do operador (% da receita)</label>
-          <input type="number" id="taxaOp" value="20" min="0" max="60" step="0.5">
+          <input type="number" id="taxaOp" value="25" min="0" max="60" step="0.5">
         </div>
         <div class="f">
           <label for="manut">Manutenção e reposição (% da receita)</label>
@@ -295,13 +295,13 @@ footer i{color:var(--lilas)}
         </div>
         <div class="f">
           <label for="custoAq">Custos de aquisição (% do valor)</label>
-          <input type="number" id="custoAq" value="5" min="0" max="15" step="0.1">
-          <span class="hint">ITBI, escritura e registro. É o percentual que o banco estipula.</span>
+          <input type="number" id="custoAq" value="4.5" min="0" max="15" step="0.1">
+          <span class="hint">Constante ITBI do motor: 4,5%.</span>
         </div>
         <div class="f">
           <label for="mobilia">Mobília e enxoval (R$)</label>
-          <input type="text" id="mobilia" inputmode="decimal" value="55976">
-          <span class="hint">Valor da base do site: capital total de R$ 423.476 sobre um imóvel de R$ 350 mil, com 5% de custos.</span>
+          <input type="text" id="mobilia" inputmode="decimal" value="30000">
+          <span class="hint">Constante MOBILIA do motor da calculadora do site.</span>
         </div>
         <div class="f">
           <label for="reforma">Reforma necessária (R$)</label>
@@ -309,12 +309,12 @@ footer i{color:var(--lilas)}
         </div>
         <div class="f">
           <label for="valoriz">Valorização esperada (% a.a.)</label>
-          <input type="number" id="valoriz" value="5.5" min="0" max="20" step="0.1">
+          <input type="number" id="valoriz" value="4.12" min="0" max="20" step="0.1">
         </div>
         <div class="f">
           <label for="cdi">CDI bruto (% a.a.)</label>
-          <input type="number" id="cdi" value="10.5" min="0" max="30" step="0.1">
-          <span class="hint">A comparação usa o CDI líquido de 15% de IR.</span>
+          <input type="number" id="cdi" value="14.75" min="0" max="30" step="0.1">
+          <span class="hint">SELIC do motor: 14,75%. A comparação usa o CDI líquido de 15% de IR.</span>
         </div>
         <div class="f">
           <label for="entradaPct">Entrada no financiamento (%)</label>
@@ -322,11 +322,11 @@ footer i{color:var(--lilas)}
         </div>
         <div class="f">
           <label for="taxaFin">Juros do financiamento (% a.a.)</label>
-          <input type="number" id="taxaFin" value="11.7" min="0" max="30" step="0.1">
+          <input type="number" id="taxaFin" value="10.65" min="0" max="30" step="0.1">
         </div>
         <div class="f">
           <label for="prazoFin">Prazo (anos)</label>
-          <input type="number" id="prazoFin" value="30" min="1" max="35" step="1">
+          <input type="number" id="prazoFin" value="35" min="1" max="35" step="1">
         </div>
         <div class="f">
           <label for="sistema">Sistema de amortização</label>
@@ -421,7 +421,7 @@ footer i{color:var(--lilas)}
         </details>
 
         <div class="actions">
-          <button class="btn ghost" id="btn-base" type="button">Carregar a base do site</button>
+          <button class="btn ghost" id="btn-base" type="button">Carregar o motor do site</button>
           <button class="btn" id="btn-wa" type="button">Enviar resumo no WhatsApp</button>
           <button class="btn ghost" id="btn-print" type="button">Gerar PDF do laudo</button>
           <button class="btn ghost" id="btn-reset" type="button">Limpar</button>
@@ -475,7 +475,7 @@ var REGIOES = [
   {id:'outro',    n:'Outra região (preencho na mão)',      m2:0,     diaria:0,   aluguel:0}
 ];
 
-var DIAS_MES = 30.4;
+var DIAS_MES = 365/12; /* como o motor do site: 30,4167 */
 
 /* ---------------- helpers ---------------- */
 function el(id){return document.getElementById(id)}
@@ -809,30 +809,32 @@ el('btn-print').addEventListener('click', function(){
   window.print();
 });
 
-/* Cenário publicado na landing page: studio de R$ 350 mil, capital total de
-   R$ 423.476, R$ 2.640 líquidos por mês, 7,5% de renda. A diária está calibrada
-   para reproduzir exatamente esses R$ 2.640 no cenário conservador de 75%. */
+/* Motor da calculadora publicada em wisekey.co/calculadora. Constantes marcadas
+   como NÃO ALTERAR no relatório de 11/07/2026, validadas contra o PDF da unidade
+   MOVI 2107. Os custos fixos do motor são um valor único de R$ 800 que já cobre
+   condomínio, IPTU e contas, por isso os outros campos de custo vão a zero. */
 el('btn-base').addEventListener('click', function(){
-  el('apelido').value = 'Base do site: studio padrão Wisekey';
+  el('apelido').value = 'Motor da calculadora do site: studio benchmark Wisekey';
   el('bairro').value = 'consola'; aplicarRegiao();
   el('area').value = 26;
-  el('condominio').value = '580';
-  el('iptu').value = '1.800';
+  el('condominio').value = '0';
+  el('iptu').value = '0';
   el('temporada').checked = true; alternarModo();
-  el('diaria').value = '216';
-  el('ocup').value = 75;
-  el('custosOp').value = '320';
-  el('taxaOp').value = 20;
-  el('manut').value = 5;
+  el('diaria').value = '191';
+  el('ocup').value = 88;
+  el('custosOp').value = '800';
+  el('taxaOp').value = 25;
+  el('manut').value = 0;
   el('capRate').value = 7.5;
   el('pesoRenda').value = 55;
-  el('custoAq').value = 5;
-  el('mobilia').value = '55.976';
+  el('custoAq').value = 4.5;
+  el('mobilia').value = '30.000';
   el('reforma').value = '0';
-  el('valoriz').value = 5.5;
+  el('valoriz').value = 4.12;
   el('entradaPct').value = 20;
-  el('taxaFin').value = 11.7;
-  el('prazoFin').value = 30;
+  el('taxaFin').value = 10.65;
+  el('prazoFin').value = 35;
+  el('sistema').value = 'sac';
   el('pedido').value = '350.000';
   calc();
 });

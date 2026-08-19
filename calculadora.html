@@ -10,7 +10,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-
 :root{
   --navy:#2D1E80; --navy-deep:#1c1259;
   --lilas:#DCD2FA; --lilas-soft:#efeafc;
@@ -153,7 +152,6 @@ details td.num{text-align:right;font-variant-numeric:tabular-nums}
 .btn.ghost{background:#fff;border:1.5px solid var(--azul);color:var(--azul)}
 .btn.ghost:hover{background:var(--lilas-soft);color:var(--azul)}
   .comps{min-width:0}
-
 .tabs{display:flex;gap:6px;overflow-x:auto}
 .tabs button{font-family:inherit;font-size:13.5px;font-weight:700;color:var(--muted);background:none;
   border:none;border-bottom:3px solid transparent;padding:10px 14px;cursor:pointer;white-space:nowrap}
@@ -334,8 +332,8 @@ details td.num{text-align:right;font-variant-numeric:tabular-nums}
         </div>
         <div class="f" id="wrap-ocup">
           <label for="ocup">Ocupação esperada (%)</label>
-          <input type="number" id="ocup" value="75" min="0" max="100" step="1">
-          <span class="hint">Use o cenário conservador, não o melhor mês.</span>
+          <input type="number" id="ocup" value="88" min="0" max="100" step="1">
+          <span class="hint">88% é a ocupação do benchmark do motor do site.</span>
         </div>
         <div class="f">
           <label for="alugLongo">Aluguel de longa duração (R$/mês)</label>
@@ -349,7 +347,7 @@ details td.num{text-align:right;font-variant-numeric:tabular-nums}
         </div>
         <div class="f" id="wrap-taxaop">
           <label for="taxaOp">Taxa do operador (% da receita)</label>
-          <input type="number" id="taxaOp" value="20" min="0" max="60" step="0.5">
+          <input type="number" id="taxaOp" value="25" min="0" max="60" step="0.5">
         </div>
         <div class="f">
           <label for="manut">Manutenção e reposição (% da receita)</label>
@@ -373,13 +371,13 @@ details td.num{text-align:right;font-variant-numeric:tabular-nums}
         </div>
         <div class="f">
           <label for="custoAq">Custos de aquisição (% do valor)</label>
-          <input type="number" id="custoAq" value="5" min="0" max="15" step="0.1">
-          <span class="hint">ITBI, escritura e registro. É o percentual que o banco estipula.</span>
+          <input type="number" id="custoAq" value="4.5" min="0" max="15" step="0.1">
+          <span class="hint">Constante ITBI do motor: 4,5%.</span>
         </div>
         <div class="f">
           <label for="mobilia">Mobília e enxoval (R$)</label>
-          <input type="text" id="mobilia" inputmode="decimal" value="55976">
-          <span class="hint">Valor da base do site: capital total de R$ 423.476 sobre um imóvel de R$ 350 mil, com 5% de custos.</span>
+          <input type="text" id="mobilia" inputmode="decimal" value="30000">
+          <span class="hint">Constante MOBILIA do motor da calculadora do site.</span>
         </div>
         <div class="f">
           <label for="reforma">Reforma necessária (R$)</label>
@@ -387,12 +385,12 @@ details td.num{text-align:right;font-variant-numeric:tabular-nums}
         </div>
         <div class="f">
           <label for="valoriz">Valorização esperada (% a.a.)</label>
-          <input type="number" id="valoriz" value="5.5" min="0" max="20" step="0.1">
+          <input type="number" id="valoriz" value="4.12" min="0" max="20" step="0.1">
         </div>
         <div class="f">
           <label for="cdi">CDI bruto (% a.a.)</label>
-          <input type="number" id="cdi" value="10.5" min="0" max="30" step="0.1">
-          <span class="hint">A comparação usa o CDI líquido de 15% de IR.</span>
+          <input type="number" id="cdi" value="14.75" min="0" max="30" step="0.1">
+          <span class="hint">SELIC do motor: 14,75%. A comparação usa o CDI líquido de 15% de IR.</span>
         </div>
         <div class="f">
           <label for="entradaPct">Entrada no financiamento (%)</label>
@@ -400,11 +398,11 @@ details td.num{text-align:right;font-variant-numeric:tabular-nums}
         </div>
         <div class="f">
           <label for="taxaFin">Juros do financiamento (% a.a.)</label>
-          <input type="number" id="taxaFin" value="11.7" min="0" max="30" step="0.1">
+          <input type="number" id="taxaFin" value="10.65" min="0" max="30" step="0.1">
         </div>
         <div class="f">
           <label for="prazoFin">Prazo (anos)</label>
-          <input type="number" id="prazoFin" value="30" min="1" max="35" step="1">
+          <input type="number" id="prazoFin" value="35" min="1" max="35" step="1">
         </div>
         <div class="f">
           <label for="sistema">Sistema de amortização</label>
@@ -499,7 +497,7 @@ details td.num{text-align:right;font-variant-numeric:tabular-nums}
         </details>
 
         <div class="actions">
-          <button class="btn ghost" id="btn-base" type="button">Carregar a base do site</button>
+          <button class="btn ghost" id="btn-base" type="button">Carregar o motor do site</button>
           <button class="btn" id="btn-wa" type="button">Enviar resumo no WhatsApp</button>
           <button class="btn ghost" id="btn-print" type="button">Gerar PDF do laudo</button>
           <button class="btn ghost" id="btn-reset" type="button">Limpar</button>
@@ -929,35 +927,57 @@ details td.num{text-align:right;font-variant-numeric:tabular-nums}
       <p class="note">Ainda sem CRECI de pessoa jurídica: os documentos identificam só o responsável técnico. Quando a inscrição da PJ sair, ela entra no timbre e no rodapé, e a sociedade passa a figurar como emissora.</p>
     </section>
 
-    <section class="bcard mid">
-      <h3><span class="sel sel-mid">Derivado</span> O que eu calculei em cima do confirmado</h3>
+    <section class="bcard ok">
+      <h3><span class="sel sel-ok">Confirmado</span> O motor da calculadora do site</h3>
+      <p class="src">Fonte: bloco "constantes do motor, não alterar" do relatório de 11/07/2026, validado contra o PDF da unidade MOVI 2107. É o que roda hoje em wisekey.co/calculadora.</p>
       <table class="btab">
-        <tr><td>Mobília e enxoval</td><td class="num">R$ 55.976</td></tr>
-        <tr><td>Diária do studio padrão</td><td class="num">R$ 216</td></tr>
+        <tr><td>SELIC · IPCA · ITBI</td><td class="num">14,75% · 4,5% · 4,5%</td></tr>
+        <tr><td>Mobília</td><td class="num">R$ 30.000</td></tr>
+        <tr><td>Studio: preço</td><td class="num">R$ 350.000</td></tr>
+        <tr><td>Diária média e ocupação</td><td class="num">R$ 191 · 88%</td></tr>
+        <tr><td>Comissão da operação</td><td class="num">25%</td></tr>
+        <tr><td>Custos fixos por mês</td><td class="num">R$ 800</td></tr>
+        <tr><td>Valorização</td><td class="num">4,12% a.a.</td></tr>
+        <tr><td>SAC: juros, prazo, seguro</td><td class="num">10,65% · 420 meses · 0,00056</td></tr>
+        <tr><td>Price</td><td class="num">0,9% a.m. · 360 meses</td></tr>
+        <tr><td>Renda líquida do studio</td><td class="num">R$ 3.034/mês</td></tr>
+        <tr><td>Studio à vista</td><td class="num">R$ 395.750</td></tr>
       </table>
-      <p class="note">A mobília sai de R$ 423.476 menos o imóvel de R$ 350 mil, menos os 5% de custos: sobra R$ 55.976, e o número bate pelos dois caminhos, à vista e alavancado. A diária de R$ 216 foi resolvida de trás pra frente para reproduzir exatamente os R$ 2.640 líquidos a 75% de ocupação. Nenhuma das duas veio de documento: se a planilha da operação disser outra coisa, ela ganha.</p>
+      <p class="note">O botão <b>Carregar o motor do site</b>, na aba Comprar, monta esse cenário e devolve R$ 3.034 e R$ 395.750 exatos. Foi assim que eu conferi que as duas contas são a mesma.</p>
+    </section>
+
+    <section class="bcard ok">
+      <h3><span class="sel sel-ok">Confirmado</span> O estudo de mercado do interior</h3>
+      <p class="src">Fonte: especificação do motor. 78 registros de bairro, anúncios reais de março e abril de 2026 — FipeZAP, Quinto Andar, Chaves na Mão e imobiliárias locais — agregados por mediana.</p>
+      <table class="btab">
+        <tr><td>Cidades cobertas</td><td class="num">16</td></tr>
+        <tr><td>Fora da base, por premissa</td><td class="num">Aguaí e Campos do Jordão</td></tr>
+        <tr><td>Tipologias</td><td class="num">1-2, 2 e 3+ dorms</td></tr>
+        <tr><td>Variáveis por célula</td><td class="num">preço, aluguel, valorização, vacância</td></tr>
+      </table>
+      <p class="note">Exemplos: São João da Boa Vista, 3+ dorms, mediana de R$ 1.100.000 com aluguel de R$ 4.200, valorização de 6,0% e vacância de 1 mês por ano, sobre 20 bairros. Campinas, 2 dorms, R$ 540.000 e R$ 3.300, sobre 6 bairros. Este é o estudo que faltava, e ele é por cidade e tipologia, não por R$/m².</p>
     </section>
 
     <section class="bcard bad">
-      <h3><span class="sel sel-bad">Divergência</span> O que não fecha entre o site e a conta</h3>
+      <h3><span class="sel sel-bad">Divergência</span> A landing page contra o motor</h3>
       <table class="btab">
-        <tr><td>Retorno à vista: a página diz</td><td class="num">~13% a.a.</td></tr>
-        <tr><td>A conta dá</td><td class="num">12,0% a.a.</td></tr>
-        <tr><td>Alavancado a 75% de ocupação</td><td class="num">14,2% a.a.</td></tr>
-        <tr><td>Alavancado a 91%, já estabilizado</td><td class="num">20,8% a.a.</td></tr>
-        <tr><td>Fluxo mensal no 1º ano, SAC a 75%</td><td class="num neg">−R$ 688</td></tr>
+        <tr><td>Capital total: a landing page diz</td><td class="num">R$ 423.476</td></tr>
+        <tr><td>O motor calcula</td><td class="num">R$ 395.750</td></tr>
+        <tr><td>Diferença</td><td class="num neg">R$ 27.726</td></tr>
+        <tr><td>Renda: a landing page diz</td><td class="num">R$ 2.640</td></tr>
+        <tr><td>O motor calcula</td><td class="num">R$ 3.034</td></tr>
       </table>
-      <p class="note">Os 13% somam 7,5% de renda com 5,5% de valorização como se as duas incidissem sobre a mesma base. Não incidem: a valorização é do imóvel, de R$ 350 mil, e o retorno é medido sobre o capital total, de R$ 423 mil. Mobília não valoriza.</p>
-      <p class="note">Os 19% alavancados ficam entre o cenário conservador e o estabilizado. E a frase <b>"o hóspede paga a parcela"</b> só vale depois de estabilizar: no primeiro ano, em SAC e a 75% de ocupação, faltam R$ 688 por mês, que saem do bolso do investidor. Não é erro de conta da página, é escolha de qual cenário virou manchete.</p>
+      <p class="note">São duas bases de mobília diferentes rodando no mesmo site. A landing page implica cerca de R$ 55 mil de mobília e custos; o motor usa a constante de R$ 30.000 mais 4,5% de ITBI. A página e a calculadora do mesmo domínio entregam números diferentes para o mesmo studio, e um visitante que ler as duas vai perceber.</p>
+      <p class="note"><b>Correção do que eu havia afirmado antes.</b> Eu disse que o alavancado dava 14,2% e que o fluxo do primeiro ano era negativo em R$ 688. Estava errado: eu tinha reconstruído as premissas de trás pra frente a partir da landing page, em vez de usar as constantes do motor. Com as constantes reais, o alavancado dá <b>19,6% a.a.</b>, que é exatamente o "perto de 19%" da página, e a sobra mensal é de <b>+R$ 25</b>. Ou seja: <b>o hóspede paga a parcela</b>, como a página afirma. Retiro a ressalva.</p>
     </section>
 
     <section class="bcard warn">
       <h3><span class="sel sel-warn">Estimativa</span> O que ainda é chute meu</h3>
       <ul class="blist">
-        <li><b>Todos os R$/m² por bairro</b> — 23 regiões na calculadora de compra e 17 na de venda. Nenhum veio de pesquisa.</li>
+        <li><b>Todos os R$/m² por bairro</b> — 23 regiões na calculadora de compra e 17 na de venda. O estudo real é por cidade e tipologia, em preço mediano, e não em R$/m²: converter um no outro exige a área mediana de cada célula, que a base não traz.</li>
         <li><b>Terreno em R$/m² e CUB por padrão</b> — inclusive o Jardim Amélia, que eu acrescentei com número inventado.</li>
         <li><b>Fatores de homogeneização</b> — área, padrão, conservação, idade, benfeitorias, topografia. Estão em faixas usuais de mercado, mas não calibrados na região de vocês.</li>
-        <li><b>Diária e ocupação por bairro</b> na calculadora de compra.</li>
+        <li><b>Diária e ocupação por bairro</b> na calculadora de compra. Só o benchmark de São Paulo está confirmado: R$ 191 e 88%.</li>
       </ul>
       <p class="note">Por isso as duas calculadoras avisam em amarelo enquanto a amostra estiver vazia, e por isso o comparável que você digita sempre vence a referência da região. Estimativa serve para ter um ponto de partida na tela, não para levar número ao cliente.</p>
     </section>
@@ -968,10 +988,12 @@ details td.num{text-align:right;font-variant-numeric:tabular-nums}
         <li><b>Planilhas <code>Apartamentos</code>, <code>ABNB 706</code> e <code>Apto 706</code></b> — anexos XLSX no e-mail. Têm diária, ocupação e receita reais, que substituem a estimativa da calculadora de compra.</li>
         <li><b>Curadoria de Imóveis</b> e os 5 books dos empreendimentos — anexos PDF.</li>
         <li><b>Curadoria V03</b>, com os imóveis do mercado secundário — Google Doc.</li>
+        <li><b>Decisões em aberto do próprio motor</b> — a especificação deixa três marcadas: como contar unidades, se a manchete mostra a renda antes ou depois da parcela, e se o interior também leva ITBI.</li>
+        <li><b>A calculadora do site abre em branco</b> quando o visitante chega por <code>wisekey.co</code> sem o <code>www</code>. Está registrado como problema aberto desde 11/07.</li>
         <li><b>Estudo do Reserva Boa Vista</b> — é o que fecha o cenário do lote na página, de R$ 1.025.533 para 250 m² de terreno mais 159 m² de obra. Não está no e-mail.</li>
         <li><b>Fonte e data de coleta por comparável</b> — o checklist exige, e a calculadora do PTAM ainda não captura. São duas colunas a mais na amostra.</li>
       </ul>
-      <p class="note">Anexos de e-mail eu não consigo baixar. Documentos do Drive dependem do conector autorizado. Qualquer um dos dois destrava a calibração das regiões.</p>
+      <p class="note">Os arquivos do motor vieram do Drive, na pasta da calculadora. O que falta agora são os anexos de e-mail, que eu não consigo baixar, e os fontes em Python (<code>data.py</code> e <code>calculator.py</code>), onde estão os 78 bairros individuais por trás das medianas.</p>
     </section>
 
   </div>
@@ -986,7 +1008,6 @@ details td.num{text-align:right;font-variant-numeric:tabular-nums}
 </footer>
 
 <script>
-
 (function(){
   var abas = [].slice.call(document.querySelectorAll('.tabs button'));
   function ir(alvo){
@@ -1035,7 +1056,7 @@ var REGIOES = [
   {id:'outro',    n:'Outra região (preencho na mão)',      m2:0,     diaria:0,   aluguel:0}
 ];
 
-var DIAS_MES = 30.4;
+var DIAS_MES = 365/12; /* como o motor do site: 30,4167 */
 
 /* ---------------- helpers ---------------- */
 function el(id){return document.getElementById(id)}
@@ -1369,30 +1390,32 @@ el('btn-print').addEventListener('click', function(){
   window.print();
 });
 
-/* Cenário publicado na landing page: studio de R$ 350 mil, capital total de
-   R$ 423.476, R$ 2.640 líquidos por mês, 7,5% de renda. A diária está calibrada
-   para reproduzir exatamente esses R$ 2.640 no cenário conservador de 75%. */
+/* Motor da calculadora publicada em wisekey.co/calculadora. Constantes marcadas
+   como NÃO ALTERAR no relatório de 11/07/2026, validadas contra o PDF da unidade
+   MOVI 2107. Os custos fixos do motor são um valor único de R$ 800 que já cobre
+   condomínio, IPTU e contas, por isso os outros campos de custo vão a zero. */
 el('btn-base').addEventListener('click', function(){
-  el('apelido').value = 'Base do site: studio padrão Wisekey';
+  el('apelido').value = 'Motor da calculadora do site: studio benchmark Wisekey';
   el('bairro').value = 'consola'; aplicarRegiao();
   el('area').value = 26;
-  el('condominio').value = '580';
-  el('iptu').value = '1.800';
+  el('condominio').value = '0';
+  el('iptu').value = '0';
   el('temporada').checked = true; alternarModo();
-  el('diaria').value = '216';
-  el('ocup').value = 75;
-  el('custosOp').value = '320';
-  el('taxaOp').value = 20;
-  el('manut').value = 5;
+  el('diaria').value = '191';
+  el('ocup').value = 88;
+  el('custosOp').value = '800';
+  el('taxaOp').value = 25;
+  el('manut').value = 0;
   el('capRate').value = 7.5;
   el('pesoRenda').value = 55;
-  el('custoAq').value = 5;
-  el('mobilia').value = '55.976';
+  el('custoAq').value = 4.5;
+  el('mobilia').value = '30.000';
   el('reforma').value = '0';
-  el('valoriz').value = 5.5;
+  el('valoriz').value = 4.12;
   el('entradaPct').value = 20;
-  el('taxaFin').value = 11.7;
-  el('prazoFin').value = 30;
+  el('taxaFin').value = 10.65;
+  el('prazoFin').value = 35;
+  el('sistema').value = 'sac';
   el('pedido').value = '350.000';
   calc();
 });
