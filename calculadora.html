@@ -49,6 +49,8 @@ h1{font-size:clamp(24px,3.6vw,34px);line-height:1.2;font-weight:800;color:var(--
 .chips span:hover{border-color:var(--azul);color:var(--azul)}
 .chips input:checked+span{background:var(--azul);border-color:var(--azul);color:#fff}
 .chips input:focus-visible+span{outline:2px solid var(--lilas);outline-offset:2px}
+.chips.multi label{flex:0 1 auto;min-width:0}
+.chips.multi span{padding:9px 13px;font-size:12.5px}
 .q-ask .hint{font-size:11.5px;color:var(--muted);display:block;margin:-14px 0 20px;line-height:1.45}
 
 .q-out{border:2px solid var(--azul);border-radius:16px;overflow:hidden;background:#fff}
@@ -450,6 +452,21 @@ footer i{color:var(--lilas)}
       <label><input type="radio" name="q-porte" value="1.00" checked><span>Na média</span></label>
       <label><input type="radio" name="q-porte" value="1.25"><span>Maior</span></label>
     </div>
+
+    <div class="q-step"><b>5</b><span>O que ele tem?</span></div>
+    <div class="chips multi" id="q-extras">
+      <label><input type="checkbox" value="0.02" data-n="ar-condicionado"><span>Ar-condicionado</span></label>
+      <label><input type="checkbox" value="0.03" data-n="suíte"><span>Suíte</span></label>
+      <label><input type="checkbox" value="0.03" data-n="segunda suíte"><span>Mais de uma suíte</span></label>
+      <label><input type="checkbox" value="0.02" data-n="móveis planejados"><span>Móveis planejados</span></label>
+      <label><input type="checkbox" value="0.04" data-n="piscina"><span>Piscina</span></label>
+      <label><input type="checkbox" value="0.03" data-n="edícula"><span>Edícula ou gourmet</span></label>
+      <label><input type="checkbox" value="0.01" data-n="churrasqueira"><span>Churrasqueira</span></label>
+      <label><input type="checkbox" value="0.03" data-n="energia solar"><span>Energia solar</span></label>
+      <label><input type="checkbox" value="0.02" data-n="vaga coberta"><span>Vaga coberta a mais</span></label>
+    </div>
+    <span class="hint">Só o que foge do padrão da região. A mediana já embute o básico, por isso o prêmio somado é limitado a 15%.</span>
+
     <span class="hint">Se estiver em dúvida, deixe na média. O ajuste fino é trabalho do PTAM.</span>
 
   </div>
@@ -1033,6 +1050,7 @@ footer i{color:var(--lilas)}
         <label class="inline"><input type="checkbox" id="boiler"> Aquecimento solar</label>
         <label class="inline"><input type="checkbox" id="poco"> Poço artesiano</label>
         <label class="inline"><input type="checkbox" id="planejados"> Armários planejados</label>
+        <label class="inline"><input type="checkbox" id="arcond"> Ar-condicionado nos dormitórios</label>
         <label class="inline"><input type="checkbox" id="ruaBoa" checked> Entorno sem passivo</label>
       </div>
     </fieldset>
@@ -1381,7 +1399,10 @@ function qcalc(){
   var d=QD[cid][tipo]; if(!d) return;
   var preco=d[0], aluguel=d[1], val=d[2], vac=d[3], n=d[4];
 
-  var aj = qsel('q-cons') * qsel('q-porte');
+  var extras = [].slice.call(document.querySelectorAll('#q-extras input:checked'));
+  var somaEx = extras.reduce(function(t,e){return t + parseFloat(e.value)}, 0);
+  var premio = Math.min(0.15, somaEx);
+  var aj = qsel('q-cons') * qsel('q-porte') * (1 + premio);
   var centro = preco * aj;
   var inf = centro * 0.88, sup = centro * 1.12;
 
@@ -1408,9 +1429,13 @@ function qcalc(){
   qel('q-vac').textContent = vac.toString().replace('.',',') + (vac===1?' mês por ano':' meses por ano');
   qel('q-n').textContent = n;
 
-  var ajTxt = aj === 1 ? 'no padrão da cidade'
-            : (aj > 1 ? 'com ' + qp(aj-1,0) + ' de prêmio pelo estado e porte'
-                      : 'com ' + qp(1-aj,0) + ' de desconto pelo estado e porte');
+  var ajTxt = Math.abs(aj-1) < 0.005 ? 'no padrão da cidade'
+            : (aj > 1 ? 'com ' + qp(aj-1,0) + ' acima do padrão da cidade'
+                      : 'com ' + qp(1-aj,0) + ' abaixo do padrão da cidade');
+  var lista = extras.map(function(e){return e.dataset.n});
+  var exTxt = lista.length
+    ? ' Entraram na conta: ' + lista.join(', ') + (somaEx > 0.15 ? ', com o prêmio limitado ao teto de 15%.' : '.')
+    : '';
   qel('ph-tit').textContent = 'Estudo de valor · ' + QT[tipo] + ' em ' + cid;
   qel('ph-sub').textContent = 'Emitido em ' + new Date().toLocaleDateString('pt-BR')
     + ' · Estimativa de valor por mediana de mercado, para orientar a decisão de preço. '
@@ -1418,7 +1443,7 @@ function qcalc(){
     + 'Resp. técnico Raphael Piotto Cardoso · CRECI/SP 319841-F.';
   qel('q-frase').innerHTML = 'Imóvel ' + ajTxt + '. A mediana de ' + cid + ' para <b>'
     + QT[tipo].toLowerCase() + '</b> é <b>' + qm(preco) + '</b>, com aluguel de <b>'
-    + qBRL.format(aluguel) + '</b> por mês.';
+    + qBRL.format(aluguel) + '</b> por mês.' + exTxt;
 
   var res = {cid:cid,tipo:tipo,inf:inf,sup:sup,preco:preco,aluguel:aluguel,n:n,vac:vac};
   estudo(res);
@@ -1476,7 +1501,7 @@ function estudo(r){
 
 qel('q-cidade').addEventListener('change', function(){ qTipos(); qcalc(); });
 qel('q-tipo').addEventListener('change', qcalc);
-document.querySelectorAll('input[name="q-cons"],input[name="q-porte"]').forEach(function(r){
+document.querySelectorAll('input[name="q-cons"],input[name="q-porte"],#q-extras input').forEach(function(r){
   r.addEventListener('change', qcalc);
 });
 ['q-meses'].forEach(function(id){
@@ -2114,6 +2139,7 @@ function calc(){
   var fBoiler = el('boiler').checked ? 1.01 : 1.00;
   var fPoco   = el('poco').checked ? 1.01 : 1.00;
   var fPlan   = el('planejados').checked ? 1.02 : 1.00;
+  var fAr     = el('arcond').checked ? 1.02 : 1.00;
   var fRua    = el('ruaBoa').checked ? 1.00 : 0.94;
   var fCond   = tipo === 'condominio' ? 1.08 : 1.00;
   var fSob    = tipo === 'sobrado' ? 0.98 : 1.00;
@@ -2124,7 +2150,7 @@ function calc(){
   if(el('dAverbacao').checked) fDoc *= 0.96;
   if(el('dEspolio').checked)   fDoc *= 0.95;
   if(el('dInquilino').checked) fDoc *= 0.97;
-  var fCompl = fVagas*fSuites*fBanhos*fPisc*fEdic*fChurr*fSolar*fBoiler*fPoco*fPlan*fRua*fCond*fSob*fFin*fDoc;
+  var fCompl = fVagas*fSuites*fBanhos*fPisc*fEdic*fChurr*fSolar*fBoiler*fPoco*fPlan*fAr*fRua*fCond*fSob*fFin*fDoc;
 
   /* -------- valor pelo comparativo -------- */
   var m2ref = num('m2casa');
@@ -2298,7 +2324,7 @@ function calc(){
   L.push(['<b>' + grauTxt + '</b>', n>1 ? '<b>amplitude ' + pct(amplitude) + '</b>' : '']);
   L.push(['<b>Fatores complementares do avaliando</b>','']);
   L.push(['Vagas / suítes / banheiros', fator(fVagas) + ' · ' + fator(fSuites) + ' · ' + fator(fBanhos)]);
-  L.push(['Benfeitorias', fator(fPisc*fEdic*fChurr*fSolar*fBoiler*fPoco*fPlan)]);
+  L.push(['Benfeitorias', fator(fPisc*fEdic*fChurr*fSolar*fBoiler*fPoco*fPlan*fAr)]);
   L.push(['Entorno / tipologia / topografia', fator(fRua*fCond*fSob) + ' · ' + fator(fTopo)]);
   L.push(['Financiamento / documentação', fator(fFin) + ' · ' + fator(fDoc)]);
   L.push(['<b>Fator complementar global</b>', '<b>' + fator(fCompl) + '</b>']);

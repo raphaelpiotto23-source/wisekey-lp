@@ -333,6 +333,7 @@ footer i{color:var(--lilas)}
         <label class="inline"><input type="checkbox" id="boiler"> Aquecimento solar</label>
         <label class="inline"><input type="checkbox" id="poco"> Poço artesiano</label>
         <label class="inline"><input type="checkbox" id="planejados"> Armários planejados</label>
+        <label class="inline"><input type="checkbox" id="arcond"> Ar-condicionado nos dormitórios</label>
         <label class="inline"><input type="checkbox" id="ruaBoa" checked> Entorno sem passivo</label>
       </div>
     </fieldset>
@@ -642,6 +643,7 @@ function calc(){
   var fBoiler = el('boiler').checked ? 1.01 : 1.00;
   var fPoco   = el('poco').checked ? 1.01 : 1.00;
   var fPlan   = el('planejados').checked ? 1.02 : 1.00;
+  var fAr     = el('arcond').checked ? 1.02 : 1.00;
   var fRua    = el('ruaBoa').checked ? 1.00 : 0.94;
   var fCond   = tipo === 'condominio' ? 1.08 : 1.00;
   var fSob    = tipo === 'sobrado' ? 0.98 : 1.00;
@@ -652,7 +654,7 @@ function calc(){
   if(el('dAverbacao').checked) fDoc *= 0.96;
   if(el('dEspolio').checked)   fDoc *= 0.95;
   if(el('dInquilino').checked) fDoc *= 0.97;
-  var fCompl = fVagas*fSuites*fBanhos*fPisc*fEdic*fChurr*fSolar*fBoiler*fPoco*fPlan*fRua*fCond*fSob*fFin*fDoc;
+  var fCompl = fVagas*fSuites*fBanhos*fPisc*fEdic*fChurr*fSolar*fBoiler*fPoco*fPlan*fAr*fRua*fCond*fSob*fFin*fDoc;
 
   /* -------- valor pelo comparativo -------- */
   var m2ref = num('m2casa');
@@ -826,7 +828,7 @@ function calc(){
   L.push(['<b>' + grauTxt + '</b>', n>1 ? '<b>amplitude ' + pct(amplitude) + '</b>' : '']);
   L.push(['<b>Fatores complementares do avaliando</b>','']);
   L.push(['Vagas / suítes / banheiros', fator(fVagas) + ' · ' + fator(fSuites) + ' · ' + fator(fBanhos)]);
-  L.push(['Benfeitorias', fator(fPisc*fEdic*fChurr*fSolar*fBoiler*fPoco*fPlan)]);
+  L.push(['Benfeitorias', fator(fPisc*fEdic*fChurr*fSolar*fBoiler*fPoco*fPlan*fAr)]);
   L.push(['Entorno / tipologia / topografia', fator(fRua*fCond*fSob) + ' · ' + fator(fTopo)]);
   L.push(['Financiamento / documentação', fator(fFin) + ' · ' + fator(fDoc)]);
   L.push(['<b>Fator complementar global</b>', '<b>' + fator(fCompl) + '</b>']);
